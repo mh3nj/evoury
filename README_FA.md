@@ -81,7 +81,7 @@ Evoury یک مدیر دارایی خلاق قدرتمند و آفلاین-اول
 ## اسکرین‌شات‌ها
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="رابط اصلی" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="رابط اصلی" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury یک مدیر دارایی خلاق قدرتمند و آفلاین-اول
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="پنل بازرس" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="پنل بازرس" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury یک مدیر دارایی خلاق قدرتمند و آفلاین-اول
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="رابط جستجو" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="رابط جستجو" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

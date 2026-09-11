@@ -81,7 +81,7 @@ Evoury একটি শক্তিশালী, অফলাইন-প্রথ
 ## স্ক্রিনশট
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="প্রধান ইন্টারফেস" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="প্রধান ইন্টারফেস" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury একটি শক্তিশালী, অফলাইন-প্রথ
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="ইন্সপেক্টর প্যানেল" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="ইন্সপেক্টর প্যানেল" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury একটি শক্তিশালী, অফলাইন-প্রথ
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="অনুসন্ধান ইন্টারফেস" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="অনুসন্ধান ইন্টারফেস" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

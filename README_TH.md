@@ -81,7 +81,7 @@ Evoury เป็นตัวจัดการสินทรัพย์สร�
 ## ภาพหน้าจอ
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="อินเทอร์เฟซหลัก" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="อินเทอร์เฟซหลัก" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury เป็นตัวจัดการสินทรัพย์สร�
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="แผงตรวจสอบ" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="แผงตรวจสอบ" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury เป็นตัวจัดการสินทรัพย์สร�
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="อินเทอร์เฟซการค้นหา" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="อินเทอร์เฟซการค้นหา" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

@@ -81,7 +81,7 @@ Evoury është një menaxher i fuqishëm, offline i parë i pasurive kreative i 
 ## Screenshots
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Ndërfaqja Kryesore" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Ndërfaqja Kryesore" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury është një menaxher i fuqishëm, offline i parë i pasurive kreative i 
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Paneli i Inspektorit" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Paneli i Inspektorit" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury është një menaxher i fuqishëm, offline i parë i pasurive kreative i 
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Ndërfaqja e Kërkimit" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Ndërfaqja e Kërkimit" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

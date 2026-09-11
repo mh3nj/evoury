@@ -81,7 +81,7 @@ Evoury je zmogljiv, offline-prvi kreativni upravitelj virov, zgrajen s Tauri, Re
 ## Posnetki Zaslona
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Glavni Vmesnik" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Glavni Vmesnik" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury je zmogljiv, offline-prvi kreativni upravitelj virov, zgrajen s Tauri, Re
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Inšpektorska Plošča" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Inšpektorska Plošča" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury je zmogljiv, offline-prvi kreativni upravitelj virov, zgrajen s Tauri, Re
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Vmesnik Iskanja" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Vmesnik Iskanja" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

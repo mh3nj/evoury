@@ -81,7 +81,7 @@ Evoury es un administrador de activos creativos potente y sin conexión, constru
 ## Capturas de Pantalla
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Interfaz Principal" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Interfaz Principal" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury es un administrador de activos creativos potente y sin conexión, constru
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Panel de Inspección" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Panel de Inspección" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury es un administrador de activos creativos potente y sin conexión, constru
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Interfaz de Búsqueda" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Interfaz de Búsqueda" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -210,5 +210,5 @@ Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE](L
 ---
 
 <p align="center">
-  Hecho con ❤️ por <a href="https://github.com/mh3nj">Su Nombre</a>
+  Hecho con ❤️ por <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

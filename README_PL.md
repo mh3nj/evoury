@@ -81,7 +81,7 @@ Evoury to potężny, offline-first menedżer zasobów kreatywnych, zbudowany za 
 ## Zrzuty Ekranu
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Główny interfejs" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Główny interfejs" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury to potężny, offline-first menedżer zasobów kreatywnych, zbudowany za 
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Panel inspektora" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Panel inspektora" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury to potężny, offline-first menedżer zasobów kreatywnych, zbudowany za 
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Interfejs wyszukiwania" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Interfejs wyszukiwania" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

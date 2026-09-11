@@ -81,7 +81,7 @@ Evoury on tehokas, offline-ensinnäinen luova asset manager, joka on rakennettu 
 ## Kuvakaappaukset
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Pääkäyttöliittymä" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Pääkäyttöliittymä" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury on tehokas, offline-ensinnäinen luova asset manager, joka on rakennettu 
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Tarkastajapaneeli" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Tarkastajapaneeli" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury on tehokas, offline-ensinnäinen luova asset manager, joka on rakennettu 
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Hakukäyttöliittymä" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Hakukäyttöliittymä" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -210,5 +210,5 @@ Tämä projekti on lisensoitu MIT-lisenssillä - katso yksityiskohdat tiedostost
 ---
 
 <p align="center">
-  Tehty ❤️:llä <a href="https://github.com/mh3nj">Sinun nimi</a>
+  Tehty ❤️:llä <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

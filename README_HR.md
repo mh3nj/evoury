@@ -81,7 +81,7 @@ Evoury je moćan, izvanmrežni kreativni upravitelj resursa izgrađen pomoću Ta
 ## Screenshotovi
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Glavno Sučelje" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Glavno Sučelje" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury je moćan, izvanmrežni kreativni upravitelj resursa izgrađen pomoću Ta
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Inspektorski Panel" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Inspektorski Panel" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury je moćan, izvanmrežni kreativni upravitelj resursa izgrađen pomoću Ta
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Sučelje Pretraživanja" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Sučelje Pretraživanja" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

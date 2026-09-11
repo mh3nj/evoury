@@ -81,7 +81,7 @@ Evoury adalah pengurus aset kreatif yang berkuasa, offline-pertama dibina menggu
 ## Tangkapan Skrin
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Antara Muka Utama" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Antara Muka Utama" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury adalah pengurus aset kreatif yang berkuasa, offline-pertama dibina menggu
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Panel Pemeriksa" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Panel Pemeriksa" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury adalah pengurus aset kreatif yang berkuasa, offline-pertama dibina menggu
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Antara Muka Carian" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Antara Muka Carian" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -210,5 +210,5 @@ Projek ini dilisensikan di bawah Lesen MIT - lihat fail [LICENSE](LICENSE) untuk
 ---
 
 <p align="center">
-  Dibina dengan ❤️ oleh <a href="https://github.com/mh3nj">Nama Anda</a>
+  Dibina dengan ❤️ oleh <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

@@ -81,7 +81,7 @@ Evoury, Tauri, React ve Rust ile oluşturulmuş güçlü, çevrimdışı birinci
 ## Ekran Görüntüleri
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Ana Arayüz" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Ana Arayüz" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury, Tauri, React ve Rust ile oluşturulmuş güçlü, çevrimdışı birinci
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="İzleyici Paneli" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="İzleyici Paneli" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury, Tauri, React ve Rust ile oluşturulmuş güçlü, çevrimdışı birinci
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Arama Arayüzü" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Arama Arayüzü" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

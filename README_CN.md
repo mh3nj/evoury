@@ -81,7 +81,7 @@ Evoury 是一款强大的、离线优先的创意资产管理器，基于 Tauri�
 ## 截图
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="主界面" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="主界面" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury 是一款强大的、离线优先的创意资产管理器，基于 Tauri�
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="检查器面板" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="检查器面板" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury 是一款强大的、离线优先的创意资产管理器，基于 Tauri�
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="搜索界面" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="搜索界面" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -210,5 +210,5 @@ cargo fmt             # 格式化 Rust 代码
 ---
 
 <p align="center">
-  由 <a href="https://github.com/mh3nj">Your Name</a> 用 ❤️ 制作
+  由 <a href="https://github.com/mh3nj">Mohsen Jafari</a> 用 ❤️ 制作
 </p>

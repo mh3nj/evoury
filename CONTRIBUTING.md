@@ -65,7 +65,7 @@ cd evoury
 3. Add the upstream remote:
 
 ```bash
-git remote add upstream https://github.com/evoury/evoury.git
+git remote add upstream https://github.com/mh3nj/evoury.git
 ```
 
 ---
@@ -119,8 +119,8 @@ cargo fmt             # Format Rust code
 
 Before creating a bug report:
 
-1. Check the [issue tracker](https://github.com/evoury/evoury/issues) to see if the problem has already been reported
-2. If it hasn't, [create a new issue](https://github.com/evoury/evoury/issues/new) with:
+1. Check the [issue tracker](https://github.com/mh3nj/evoury/issues) to see if the problem has already been reported
+2. If it hasn't, [create a new issue](https://github.com/mh3nj/evoury/issues/new) with:
    - A clear, descriptive title
    - A detailed description of the problem
    - Steps to reproduce the issue
@@ -132,7 +132,7 @@ Before creating a bug report:
 Feature suggestions are welcome! To suggest a feature:
 
 1. Check if the feature has already been suggested
-2. [Create a new issue](https://github.com/evoury/evoury/issues/new) with:
+2. [Create a new issue](https://github.com/mh3nj/evoury/issues/new) with:
    - A clear, descriptive title
    - A detailed description of the proposed feature
    - Use cases and examples
@@ -332,7 +332,7 @@ Add any other context or screenshots about the feature request here.
 
 If you have questions about contributing, feel free to:
 
-- Open a [discussion](https://github.com/evoury/evoury/discussions)
+- Open a [discussion](https://github.com/mh3nj/evoury/discussions)
 - Reach out on Discord (link coming soon)
 
 Thank you for contributing to Evoury!

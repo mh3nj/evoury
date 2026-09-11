@@ -81,7 +81,7 @@ Evoury adalah pengelola aset kreatif yang kuat, offline-pertama yang dibangun me
 ## Tangkapan Layar
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Antarmuka Utama" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Antarmuka Utama" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury adalah pengelola aset kreatif yang kuat, offline-pertama yang dibangun me
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Panel Inspektur" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Panel Inspektur" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury adalah pengelola aset kreatif yang kuat, offline-pertama yang dibangun me
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Antarmuka Pencarian" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Antarmuka Pencarian" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -210,5 +210,5 @@ Proyek ini dilisensikan di bawah Lisensi MIT - lihat file [LICENSE](LICENSE) unt
 ---
 
 <p align="center">
-  Dibuat dengan ❤️ oleh <a href="https://github.com/mh3nj">Nama Anda</a>
+  Dibuat dengan ❤️ oleh <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

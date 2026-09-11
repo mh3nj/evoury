@@ -81,7 +81,7 @@ Evouryは、Tauri、React、Rustで構築された強力なオフラインファ
 ## スクリーンショット
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="メインインターフェース" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="メインインターフェース" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evouryは、Tauri、React、Rustで構築された強力なオフラインファ
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="インスペクターパネル" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="インスペクターパネル" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evouryは、Tauri、React、Rustで構築された強力なオフラインファ
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="検索インターフェース" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="検索インターフェース" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -210,5 +210,5 @@ cargo fmt             # Rustコードをフォーマット
 ---
 
 <p align="center">
-  <a href="https://github.com/mh3nj">Your Name</a> が ❤️ を込めて制作
+  <a href="https://github.com/mh3nj">Mohsen Jafari</a> が ❤️ を込めて制作
 </p>

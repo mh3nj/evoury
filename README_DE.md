@@ -81,7 +81,7 @@ Evoury ist ein leistungsstarker, offline-first Kreativ-Asset-Manager, der mit Ta
 ## Screenshots
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Hauptinterface" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Hauptinterface" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury ist ein leistungsstarker, offline-first Kreativ-Asset-Manager, der mit Ta
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Inspektor-Panel" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Inspektor-Panel" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury ist ein leistungsstarker, offline-first Kreativ-Asset-Manager, der mit Ta
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Suchoberfläche" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Suchoberfläche" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -210,5 +210,5 @@ Dieses Projekt steht unter der MIT-Lizenz - siehe [LICENSE](LICENSE) für Detail
 ---
 
 <p align="center">
-  Mit ❤️ gemacht von <a href="https://github.com/mh3nj">Ihr Name</a>
+  Mit ❤️ gemacht von <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

@@ -81,7 +81,7 @@ Evoury అనేది Tauri, React మరియు Rust తో నిర్మ�
 ## స్క్రీన్‌షాట్లు
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="ముఖ్య ఇంటర్‌ఫేస్" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="ముఖ్య ఇంటర్‌ఫేస్" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury అనేది Tauri, React మరియు Rust తో నిర్మ�
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="ఇన్స్పెక్టర్ ప్యానెల్" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="ఇన్స్పెక్టర్ ప్యానెల్" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury అనేది Tauri, React మరియు Rust తో నిర్మ�
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="శోధన ఇంటర్‌ఫేస్" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="శోధన ఇంటర్‌ఫేస్" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

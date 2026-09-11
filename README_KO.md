@@ -81,7 +81,7 @@ Evoury는 Tauri, React, Rust로 구축된 강력한 오프라인 중심 크리�
 ## 스크린샷
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="메인 인터페이스" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="메인 인터페이스" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury는 Tauri, React, Rust로 구축된 강력한 오프라인 중심 크리�
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="인스펙터 패널" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="인스펙터 패널" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury는 Tauri, React, Rust로 구축된 강력한 오프라인 중심 크리�
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="검색 인터페이스" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="검색 인터페이스" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -210,5 +210,5 @@ cargo fmt             # Rust 코드 포맷
 ---
 
 <p align="center">
-  <a href="https://github.com/mh3nj">Your Name</a>이 ❤️로 제작
+  <a href="https://github.com/mh3nj">Mohsen Jafari</a>이 ❤️로 제작
 </p>

@@ -81,7 +81,7 @@ Evoury एक शक्तिशाली, ऑफ़लाइन-फ़र्स
 ## स्क्रीनशॉट्स
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="मेन इंटरफ़ेस" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="मेन इंटरफ़ेस" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury एक शक्तिशाली, ऑफ़लाइन-फ़र्स
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="इंस्पेक्टर पैनल" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="इंस्पेक्टर पैनल" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury एक शक्तिशाली, ऑफ़लाइन-फ़र्स
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="सर्च इंटरफ़ेस" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="सर्च इंटरफ़ेस" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

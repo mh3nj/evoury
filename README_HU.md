@@ -81,7 +81,7 @@ Evoury egy erős, offline-először kreatív eszközkezelő, amely Tauri, React 
 ## Képernyőképek
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Fő felület" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Fő felület" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury egy erős, offline-először kreatív eszközkezelő, amely Tauri, React 
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Vizsgáló panel" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Vizsgáló panel" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury egy erős, offline-először kreatív eszközkezelő, amely Tauri, React 
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Keresési felület" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Keresési felület" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -210,5 +210,5 @@ Ez a projekt MIT licenc alatt van - a részletekért lásd a [LICENSE](LICENSE) 
 ---
 
 <p align="center">
-  Készítve ❤️-vel <a href="https://github.com/mh3nj">A Te Neved</a>
+  Készítve ❤️-vel <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

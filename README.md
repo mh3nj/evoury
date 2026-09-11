@@ -81,27 +81,27 @@ Evoury is a powerful, offline-first creative asset manager built with Tauri, Rea
 ## Screenshots
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Main Interface" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Main Interface (Dark)" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
-  <em>Main Interface - Gallery View</em>
+  <em>Main Interface - Dark Theme</em>
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Inspector Panel" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Main Interface (Light)" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
-  <em>Inspector Panel - Asset Details</em>
+  <em>Main Interface - Light Theme</em>
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Search Interface" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Settings" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
-  <em>Advanced Search Interface</em>
+  <em>Settings Panel</em>
 </p>
 
 ---
@@ -293,11 +293,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 - **Issues**: [GitHub Issues](https://github.com/mh3nj/evoury/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/mh3nj/evoury/discussions)
-- **Email**: your.email@example.com
+- **Website**: [mh3n.com](https://mh3n.com)
 
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/mh3nj">Your Name</a>
+  Built by <a href="https://github.com/mh3nj">Mohsen Jafari</a><br>
+  Founder of <a href="https://parsegan.com">Parsegan</a> (Brand Identity) & <a href="https://dahgan.com">Dahgan</a> (Software)
 </p>

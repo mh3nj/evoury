@@ -81,7 +81,7 @@ Evoury est un gestionnaire d'actifs créatifs puissant et hors ligne, construit 
 ## Captures d'Écran
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Interface Principale" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Interface Principale" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury est un gestionnaire d'actifs créatifs puissant et hors ligne, construit 
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Panneau d'Inspection" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Panneau d'Inspection" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury est un gestionnaire d'actifs créatifs puissant et hors ligne, construit 
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Interface de Recherche" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Interface de Recherche" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -210,5 +210,5 @@ Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de
 ---
 
 <p align="center">
-  Fait avec ❤️ par <a href="https://github.com/mh3nj">Votre Nom</a>
+  Fait avec ❤️ par <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

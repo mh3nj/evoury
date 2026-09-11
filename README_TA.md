@@ -81,7 +81,7 @@ Evoury ஒரு சக்திவாய்ந்த, ஆஃப்லைன்-
 ## திரை சித்தரிப்புகள்
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="முதன்மை இடைமுகம்" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="முதன்மை இடைமுகம்" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury ஒரு சக்திவாய்ந்த, ஆஃப்லைன்-
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="ஆய்வாளர் குழு" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="ஆய்வாளர் குழு" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury ஒரு சக்திவாய்ந்த, ஆஃப்லைன்-
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="தேடல் இடைமுகம்" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="தேடல் இடைமுகம்" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

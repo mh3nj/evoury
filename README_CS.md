@@ -81,7 +81,7 @@ Evoury je výkonný, offline-first správce kreativních aktiv postavený pomoc�
 ## Snímky obrazovky
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Hlavní rozhraní" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Hlavní rozhraní" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury je výkonný, offline-first správce kreativních aktiv postavený pomoc�
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Panel inspektoru" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Panel inspektoru" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury je výkonný, offline-first správce kreativních aktiv postavený pomoc�
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Vyhledávací rozhraní" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Vyhledávací rozhraní" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

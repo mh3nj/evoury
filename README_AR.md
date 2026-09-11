@@ -81,7 +81,7 @@ Evoury هو مدير أصول إبداعية قوي ودون اتصال، مبن
 ## لقطات الشاشة
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="الواجهة الرئيسية" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="الواجهة الرئيسية" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury هو مدير أصول إبداعية قوي ودون اتصال، مبن
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="لوحة الفاحص" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="لوحة الفاحص" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury هو مدير أصول إبداعية قوي ودون اتصال، مبن
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="واجهة البحث" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="واجهة البحث" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

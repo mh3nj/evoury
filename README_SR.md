@@ -81,7 +81,7 @@ Evoury је моћан, онлајн-први креативни менаџер 
 ## Снимци Екрана
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Главни Интерфејс" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Главни Интерфејс" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury је моћан, онлајн-први креативни менаџер 
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Инспекторски Панел" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Инспекторски Панел" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury је моћан, онлајн-први креативни менаџер 
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Интерфејс Претраживања" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Интерфејс Претраживања" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

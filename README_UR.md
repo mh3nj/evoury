@@ -81,7 +81,7 @@ Evoury ایک طاقتور، آف لائن پہلے تخلیقی اثاثوں ک
 ## اسکرین شاٹس
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="مرکزی انٹرفیس" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="مرکزی انٹرفیس" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury ایک طاقتور، آف لائن پہلے تخلیقی اثاثوں ک
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="انسپکٹر پینل" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="انسپکٹر پینل" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury ایک طاقتور، آف لائن پہلے تخلیقی اثاثوں ک
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="تلاش کا انٹرفیس" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="تلاش کا انٹرفیس" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">

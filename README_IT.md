@@ -81,7 +81,7 @@ Evoury è un potente gestore di asset creativi offline, costruito con Tauri, Rea
 ## Screenshot
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Interfaccia Principale" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Interfaccia Principale" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury è un potente gestore di asset creativi offline, costruito con Tauri, Rea
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Pannello Ispettore" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Pannello Ispettore" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury è un potente gestore di asset creativi offline, costruito con Tauri, Rea
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Interfaccia Ricerca" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Interfaccia Ricerca" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -210,5 +210,5 @@ Questo progetto è con licenza MIT - vedi il file [LICENSE](LICENSE) per i detta
 ---
 
 <p align="center">
-  Fatto con ❤️ da <a href="https://github.com/mh3nj">Il Tuo Nome</a>
+  Fatto con ❤️ da <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

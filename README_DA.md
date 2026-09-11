@@ -81,7 +81,7 @@ Evoury er en kraftful, offline-først kreativ asset manager bygget med Tauri, Re
 ## Skærmbilleder
 
 <p align="center">
-  <img src="docs/images/screenshot-main.png" alt="Hovedinterface" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_dark.webp" alt="Hovedinterface" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ Evoury er en kraftful, offline-først kreativ asset manager bygget med Tauri, Re
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-inspector.png" alt="Inspektør panel" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/main_light.webp" alt="Inspektør panel" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -97,7 +97,7 @@ Evoury er en kraftful, offline-først kreativ asset manager bygget med Tauri, Re
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-search.png" alt="Søge interface" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <img src="public/images/settings.webp" alt="Søge interface" width="800" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 </p>
 
 <p align="center">
@@ -210,5 +210,5 @@ Dette projekt er licenseret under MIT-licensen - se filen [LICENSE](LICENSE) for
 ---
 
 <p align="center">
-  Lavet med ❤️ af <a href="https://github.com/mh3nj">Dit navn</a>
+  Lavet med ❤️ af <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>
