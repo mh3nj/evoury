@@ -1,0 +1,10 @@
+[package]
+name = "atlas-indexer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+atlas-core = { path = "../atlas-core" }
+atlas-events = { path = "../atlas-events" }
+rayon = "1.10"
+serde = { version = "1", features = ["derive"] }

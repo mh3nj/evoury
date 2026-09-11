@@ -1,0 +1,11 @@
+[package]
+name = "atlas-power"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+atlas-core = { path = "../atlas-core" }
+atlas-events = { path = "../atlas-events" }
+serde = { version = "1", features = ["derive"] }
+chrono = { version = "0.4", features = ["serde"] }
+crossbeam-channel = "0.5"

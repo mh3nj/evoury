@@ -1,0 +1,107 @@
+{
+  "app": {
+    "name": "Evoury",
+    "tagline": "Enter the Flow"
+  },
+  "common": {
+    "search": "Search assets...",
+    "scan": "Scan Library",
+    "scanning": "Scanning...",
+    "settings": "Settings",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "create": "Create",
+    "rename": "Rename",
+    "loading": "Loading...",
+    "no_assets": "No assets yet",
+    "no_results": "No results found",
+    "scan_hint": "Scan a folder to get started",
+    "present": "Present",
+    "backup": "Backup",
+    "restore": "Restore",
+    "plugins": "Plugins",
+    "diagnostics": "Diagnostics",
+    "database": "Database",
+    "migrations": "Migrations"
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System",
+    "accent": "Accent Color",
+    "density": "Density",
+    "compact": "Compact",
+    "normal": "Normal",
+    "comfortable": "Comfortable",
+    "typography": "Typography",
+    "spacing": "Spacing",
+    "animation_speed": "Animation Speed"
+  },
+  "notification": {
+    "title": "Notifications",
+    "mark_all_read": "Mark all read",
+    "clear": "Clear",
+    "empty": "No notifications"
+  },
+  "preview": {
+    "quick": "Quick Preview",
+    "prev": "Prev",
+    "next": "Next",
+    "close_hint": "Space to close"
+  },
+  "asset": {
+    "name": "Name",
+    "size": "Size",
+    "type": "Type",
+    "no_preview": "No Preview"
+  },
+  "settings": {
+    "general": "General",
+    "appearance": "Appearance",
+    "performance": "Performance",
+    "advanced": "Advanced",
+    "language": "Language",
+    "about": "About"
+  },
+  "maintenance": {
+    "title": "Maintenance",
+    "run": "Run Maintenance",
+    "run_all": "Run All",
+    "auto": "Auto Maintenance",
+    "interval": "Interval (hours)",
+    "history": "Report History"
+  },
+  "plugin": {
+    "title": "Plugins",
+    "no_plugins": "No plugins installed",
+    "enabled": "Enabled",
+    "disabled": "Disabled"
+  },
+  "diagnostics": {
+    "title": "Diagnostics",
+    "system_info": "System Info",
+    "export": "Export Bundle",
+    "crash_reports": "Crash Reports",
+    "no_crashes": "No crash reports"
+  },
+  "backup": {
+    "title": "Backups",
+    "create": "Create Backup",
+    "restore": "Restore Backup",
+    "no_backups": "No backups found",
+    "contents": "Backup Contents",
+    "workspace": "Workspace",
+    "collections": "Collections",
+    "metadata": "Metadata",
+    "baskets": "Baskets",
+    "preferences": "Preferences"
+  },
+  "database": {
+    "title": "Database",
+    "status": "Migration Status",
+    "pending": "Pending Migrations",
+    "all_applied": "All migrations applied"
+  }
+}

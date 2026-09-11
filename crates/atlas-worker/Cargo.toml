@@ -1,0 +1,17 @@
+[package]
+name = "atlas-worker"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+atlas-core = { path = "../atlas-core" }
+atlas-events = { path = "../atlas-events" }
+atlas-duplicate = { path = "../atlas-duplicate" }
+atlas-collection = { path = "../atlas-collection" }
+atlas-links = { path = "../atlas-links" }
+atlas-cache = { path = "../atlas-cache" }
+serde = { version = "1", features = ["derive"] }
+uuid = { version = "1", features = ["serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+rayon = "1"
+crossbeam-channel = "0.5"

@@ -1,0 +1,54 @@
+{
+  "package": {
+    "productName": "Evoury",
+    "version": "0.1.0"
+  },
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devPath": "http://localhost:1420",
+    "beforeBuildCommand": "pnpm build",
+    "distDir": "../dist"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "dialog": {
+        "open": true
+      },
+      "shell": {
+        "open": true
+      },
+      "protocol": {
+        "asset": true,
+        "assetScope": ["**"]
+      }
+    },
+    "windows": [
+      {
+        "title": "Evoury: Enter the Flow",
+        "width": 1400,
+        "height": 900,
+        "minWidth": 900,
+        "minHeight": 600
+      }
+    ],
+    "systemTray": {
+      "iconPath": "icons/tray-icon.png",
+      "iconAsTemplate": false
+    },
+    "security": {
+      "csp": null
+    },
+    "bundle": {
+      "active": true,
+      "identifier": "com.evoury.app",
+      "targets": "all",
+      "icon": [
+        "../public/logo/logo.png",
+        "../public/favicon/favicon.ico",
+        "../public/favicon/favicon-32x32.png",
+        "../public/favicon/apple-touch-icon.png"
+      ]
+    }
+  }
+}

@@ -1,0 +1,214 @@
+@import "tailwindcss";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+@layer base {
+  :root {
+    /* Dark (Dracula-inspired) — default */
+    --evoury-bg: #1a1a2e;
+    --evoury-surface: #222240;
+    --evoury-elevated: #2a2a4a;
+    --evoury-border: #3a3a5c;
+    --evoury-border-light: #4a4a6e;
+    --evoury-text: #e0e0f0;
+    --evoury-text-dim: #8888b0;
+    --evoury-accent: #6366f1;
+    --evoury-accent-glow: rgba(99, 102, 241, 0.2);
+    --evoury-accent2: #06b6d4;
+    --evoury-accent2-glow: rgba(6, 182, 212, 0.15);
+    --evoury-success: #22c55e;
+    --evoury-warning: #f59e0b;
+    --evoury-error: #ef4444;
+    --evoury-radius: 12px;
+    --evoury-animation-speed: 200ms;
+    --evoury-density-multiplier: 1;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: dark;
+    background-color: var(--evoury-bg);
+    color: var(--evoury-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .theme-light {
+    --evoury-bg: #dad9eb;
+    --evoury-surface: #e4e3f0;
+    --evoury-elevated: #eeedf5;
+    --evoury-border: #c8c7da;
+    --evoury-border-light: #b8b7ca;
+    --evoury-text: #1a1a2e;
+    --evoury-text-dim: #6a6a8a;
+    --evoury-accent: #6366f1;
+    --evoury-accent-glow: rgba(99, 102, 241, 0.15);
+    --evoury-accent2: #06b6d4;
+    --evoury-accent2-glow: rgba(6, 182, 212, 0.1);
+    --evoury-success: #16a34a;
+    --evoury-warning: #d97706;
+    --evoury-error: #dc2626;
+    color-scheme: light;
+    background-color: var(--evoury-bg);
+    color: var(--evoury-text);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body, #root {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--evoury-border-light); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #5a5a7e; }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--evoury-border-light);
+    outline: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--evoury-accent);
+    cursor: pointer;
+    box-shadow: 0 0 12px var(--evoury-accent-glow);
+    transition: box-shadow 0.2s;
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 20px var(--evoury-accent-glow);
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(34, 34, 64, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-strong {
+    background: rgba(34, 34, 64, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glow-border {
+    position: relative;
+  }
+
+  .glow-border::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--evoury-accent), var(--evoury-accent2), var(--evoury-accent));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .glow-border:hover::after { opacity: 1; }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--evoury-accent), var(--evoury-accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .premium-btn {
+    background: linear-gradient(135deg, var(--evoury-accent), #818cf8);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .premium-btn:hover {
+    box-shadow: 0 4px 20px var(--evoury-accent-glow);
+    transform: translateY(-1px);
+  }
+
+  .premium-btn:active { transform: translateY(0); }
+
+  .panel-shimmer {
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in { animation: fadeIn 0.2s ease-out; }
+  .animate-scale-in { animation: scaleIn 0.15s ease-out; }
+  .animate-slide-up { animation: slideUp 0.2s ease-out; }
+
+  .animate-stagger {
+    animation: slideUp 0.25s ease-out both;
+  }
+
+  .animate-stagger:nth-child(1) { animation-delay: 0ms; }
+  .animate-stagger:nth-child(2) { animation-delay: 30ms; }
+  .animate-stagger:nth-child(3) { animation-delay: 60ms; }
+  .animate-stagger:nth-child(4) { animation-delay: 90ms; }
+  .animate-stagger:nth-child(5) { animation-delay: 120ms; }
+  .animate-stagger:nth-child(6) { animation-delay: 150ms; }
+  .animate-stagger:nth-child(7) { animation-delay: 180ms; }
+  .animate-stagger:nth-child(8) { animation-delay: 210ms; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in, .animate-scale-in, .animate-slide-up, .animate-stagger {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+
+.reduced-motion *,
+.reduced-motion .animate-fade-in,
+.reduced-motion .animate-scale-in,
+.reduced-motion .animate-slide-up,
+.reduced-motion .animate-stagger {
+  animation: none !important;
+  transition: none !important;
+}

@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  evoury:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - RUST_LOG=info
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  # Optional: Development service
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: rust-builder
+    command: pnpm tauri dev
+    ports:
+      - "1420:1420"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/src-tauri/target
+    environment:
+      - RUST_LOG=debug
+      - NODE_ENV=development
+    profiles:
+      - dev

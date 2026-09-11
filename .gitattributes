@@ -1,0 +1,46 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Rust
+*.rs text diff=rust
+Cargo.lock linguist-generated
+
+# TypeScript/JavaScript
+*.ts text
+*.tsx text
+*.js text
+*.jsx text
+
+# Web
+*.html text
+*.css text
+*.json text
+
+# Documentation
+*.md text
+*.txt text
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg text
+*.ico binary
+
+# Fonts
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+
+# Archives
+*.zip binary
+*.tar.gz binary
+
+# Build artifacts
+*.o binary
+*.so binary
+*.dylib binary
+*.dll binary
+*.rlib binary

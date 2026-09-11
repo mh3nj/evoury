@@ -1,0 +1,10 @@
+[package]
+name = "atlas-duplicate"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+atlas-core = { path = "../atlas-core" }
+serde = { version = "1", features = ["derive"] }
+blake2 = "0.10"
+uuid = { version = "1", features = ["serde"] }

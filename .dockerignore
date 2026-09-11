@@ -1,0 +1,14 @@
+node_modules
+target
+dist
+.git
+.github
+*.md
+*.lock
+*.log
+.env
+.env.local
+.vscode
+.idea
+.DS_Store
+Thumbs.db

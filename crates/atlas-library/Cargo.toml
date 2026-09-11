@@ -1,0 +1,9 @@
+[package]
+name = "atlas-library"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+atlas-core = { path = "../atlas-core" }
+atlas-events = { path = "../atlas-events" }
+uuid = { version = "1", features = ["serde"] }
