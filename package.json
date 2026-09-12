@@ -45,6 +45,11 @@
     "vite": "^7.0.4",
     "vitest": "^1.6.0"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",
