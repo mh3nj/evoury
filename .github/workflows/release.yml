@@ -5,6 +5,11 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to build and publish (defaults to v0.1.1)"
+        required: false
+        default: "v0.1.1"
 
 permissions:
   contents: write
@@ -66,8 +71,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: ${{ github.ref_name }}
-          releaseName: "Evoury ${{ github.ref_name }}"
+          tagName: ${{ github.event.inputs.tag || github.ref_name }}
+          releaseName: "Evoury ${{ github.event.inputs.tag || github.ref_name }}"
           releaseBody: "Desktop installers for Windows, macOS and Linux. See the assets below to download and install."
           releaseDraft: false
           prerelease: false
