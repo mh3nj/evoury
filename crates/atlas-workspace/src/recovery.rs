@@ -1,6 +1,6 @@
-use std::path::PathBuf;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use std::path::PathBuf;
 
 use crate::Workspace;
 
@@ -44,9 +44,15 @@ impl SessionRecovery {
     }
 
     pub fn latest_snapshot(&self) -> Option<SessionSnapshot> {
-        let mut entries: Vec<_> = std::fs::read_dir(&self.snapshots_dir).ok()?
+        let mut entries: Vec<_> = std::fs::read_dir(&self.snapshots_dir)
+            .ok()?
             .filter_map(|e| e.ok())
-            .filter(|e| e.path().extension().map(|ext| ext == "json").unwrap_or(false))
+            .filter(|e| {
+                e.path()
+                    .extension()
+                    .map(|ext| ext == "json")
+                    .unwrap_or(false)
+            })
             .collect();
 
         entries.sort_by_key(|e| e.metadata().ok()?.created().ok());
@@ -64,7 +70,12 @@ impl SessionRecovery {
         if self.snapshots_dir.exists() {
             for entry in std::fs::read_dir(&self.snapshots_dir).map_err(|e| e.to_string())? {
                 let entry = entry.map_err(|e| e.to_string())?;
-                if entry.path().extension().map(|ext| ext == "json").unwrap_or(false) {
+                if entry
+                    .path()
+                    .extension()
+                    .map(|ext| ext == "json")
+                    .unwrap_or(false)
+                {
                     std::fs::remove_file(entry.path()).map_err(|e| e.to_string())?;
                 }
             }
@@ -76,7 +87,12 @@ impl SessionRecovery {
         let mut entries: Vec<_> = std::fs::read_dir(&self.snapshots_dir)
             .map_err(|e| e.to_string())?
             .filter_map(|e| e.ok())
-            .filter(|e| e.path().extension().map(|ext| ext == "json").unwrap_or(false))
+            .filter(|e| {
+                e.path()
+                    .extension()
+                    .map(|ext| ext == "json")
+                    .unwrap_or(false)
+            })
             .collect();
 
         entries.sort_by_key(|e| e.metadata().ok()?.created().ok());

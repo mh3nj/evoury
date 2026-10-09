@@ -104,13 +104,15 @@ fn set_autostart_impl(enabled: bool) -> Result<(), String> {
     let autostart_dir = PathBuf::from(&home).join(".config/autostart");
     let desktop_path = autostart_dir.join("evoury.desktop");
     if enabled {
-        std::fs::create_dir_all(&autostart_dir).map_err(|e| format!("Failed to create autostart dir: {}", e))?;
+        std::fs::create_dir_all(&autostart_dir)
+            .map_err(|e| format!("Failed to create autostart dir: {}", e))?;
         let exe = std::env::current_exe().map_err(|e| format!("Failed to get exe path: {}", e))?;
         let desktop = format!(
             "[Desktop Entry]\nType=Application\nName=Evoury\nExec={}\nTerminal=false\n",
             exe.to_string_lossy()
         );
-        std::fs::write(&desktop_path, desktop).map_err(|e| format!("Failed to write .desktop: {}", e))?;
+        std::fs::write(&desktop_path, desktop)
+            .map_err(|e| format!("Failed to write .desktop: {}", e))?;
     } else {
         let _ = std::fs::remove_file(&desktop_path);
     }

@@ -1,6 +1,13 @@
 export type RelationshipKind =
-  | "Reference" | "DerivedFrom" | "Version" | "Parent" | "Child"
-  | "Dependency" | "Font" | "Image" | "Link";
+  | "Reference"
+  | "DerivedFrom"
+  | "Version"
+  | "Parent"
+  | "Child"
+  | "Dependency"
+  | "Font"
+  | "Image"
+  | "Link";
 
 export interface Relationship {
   id: string;

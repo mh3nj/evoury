@@ -1,6 +1,6 @@
-use std::collections::HashMap;
+use crate::traits::{Plugin, PluginEvent, PluginManifest, PluginResult};
 use atlas_core::Capability;
-use crate::traits::{Plugin, PluginManifest, PluginEvent, PluginResult};
+use std::collections::HashMap;
 
 pub struct PluginRegistry {
     plugins: HashMap<String, Box<dyn Plugin>>,
@@ -83,16 +83,26 @@ mod tests {
     }
 
     impl Plugin for DummyPlugin {
-        fn id(&self) -> &str { &self.id }
-        fn name(&self) -> &str { &self.name }
-        fn version(&self) -> &str { &self.version }
+        fn id(&self) -> &str {
+            &self.id
+        }
+        fn name(&self) -> &str {
+            &self.name
+        }
+        fn version(&self) -> &str {
+            &self.version
+        }
     }
 
     #[test]
     fn test_register_and_get() {
         let mut reg = PluginRegistry::new();
         let manifest = PluginManifest::new("test.plugin", "Test Plugin", "1.0.0");
-        let plugin = DummyPlugin { id: "test.plugin".into(), name: "Test Plugin".into(), version: "1.0.0".into() };
+        let plugin = DummyPlugin {
+            id: "test.plugin".into(),
+            name: "Test Plugin".into(),
+            version: "1.0.0".into(),
+        };
 
         assert!(reg.register(Box::new(plugin), manifest).is_ok());
         assert_eq!(reg.plugin_count(), 1);
@@ -105,7 +115,11 @@ mod tests {
     fn test_unregister() {
         let mut reg = PluginRegistry::new();
         let manifest = PluginManifest::new("test.plugin", "Test Plugin", "1.0.0");
-        let plugin = DummyPlugin { id: "test.plugin".into(), name: "Test Plugin".into(), version: "1.0.0".into() };
+        let plugin = DummyPlugin {
+            id: "test.plugin".into(),
+            name: "Test Plugin".into(),
+            version: "1.0.0".into(),
+        };
 
         reg.register(Box::new(plugin), manifest).unwrap();
         assert!(reg.unregister("test.plugin").is_ok());
@@ -116,12 +130,22 @@ mod tests {
     fn test_event_log() {
         let mut reg = PluginRegistry::new();
         let manifest = PluginManifest::new("test.plugin", "Test Plugin", "1.0.0");
-        let plugin = DummyPlugin { id: "test.plugin".into(), name: "Test Plugin".into(), version: "1.0.0".into() };
+        let plugin = DummyPlugin {
+            id: "test.plugin".into(),
+            name: "Test Plugin".into(),
+            version: "1.0.0".into(),
+        };
 
         reg.register(Box::new(plugin), manifest).unwrap();
         reg.unregister("test.plugin").unwrap();
 
         let log = reg.event_log();
         assert_eq!(log.len(), 2);
+    }
+}
+
+impl Default for PluginRegistry {
+    fn default() -> Self {
+        Self::new()
     }
 }

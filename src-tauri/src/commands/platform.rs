@@ -1,8 +1,8 @@
-use tauri::State;
 use crate::state::AppState;
-use atlas_diagnostics::report::{CrashReport, SystemInfo};
 use atlas_backup::BackupContents;
+use atlas_diagnostics::report::{CrashReport, SystemInfo};
 use atlas_plugin::PluginManifest;
+use tauri::State;
 
 // ── Database ──
 
@@ -29,26 +29,36 @@ pub fn get_plugins(state: State<'_, AppState>) -> Result<Vec<PluginManifest>, St
 #[tauri::command]
 pub fn unregister_plugin(state: State<'_, AppState>, plugin_id: String) -> Result<(), String> {
     let mut reg = state.plugin_registry.lock().map_err(|e| e.to_string())?;
-    reg.unregister(&plugin_id).map_err(|e| format!("{}: {}", e.code, e.message))
+    reg.unregister(&plugin_id)
+        .map_err(|e| format!("{}: {}", e.code, e.message))
 }
 
 // ── Diagnostics ──
 
 #[tauri::command]
 pub fn get_crash_reports(state: State<'_, AppState>) -> Result<Vec<CrashReport>, String> {
-    let collector = state.diagnostic_collector.lock().map_err(|e| e.to_string())?;
+    let collector = state
+        .diagnostic_collector
+        .lock()
+        .map_err(|e| e.to_string())?;
     Ok(collector.crash_reports.clone())
 }
 
 #[tauri::command]
 pub fn get_system_info(state: State<'_, AppState>) -> Result<SystemInfo, String> {
-    let collector = state.diagnostic_collector.lock().map_err(|e| e.to_string())?;
+    let collector = state
+        .diagnostic_collector
+        .lock()
+        .map_err(|e| e.to_string())?;
     Ok(collector.collect_system_info())
 }
 
 #[tauri::command]
 pub fn export_diagnostic_bundle(state: State<'_, AppState>) -> Result<String, String> {
-    let collector = state.diagnostic_collector.lock().map_err(|e| e.to_string())?;
+    let collector = state
+        .diagnostic_collector
+        .lock()
+        .map_err(|e| e.to_string())?;
     collector.export_to_json("{}")
 }
 
@@ -60,7 +70,10 @@ pub fn report_crash(
 ) -> Result<String, String> {
     let report = CrashReport::new("0.1.0", &error_message, &error_kind);
     let id = report.id.clone();
-    let mut collector = state.diagnostic_collector.lock().map_err(|e| e.to_string())?;
+    let mut collector = state
+        .diagnostic_collector
+        .lock()
+        .map_err(|e| e.to_string())?;
     collector.add_crash_report(report);
     Ok(id)
 }
@@ -71,7 +84,10 @@ pub fn report_crash(
 pub fn list_backups(state: State<'_, AppState>) -> Result<Vec<String>, String> {
     let mgr = state.backup_manager.lock().map_err(|e| e.to_string())?;
     let backups = mgr.list_backups()?;
-    Ok(backups.iter().filter_map(|p| p.file_name().map(|n| n.to_string_lossy().to_string())).collect())
+    Ok(backups
+        .iter()
+        .filter_map(|p| p.file_name().map(|n| n.to_string_lossy().to_string()))
+        .collect())
 }
 
 #[tauri::command]
@@ -84,11 +100,19 @@ pub fn create_backup(
     baskets: bool,
     preferences: bool,
 ) -> Result<String, String> {
-    let app_dir = state.app_handle.path_resolver()
+    let app_dir = state
+        .app_handle
+        .path_resolver()
         .app_data_dir()
         .unwrap_or_else(|| std::path::PathBuf::from("."));
 
-    let contents = BackupContents { workspace, collections, metadata, baskets, preferences };
+    let contents = BackupContents {
+        workspace,
+        collections,
+        metadata,
+        baskets,
+        preferences,
+    };
     let mgr = state.backup_manager.lock().map_err(|e| e.to_string())?;
     let path = mgr.create_backup(&name, &contents, &app_dir)?;
     Ok(path.to_string_lossy().to_string())
@@ -96,7 +120,9 @@ pub fn create_backup(
 
 #[tauri::command]
 pub fn restore_backup(state: State<'_, AppState>, backup_name: String) -> Result<(), String> {
-    let app_dir = state.app_handle.path_resolver()
+    let app_dir = state
+        .app_handle
+        .path_resolver()
         .app_data_dir()
         .unwrap_or_else(|| std::path::PathBuf::from("."));
 

@@ -1,11 +1,7 @@
-use std::{
-    collections::HashMap,
-    fs,
-    path::PathBuf,
-};
 use atlas_basket::Basket;
 use atlas_metadata::AssetMetadata;
 use atlas_preferences::Preferences;
+use std::{collections::HashMap, fs, path::PathBuf};
 use uuid::Uuid;
 
 const METADATA_FILE: &str = "metadata.json";
@@ -18,8 +14,8 @@ pub struct Persistence {
 
 impl Persistence {
     pub fn new(app: &tauri::AppHandle) -> Self {
-        let data_dir = tauri::api::path::app_data_dir(&app.config())
-            .unwrap_or_else(|| PathBuf::from("."));
+        let data_dir =
+            tauri::api::path::app_data_dir(&app.config()).unwrap_or_else(|| PathBuf::from("."));
         fs::create_dir_all(&data_dir).ok();
         Self { data_dir }
     }
@@ -36,10 +32,8 @@ impl Persistence {
     }
 
     pub fn save_metadata(&self, metadata: &HashMap<Uuid, AssetMetadata>) -> Result<(), String> {
-        let raw: HashMap<String, &AssetMetadata> = metadata
-            .iter()
-            .map(|(k, v)| (k.to_string(), v))
-            .collect();
+        let raw: HashMap<String, &AssetMetadata> =
+            metadata.iter().map(|(k, v)| (k.to_string(), v)).collect();
         let content = serde_json::to_string_pretty(&raw).map_err(|e| e.to_string())?;
         fs::write(self.data_dir.join(METADATA_FILE), content).map_err(|e| e.to_string())
     }

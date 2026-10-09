@@ -1,6 +1,6 @@
-use tauri::State;
-use atlas_preferences::Preferences;
 use crate::state::AppState;
+use atlas_preferences::Preferences;
+use tauri::State;
 
 #[tauri::command]
 pub fn get_preferences(state: State<'_, AppState>) -> Result<Preferences, String> {

@@ -60,6 +60,7 @@ impl SmartCollection {
         }
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub fn matches(
         &self,
         tags: &[String],
@@ -85,11 +86,10 @@ impl SmartCollection {
                     RuleField::Name => apply_op(name, &rule.operator, &value),
                     RuleField::Notes => apply_op(notes, &rule.operator, &value),
                     RuleField::DateAdded => {
-                        date_added.map_or(false, |d| apply_date_op(d, &rule.operator, &rule.value))
+                        date_added.is_some_and(|d| apply_date_op(d, &rule.operator, &rule.value))
                     }
                     RuleField::DateModified => {
-                        date_modified
-                            .map_or(false, |d| apply_date_op(d, &rule.operator, &rule.value))
+                        date_modified.is_some_and(|d| apply_date_op(d, &rule.operator, &rule.value))
                     }
                     RuleField::FileSize => {
                         apply_file_size_op(file_size, &rule.operator, &rule.value)
@@ -111,8 +111,8 @@ fn apply_op(field: &str, op: &RuleOperator, value: &str) -> bool {
     match op {
         RuleOperator::Equals => f == value,
         RuleOperator::NotEquals => f != value,
-        RuleOperator::GreaterThan => f > value.to_string(),
-        RuleOperator::LessThan => f < value.to_string(),
+        RuleOperator::GreaterThan => f.as_str() > value,
+        RuleOperator::LessThan => f.as_str() < value,
         RuleOperator::Contains => f.contains(value),
         RuleOperator::StartsWith => f.starts_with(value),
         RuleOperator::EndsWith => f.ends_with(value),
@@ -167,8 +167,7 @@ fn apply_file_size_op(file_size: u64, op: &RuleOperator, value: &str) -> bool {
             RuleOperator::InRange => {
                 let parts: Vec<&str> = value.split(',').collect();
                 if parts.len() == 2 {
-                    if let (Ok(low), Ok(high)) =
-                        (parts[0].parse::<u64>(), parts[1].parse::<u64>())
+                    if let (Ok(low), Ok(high)) = (parts[0].parse::<u64>(), parts[1].parse::<u64>())
                     {
                         return file_size >= low && file_size <= high;
                     }

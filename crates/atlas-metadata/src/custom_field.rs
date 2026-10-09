@@ -8,12 +8,21 @@ pub struct CustomFieldManager {
 
 impl CustomFieldManager {
     pub fn new() -> Self {
-        Self { definitions: Vec::new() }
+        Self {
+            definitions: Vec::new(),
+        }
     }
 
     pub fn add_definition(&mut self, def: CustomFieldDefinition) -> Result<(), String> {
-        if self.definitions.iter().any(|d| d.name == def.name && d.category == def.category) {
-            return Err(format!("Definition with name '{}' already exists in category '{}'", def.name, def.category));
+        if self
+            .definitions
+            .iter()
+            .any(|d| d.name == def.name && d.category == def.category)
+        {
+            return Err(format!(
+                "Definition with name '{}' already exists in category '{}'",
+                def.name, def.category
+            ));
         }
         self.definitions.push(def);
         Ok(())
@@ -32,6 +41,15 @@ impl CustomFieldManager {
     }
 
     pub fn definitions_by_category(&self, category: &str) -> Vec<&CustomFieldDefinition> {
-        self.definitions.iter().filter(|d| d.category == category).collect()
+        self.definitions
+            .iter()
+            .filter(|d| d.category == category)
+            .collect()
+    }
+}
+
+impl Default for CustomFieldManager {
+    fn default() -> Self {
+        Self::new()
     }
 }

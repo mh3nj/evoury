@@ -19,23 +19,34 @@ impl EasingFunction {
             Self::Linear => t,
             Self::EaseInQuad => t * t,
             Self::EaseOutQuad => t * (2.0 - t),
-            Self::EaseInOutQuad => if t < 0.5 { 2.0 * t * t } else { -1.0 + (4.0 - 2.0 * t) * t },
+            Self::EaseInOutQuad => {
+                if t < 0.5 {
+                    2.0 * t * t
+                } else {
+                    -1.0 + (4.0 - 2.0 * t) * t
+                }
+            }
             Self::EaseInCubic => t * t * t,
             Self::EaseOutCubic => {
                 let t = t - 1.0;
                 t * t * t + 1.0
             }
             Self::EaseInOutCubic => {
-                if t < 0.5 { 4.0 * t * t * t }
-                else {
+                if t < 0.5 {
+                    4.0 * t * t * t
+                } else {
                     let t = 2.0 * t - 2.0;
                     0.5 * t * t * t + 1.0
                 }
             }
             Self::EaseInOutExpo => {
-                if t == 0.0 || t == 1.0 { t }
-                else if t < 0.5 { 0.5 * (2.0_f32.powf(20.0 * t - 10.0)) }
-                else { 1.0 - 0.5 * (-2.0_f32.powf(-20.0 * t + 10.0)) }
+                if t == 0.0 || t == 1.0 {
+                    t
+                } else if t < 0.5 {
+                    0.5 * (2.0_f32.powf(20.0 * t - 10.0))
+                } else {
+                    1.0 - 0.5 * (-2.0_f32.powf(-20.0 * t + 10.0))
+                }
             }
             Self::Spring { stiffness, damping } => {
                 let t = t * std::f32::consts::PI * stiffness;

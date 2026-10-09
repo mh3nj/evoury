@@ -18,7 +18,9 @@ export const useTemplatesStore = create<TemplatesState>((set) => ({
     try {
       const templates = await invoke<MetadataTemplate[]>("get_templates");
       set({ templates, loading: false });
-    } catch { set({ loading: false }); }
+    } catch {
+      set({ loading: false });
+    }
   },
   addTemplate: async (template) => {
     await invoke("add_template", { template });

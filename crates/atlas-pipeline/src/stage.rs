@@ -28,6 +28,12 @@ pub struct PipelineStage {
 
 impl PipelineStage {
     pub fn new(id: usize, name: &str, action: StageAction) -> Self {
-        Self { id, name: name.to_string(), action, enabled: true, config: String::new() }
+        Self {
+            id,
+            name: name.to_string(),
+            action,
+            enabled: true,
+            config: String::new(),
+        }
     }
 }

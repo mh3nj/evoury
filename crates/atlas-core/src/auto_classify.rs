@@ -36,6 +36,8 @@ impl AutoClassifyRule {
 
     pub fn matches_mime(&self, mime: &str) -> bool {
         let mime = mime.to_lowercase();
-        self.mime_patterns.iter().any(|p| mime.contains(&p.to_lowercase()))
+        self.mime_patterns
+            .iter()
+            .any(|p| mime.contains(&p.to_lowercase()))
     }
 }

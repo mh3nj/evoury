@@ -1,6 +1,6 @@
+use atlas_events::{AtlasEvent, EventBus};
 use std::thread;
 use tauri::Manager;
-use atlas_events::{AtlasEvent, EventBus};
 
 pub fn spawn_event_forwarder(app: tauri::AppHandle, event_bus: &EventBus) {
     let receiver = event_bus.subscribe();

@@ -1,5 +1,5 @@
-use std::path::PathBuf;
 use crate::report::{CrashReport, DiagnosticBundle, SystemInfo};
+use std::path::PathBuf;
 
 pub struct DiagnosticCollector {
     pub app_version: String,
@@ -28,7 +28,8 @@ impl DiagnosticCollector {
             os: std::env::consts::OS.to_string(),
             os_version: std::env::consts::ARCH.to_string(),
             cpu_count: std::thread::available_parallelism()
-                .map(|n| n.get()).unwrap_or(1),
+                .map(|n| n.get())
+                .unwrap_or(1),
             total_memory_mb: total,
             free_memory_mb: free,
             app_data_path: self.app_data_path.to_string_lossy().to_string(),
@@ -38,11 +39,7 @@ impl DiagnosticCollector {
 
     pub fn build_bundle(&self, config_snapshot: &str) -> DiagnosticBundle {
         let system_info = self.collect_system_info();
-        DiagnosticBundle::new(
-            self.crash_reports.clone(),
-            system_info,
-            config_snapshot,
-        )
+        DiagnosticBundle::new(self.crash_reports.clone(), system_info, config_snapshot)
     }
 
     pub fn export_to_json(&self, config_snapshot: &str) -> Result<String, String> {

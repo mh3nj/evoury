@@ -1,5 +1,5 @@
-use std::path::PathBuf;
 use atlas_core::Asset;
+use std::path::PathBuf;
 use uuid::Uuid;
 
 pub struct PreviewResolver;

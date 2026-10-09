@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::issue::HealthIssue;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct HealthReport {
@@ -14,14 +14,28 @@ impl HealthReport {
     }
 
     pub fn error_count(&self) -> usize {
-        self.issues.iter().filter(|i| matches!(i.severity, crate::IssueSeverity::Error | crate::IssueSeverity::Critical)).count()
+        self.issues
+            .iter()
+            .filter(|i| {
+                matches!(
+                    i.severity,
+                    crate::IssueSeverity::Error | crate::IssueSeverity::Critical
+                )
+            })
+            .count()
     }
 
     pub fn warning_count(&self) -> usize {
-        self.issues.iter().filter(|i| matches!(i.severity, crate::IssueSeverity::Warning)).count()
+        self.issues
+            .iter()
+            .filter(|i| matches!(i.severity, crate::IssueSeverity::Warning))
+            .count()
     }
 
     pub fn info_count(&self) -> usize {
-        self.issues.iter().filter(|i| matches!(i.severity, crate::IssueSeverity::Info)).count()
+        self.issues
+            .iter()
+            .filter(|i| matches!(i.severity, crate::IssueSeverity::Info))
+            .count()
     }
 }

@@ -8,7 +8,11 @@ interface ClassifyState {
   loadRules: () => Promise<void>;
   addRule: (rule: AutoClassifyRule) => Promise<void>;
   removeRule: (id: string) => Promise<void>;
-  classifyAsset: (name: string, mimeType?: string, extension?: string) => Promise<AutoClassifyRule[]>;
+  classifyAsset: (
+    name: string,
+    mimeType?: string,
+    extension?: string,
+  ) => Promise<AutoClassifyRule[]>;
 }
 
 export const useClassifyStore = create<ClassifyState>((set) => ({
@@ -19,7 +23,9 @@ export const useClassifyStore = create<ClassifyState>((set) => ({
     try {
       const rules = await invoke<AutoClassifyRule[]>("get_classify_rules");
       set({ rules, loading: false });
-    } catch { set({ loading: false }); }
+    } catch {
+      set({ loading: false });
+    }
   },
   addRule: async (rule) => {
     await invoke("add_classify_rule", { rule });
@@ -31,6 +37,10 @@ export const useClassifyStore = create<ClassifyState>((set) => ({
     set((s) => ({ rules: s.rules.filter((r) => r.id !== id) }));
   },
   classifyAsset: async (name, mimeType, extension) => {
-    return invoke<AutoClassifyRule[]>("classify_asset", { name, mimeType, extension });
+    return invoke<AutoClassifyRule[]>("classify_asset", {
+      name,
+      mimeType,
+      extension,
+    });
   },
 }));

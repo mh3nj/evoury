@@ -1,8 +1,8 @@
-use std::path::PathBuf;
+use crate::{ArchiveType, Preview};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use std::path::PathBuf;
 use uuid::Uuid;
-use crate::{ArchiveType, Preview};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum AssetState {

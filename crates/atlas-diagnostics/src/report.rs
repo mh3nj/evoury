@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CrashReport {
@@ -16,11 +16,7 @@ pub struct CrashReport {
 }
 
 impl CrashReport {
-    pub fn new(
-        app_version: &str,
-        error_message: &str,
-        error_kind: &str,
-    ) -> Self {
+    pub fn new(app_version: &str, error_message: &str, error_kind: &str) -> Self {
         Self {
             id: uuid::Uuid::new_v4().to_string(),
             timestamp: Utc::now(),

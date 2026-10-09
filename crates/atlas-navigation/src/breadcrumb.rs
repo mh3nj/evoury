@@ -52,4 +52,8 @@ impl BreadcrumbTrail {
     pub fn len(&self) -> usize {
         self.crumbs.len()
     }
+
+    pub fn is_empty(&self) -> bool {
+        self.crumbs.is_empty()
+    }
 }

@@ -1,5 +1,5 @@
-pub mod traits;
 pub mod registry;
+pub mod traits;
 
-pub use traits::{Plugin, PluginManifest, PluginEvent, PluginError, PluginResult};
 pub use registry::PluginRegistry;
+pub use traits::{Plugin, PluginError, PluginEvent, PluginManifest, PluginResult};

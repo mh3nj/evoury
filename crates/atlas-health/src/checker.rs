@@ -1,6 +1,6 @@
-use std::path::Path;
 use crate::issue::{HealthIssue, IssueSeverity, IssueType};
 use crate::report::HealthReport;
+use std::path::Path;
 
 pub struct HealthChecker;
 
@@ -54,5 +54,11 @@ impl HealthChecker {
             issues,
             timestamp: chrono::Utc::now(),
         }
+    }
+}
+
+impl Default for HealthChecker {
+    fn default() -> Self {
+        Self::new()
     }
 }

@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use atlas_core::VersionRecord;
+use std::collections::HashMap;
 use uuid::Uuid;
 
 pub struct VersionManager {
@@ -28,7 +28,7 @@ impl VersionManager {
             .get(asset_id)
             .map(|list| list.iter().collect())
             .unwrap_or_default();
-        versions.sort_by(|a, b| b.created_at.cmp(&a.created_at));
+        versions.sort_by_key(|v| std::cmp::Reverse(v.created_at));
         versions
     }
 
@@ -52,7 +52,12 @@ impl VersionManager {
     }
 
     pub fn restore_version(&mut self, asset_id: &Uuid, version_id: &Uuid) -> Option<VersionRecord> {
-        let old = self.versions.get(asset_id)?.iter().find(|v| v.id == *version_id)?.clone();
+        let old = self
+            .versions
+            .get(asset_id)?
+            .iter()
+            .find(|v| v.id == *version_id)?
+            .clone();
         let restored = VersionRecord {
             id: Uuid::new_v4(),
             asset_id: *asset_id,
@@ -63,7 +68,10 @@ impl VersionManager {
             file_size: old.file_size,
             created_at: chrono::Utc::now(),
         };
-        self.versions.entry(*asset_id).or_default().push(restored.clone());
+        self.versions
+            .entry(*asset_id)
+            .or_default()
+            .push(restored.clone());
         Some(restored)
     }
 
@@ -76,5 +84,11 @@ impl VersionManager {
             .get(asset_id)
             .map(|list| list.len())
             .unwrap_or(0)
+    }
+}
+
+impl Default for VersionManager {
+    fn default() -> Self {
+        Self::new()
     }
 }

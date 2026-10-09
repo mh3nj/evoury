@@ -29,3 +29,9 @@ impl PreviewCache {
         self.entries.clear();
     }
 }
+
+impl Default for PreviewCache {
+    fn default() -> Self {
+        Self::new()
+    }
+}

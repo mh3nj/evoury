@@ -1,7 +1,7 @@
-use std::sync::{Arc, Mutex};
 use crate::job::{Job, JobPriority};
 use crate::queue::JobQueue;
 use crate::worker::WorkerPool;
+use std::sync::{Arc, Mutex};
 
 pub struct Scheduler {
     queue: Arc<Mutex<JobQueue>>,

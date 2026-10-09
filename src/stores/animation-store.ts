@@ -27,11 +27,46 @@ export const useAnimationStore = create<AnimationState>((set, get) => ({
   reducedMotion: false,
   speedMultiplier: 1.0,
   presets: [
-    { id: "fade-in", name: "Fade In", durationMs: 200, easing: "cubic-bezier(0.215, 0.61, 0.355, 1)", delayMs: 0, property: "opacity" },
-    { id: "slide-up", name: "Slide Up", durationMs: 300, easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)", delayMs: 0, property: "transform" },
-    { id: "scale-in", name: "Scale In", durationMs: 200, easing: "cubic-bezier(0.215, 0.61, 0.355, 1)", delayMs: 0, property: "transform" },
-    { id: "quick", name: "Quick", durationMs: 100, easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)", delayMs: 0, property: "all" },
-    { id: "spring", name: "Spring", durationMs: 400, easing: "cubic-bezier(0.34, 1.56, 0.64, 1)", delayMs: 0, property: "transform" },
+    {
+      id: "fade-in",
+      name: "Fade In",
+      durationMs: 200,
+      easing: "cubic-bezier(0.215, 0.61, 0.355, 1)",
+      delayMs: 0,
+      property: "opacity",
+    },
+    {
+      id: "slide-up",
+      name: "Slide Up",
+      durationMs: 300,
+      easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      delayMs: 0,
+      property: "transform",
+    },
+    {
+      id: "scale-in",
+      name: "Scale In",
+      durationMs: 200,
+      easing: "cubic-bezier(0.215, 0.61, 0.355, 1)",
+      delayMs: 0,
+      property: "transform",
+    },
+    {
+      id: "quick",
+      name: "Quick",
+      durationMs: 100,
+      easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      delayMs: 0,
+      property: "all",
+    },
+    {
+      id: "spring",
+      name: "Spring",
+      durationMs: 400,
+      easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+      delayMs: 0,
+      property: "transform",
+    },
   ],
 
   setReducedMotion: (reduced) =>
@@ -55,5 +90,7 @@ export const useAnimationStore = create<AnimationState>((set, get) => ({
   },
 
   registerPreset: (preset) =>
-    set((s) => ({ presets: [...s.presets.filter((p) => p.id !== preset.id), preset] })),
+    set((s) => ({
+      presets: [...s.presets.filter((p) => p.id !== preset.id), preset],
+    })),
 }));

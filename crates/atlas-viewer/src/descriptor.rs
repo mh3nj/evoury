@@ -60,7 +60,10 @@ impl ViewerKind {
             Self::ThreeDOrbit => &["glb", "gltf", "obj", "stl", "fbx"],
             Self::FontGlyphs => &["ttf", "otf", "woff", "woff2"],
             Self::ZipTree => &["zip", "rar", "7z", "tar", "tgz", "gz"],
-            Self::CodeSyntax => &["js", "ts", "jsx", "tsx", "rs", "py", "css", "html", "json", "xml", "md", "yaml", "toml"],
+            Self::CodeSyntax => &[
+                "js", "ts", "jsx", "tsx", "rs", "py", "css", "html", "json", "xml", "md", "yaml",
+                "toml",
+            ],
         }
     }
 }
@@ -107,10 +110,17 @@ impl ViewerDescriptor {
     pub fn from_extension(ext: &str) -> Option<Self> {
         let ext = ext.to_lowercase();
         for kind in &[
-            ViewerKind::DefaultImage, ViewerKind::PsdLayers, ViewerKind::AiArtboards,
-            ViewerKind::SvgVector, ViewerKind::PdfPages, ViewerKind::VideoTimeline,
-            ViewerKind::AudioWaveform, ViewerKind::ThreeDOrbit, ViewerKind::FontGlyphs,
-            ViewerKind::ZipTree, ViewerKind::CodeSyntax,
+            ViewerKind::DefaultImage,
+            ViewerKind::PsdLayers,
+            ViewerKind::AiArtboards,
+            ViewerKind::SvgVector,
+            ViewerKind::PdfPages,
+            ViewerKind::VideoTimeline,
+            ViewerKind::AudioWaveform,
+            ViewerKind::ThreeDOrbit,
+            ViewerKind::FontGlyphs,
+            ViewerKind::ZipTree,
+            ViewerKind::CodeSyntax,
         ] {
             if kind.supported_extensions().contains(&ext.as_str()) {
                 return Some(Self::for_kind(kind.clone()));

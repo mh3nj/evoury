@@ -1,50 +1,53 @@
-use std::sync::{Arc, Mutex};
-use std::path::PathBuf;
-use tauri::Manager;
-use atlas_basket::BasketManager;
-use atlas_events::EventBus;
-use atlas_library::Library;
-use atlas_metadata::{MetadataStore, TagManager, CustomFieldManager, TemplateManager, AutoClassifier};
-use atlas_preferences::PreferenceStore;
-use atlas_scanner::FilesystemWatcher;
-use atlas_registry::{Registry, Provider, ProviderKind};
-use atlas_scheduler::Scheduler;
-use atlas_power::SleepManager;
-use atlas_workspace::{WorkspaceManager, SessionRecovery};
-use atlas_command::{CommandRegistry, CommandExecutor};
-use atlas_cache::CacheManager;
-use atlas_worker::WorkerPool;
-use atlas_duplicate::DuplicateDetector;
-use atlas_collection::CollectionManager;
-use atlas_links::{VersionDetector, RelationshipManager, DependencyGraph, VersionManager};
-use atlas_history::{ActivityTracker, VersionHistory};
-use atlas_project::ProjectManager;
-use atlas_search::SavedSearchManager;
-use atlas_undo::UndoStack;
-use atlas_batch::{BatchRenamer, BatchMetadataEditor};
-use atlas_pipeline::PipelineManager;
-use atlas_macro::{MacroRecorder, MacroPlayback};
-use atlas_notification::NotificationManager;
-use atlas_health::MaintenanceEngine;
-use atlas_db::runner::MigrationRunner;
-use atlas_plugin::PluginRegistry;
-use atlas_diagnostics::DiagnosticCollector;
-use atlas_backup::BackupManager;
-use atlas_haystack::LargeLibraryConfig;
-use atlas_layout::LayoutRegistry;
-use atlas_workstation::WorkstationRegistry;
-use atlas_profiles::ProfileManager;
-use atlas_selection::SelectionEngine;
-use atlas_navigation::{NavigationHistory, TabManager, BreadcrumbTrail};
-use atlas_keyboard::ShortcutRegistry;
-use atlas_animation::AnimationManager;
-use atlas_preview::PreviewManager;
-use atlas_viewer::ViewerRegistry;
-use atlas_compare::CompareEngine;
-use atlas_gpu::GpuTracker;
-use atlas_color::ColorManager;
 use crate::persistence::Persistence;
+use atlas_animation::AnimationManager;
+use atlas_backup::BackupManager;
+use atlas_basket::BasketManager;
+use atlas_batch::{BatchMetadataEditor, BatchRenamer};
+use atlas_cache::CacheManager;
+use atlas_collection::CollectionManager;
+use atlas_color::ColorManager;
+use atlas_command::{CommandExecutor, CommandRegistry};
+use atlas_compare::CompareEngine;
+use atlas_db::runner::MigrationRunner;
+use atlas_diagnostics::DiagnosticCollector;
+use atlas_duplicate::DuplicateDetector;
+use atlas_events::EventBus;
+use atlas_gpu::GpuTracker;
+use atlas_haystack::LargeLibraryConfig;
+use atlas_health::MaintenanceEngine;
+use atlas_history::{ActivityTracker, VersionHistory};
+use atlas_keyboard::ShortcutRegistry;
+use atlas_layout::LayoutRegistry;
+use atlas_library::Library;
+use atlas_links::{DependencyGraph, RelationshipManager, VersionDetector, VersionManager};
+use atlas_macro::{MacroPlayback, MacroRecorder};
+use atlas_metadata::{
+    AutoClassifier, CustomFieldManager, MetadataStore, TagManager, TemplateManager,
+};
+use atlas_navigation::{BreadcrumbTrail, NavigationHistory, TabManager};
+use atlas_notification::NotificationManager;
+use atlas_pipeline::PipelineManager;
+use atlas_plugin::PluginRegistry;
+use atlas_power::SleepManager;
+use atlas_preferences::PreferenceStore;
+use atlas_preview::PreviewManager;
+use atlas_profiles::ProfileManager;
+use atlas_project::ProjectManager;
+use atlas_registry::{Provider, ProviderKind, Registry};
+use atlas_scanner::FilesystemWatcher;
+use atlas_scheduler::Scheduler;
+use atlas_search::SavedSearchManager;
+use atlas_selection::SelectionEngine;
+use atlas_undo::UndoStack;
+use atlas_viewer::ViewerRegistry;
+use atlas_worker::WorkerPool;
+use atlas_workspace::{SessionRecovery, WorkspaceManager};
+use atlas_workstation::WorkstationRegistry;
+use std::path::PathBuf;
+use std::sync::{Arc, Mutex};
+use tauri::Manager;
 
+#[allow(dead_code)]
 pub struct AppState {
     pub library: Arc<Library>,
     pub metadata_store: Arc<Mutex<MetadataStore>>,
@@ -123,7 +126,8 @@ impl AppState {
             basket_manager.create(basket);
         }
 
-        let app_dir: PathBuf = app.path_resolver()
+        let app_dir: PathBuf = app
+            .path_resolver()
             .app_data_dir()
             .unwrap_or_else(|| PathBuf::from("."));
 
@@ -201,7 +205,9 @@ impl AppState {
         worker_pool.register(Box::new(atlas_worker::CollectionWorker));
 
         let mut preview_manager = PreviewManager::new();
-        preview_manager.providers.register(Box::new(atlas_preview::DefaultImageProvider));
+        preview_manager
+            .providers
+            .register(Box::new(atlas_preview::DefaultImageProvider));
 
         let library_count = 0;
         let large_config = if library_count > 100_000 {
@@ -246,7 +252,10 @@ impl AppState {
             animation_manager: Arc::new(Mutex::new(AnimationManager::new())),
             preview_manager: Arc::new(preview_manager),
             viewer_registry: Arc::new(ViewerRegistry::new()),
-            compare_engine: Arc::new(Mutex::new(CompareEngine::new(uuid::Uuid::nil(), uuid::Uuid::nil()))),
+            compare_engine: Arc::new(Mutex::new(CompareEngine::new(
+                uuid::Uuid::nil(),
+                uuid::Uuid::nil(),
+            ))),
             gpu_tracker: Arc::new(Mutex::new(GpuTracker::new())),
             color_manager: Arc::new(Mutex::new(ColorManager::new())),
             tag_manager: Arc::new(Mutex::new(TagManager::new())),
@@ -279,31 +288,142 @@ impl AppState {
 
     fn create_providers() -> Vec<Provider> {
         vec![
-            Provider::new("atlas-cache", ProviderKind::Cache, "Thumbnail Cache", "0.1.0"),
-            Provider::new("atlas-worker", ProviderKind::Worker, "Background Workers", "0.1.0"),
-            Provider::new("atlas-duplicate", ProviderKind::Capability, "Duplicate Detection", "0.1.0"),
-            Provider::new("atlas-collection", ProviderKind::Capability, "Smart Collections", "0.1.0"),
-            Provider::new("atlas-links", ProviderKind::Capability, "Version & Links", "0.1.0"),
-            Provider::new("atlas-haystack", ProviderKind::Capability, "Large Library Support", "0.1.0"),
-            Provider::new("atlas-layout", ProviderKind::Capability, "Layout Engine", "0.1.0"),
-            Provider::new("atlas-workstation", ProviderKind::Workstation, "Workstation Presets", "0.1.0"),
-            Provider::new("atlas-profiles", ProviderKind::Capability, "View/Preview/Search Profiles", "0.1.0"),
-            Provider::new("atlas-selection", ProviderKind::Capability, "Selection Engine", "0.1.0"),
-            Provider::new("atlas-navigation", ProviderKind::Capability, "Navigation History & Tabs", "0.1.0"),
-            Provider::new("atlas-keyboard", ProviderKind::Capability, "Keyboard Shortcuts", "0.1.0"),
-            Provider::new("atlas-animation", ProviderKind::Capability, "Animation System", "0.1.0"),
-            Provider::new("atlas-viewer", ProviderKind::Preview, "Specialized Viewers", "0.1.0"),
-            Provider::new("atlas-compare", ProviderKind::Capability, "Compare Mode", "0.1.0"),
-            Provider::new("atlas-gpu", ProviderKind::Capability, "GPU Resource Manager", "0.1.0"),
-            Provider::new("atlas-color", ProviderKind::Capability, "Color Management", "0.1.0"),
-            Provider::new("atlas-preview", ProviderKind::Preview, "Preview Manager", "0.1.0"),
-            Provider::new("atlas-metadata", ProviderKind::Capability, "Tags, Custom Fields & Templates", "0.1.0"),
-            Provider::new("atlas-project", ProviderKind::Capability, "Project Management", "0.1.0"),
-            Provider::new("atlas-history", ProviderKind::Capability, "Activity & Version History", "0.1.0"),
-            Provider::new("atlas-links", ProviderKind::Capability, "Relationships & Dependencies", "0.1.0"),
+            Provider::new(
+                "atlas-cache",
+                ProviderKind::Cache,
+                "Thumbnail Cache",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-worker",
+                ProviderKind::Worker,
+                "Background Workers",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-duplicate",
+                ProviderKind::Capability,
+                "Duplicate Detection",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-collection",
+                ProviderKind::Capability,
+                "Smart Collections",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-links",
+                ProviderKind::Capability,
+                "Version & Links",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-haystack",
+                ProviderKind::Capability,
+                "Large Library Support",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-layout",
+                ProviderKind::Capability,
+                "Layout Engine",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-workstation",
+                ProviderKind::Workstation,
+                "Workstation Presets",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-profiles",
+                ProviderKind::Capability,
+                "View/Preview/Search Profiles",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-selection",
+                ProviderKind::Capability,
+                "Selection Engine",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-navigation",
+                ProviderKind::Capability,
+                "Navigation History & Tabs",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-keyboard",
+                ProviderKind::Capability,
+                "Keyboard Shortcuts",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-animation",
+                ProviderKind::Capability,
+                "Animation System",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-viewer",
+                ProviderKind::Preview,
+                "Specialized Viewers",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-compare",
+                ProviderKind::Capability,
+                "Compare Mode",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-gpu",
+                ProviderKind::Capability,
+                "GPU Resource Manager",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-color",
+                ProviderKind::Capability,
+                "Color Management",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-preview",
+                ProviderKind::Preview,
+                "Preview Manager",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-metadata",
+                ProviderKind::Capability,
+                "Tags, Custom Fields & Templates",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-project",
+                ProviderKind::Capability,
+                "Project Management",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-history",
+                ProviderKind::Capability,
+                "Activity & Version History",
+                "0.1.0",
+            ),
+            Provider::new(
+                "atlas-links",
+                ProviderKind::Capability,
+                "Relationships & Dependencies",
+                "0.1.0",
+            ),
         ]
     }
 
+    #[allow(dead_code)]
     pub fn start_scheduler(&self) {
         self.scheduler.start();
     }

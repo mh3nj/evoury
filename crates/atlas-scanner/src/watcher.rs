@@ -1,3 +1,5 @@
+use atlas_events::AtlasEvent;
+use crossbeam_channel::Sender;
 use std::{
     collections::HashMap,
     path::{Path, PathBuf},
@@ -8,8 +10,6 @@ use std::{
     thread,
     time::Duration,
 };
-use crossbeam_channel::Sender;
-use atlas_events::AtlasEvent;
 
 struct WatchEntry {
     modified: u64,
@@ -65,7 +65,10 @@ impl FilesystemWatcher {
                                 path: path.clone(),
                             });
                         }
-                        Some(existing) if existing.modified != entry.modified || existing.size != entry.size => {
+                        Some(existing)
+                            if existing.modified != entry.modified
+                                || existing.size != entry.size =>
+                        {
                             let _ = sender.send(AtlasEvent::WatcherEvent {
                                 kind: "modified".into(),
                                 path: path.clone(),
@@ -137,4 +140,10 @@ fn scan_directory(root: &Path) -> std::io::Result<HashMap<PathBuf, WatchEntry>> 
         }
     }
     Ok(map)
+}
+
+impl Default for FilesystemWatcher {
+    fn default() -> Self {
+        Self::new()
+    }
 }

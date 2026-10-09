@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::descriptor::ViewerKind;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ViewerCapability {

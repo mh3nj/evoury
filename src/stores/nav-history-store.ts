@@ -44,7 +44,14 @@ export const useNavHistoryStore = create<NavHistoryState>((set, get) => ({
   history: [{ title: "All Assets", path: ["All Assets"] }],
   index: 0,
   breadcrumbs: [{ label: "All Assets", path: "/", icon: "fa-home" }],
-  tabs: [{ id: crypto.randomUUID(), title: "All Assets", pinned: true, modified: false }],
+  tabs: [
+    {
+      id: crypto.randomUUID(),
+      title: "All Assets",
+      pinned: true,
+      modified: false,
+    },
+  ],
   activeTabId: null,
 
   pushHistory: (loc) => {
@@ -81,7 +88,8 @@ export const useNavHistoryStore = create<NavHistoryState>((set, get) => ({
 
   popBreadcrumb: () =>
     set((s) => ({
-      breadcrumbs: s.breadcrumbs.length > 1 ? s.breadcrumbs.slice(0, -1) : s.breadcrumbs,
+      breadcrumbs:
+        s.breadcrumbs.length > 1 ? s.breadcrumbs.slice(0, -1) : s.breadcrumbs,
     })),
 
   navigateBreadcrumb: (index) =>

@@ -1,6 +1,6 @@
+use crate::metadata::AssetMetadata;
 use std::collections::HashMap;
 use uuid::Uuid;
-use crate::metadata::AssetMetadata;
 
 pub struct MetadataStore {
     data: HashMap<Uuid, AssetMetadata>,
@@ -31,5 +31,11 @@ impl MetadataStore {
 
     pub fn all(&self) -> Vec<AssetMetadata> {
         self.data.values().cloned().collect()
+    }
+}
+
+impl Default for MetadataStore {
+    fn default() -> Self {
+        Self::new()
     }
 }

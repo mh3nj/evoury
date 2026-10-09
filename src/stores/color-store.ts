@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
-export type ColorSpace = "srgb" | "adobe-rgb" | "display-p3" | "prophoto-rgb" | "unmanaged";
+export type ColorSpace =
+  "srgb" | "adobe-rgb" | "display-p3" | "prophoto-rgb" | "unmanaged";
 export type DisplayColorSpace = "native" | "srgb" | "display-p3" | "hdr10";
 
 interface ColorState {

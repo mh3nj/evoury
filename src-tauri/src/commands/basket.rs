@@ -1,6 +1,6 @@
-use tauri::State;
-use atlas_basket::Basket;
 use crate::state::AppState;
+use atlas_basket::Basket;
+use tauri::State;
 
 fn save_baskets(state: &AppState) {
     if let Ok(manager) = state.basket_manager.lock() {
@@ -33,7 +33,11 @@ pub fn get_baskets(state: State<'_, AppState>) -> Result<Vec<Basket>, String> {
 }
 
 #[tauri::command]
-pub fn add_to_basket(state: State<'_, AppState>, basket_id: String, asset_id: String) -> Result<bool, String> {
+pub fn add_to_basket(
+    state: State<'_, AppState>,
+    basket_id: String,
+    asset_id: String,
+) -> Result<bool, String> {
     let bid = uuid::Uuid::parse_str(&basket_id).map_err(|e| e.to_string())?;
     let aid = uuid::Uuid::parse_str(&asset_id).map_err(|e| e.to_string())?;
     let mut manager = state.basket_manager.lock().map_err(|e| e.to_string())?;
@@ -44,7 +48,11 @@ pub fn add_to_basket(state: State<'_, AppState>, basket_id: String, asset_id: St
 }
 
 #[tauri::command]
-pub fn remove_from_basket(state: State<'_, AppState>, basket_id: String, asset_id: String) -> Result<bool, String> {
+pub fn remove_from_basket(
+    state: State<'_, AppState>,
+    basket_id: String,
+    asset_id: String,
+) -> Result<bool, String> {
     let bid = uuid::Uuid::parse_str(&basket_id).map_err(|e| e.to_string())?;
     let aid = uuid::Uuid::parse_str(&asset_id).map_err(|e| e.to_string())?;
     let mut manager = state.basket_manager.lock().map_err(|e| e.to_string())?;
@@ -75,7 +83,11 @@ pub fn delete_basket(state: State<'_, AppState>, basket_id: String) -> Result<()
 }
 
 #[tauri::command]
-pub fn is_in_basket(state: State<'_, AppState>, basket_id: String, asset_id: String) -> Result<bool, String> {
+pub fn is_in_basket(
+    state: State<'_, AppState>,
+    basket_id: String,
+    asset_id: String,
+) -> Result<bool, String> {
     let bid = uuid::Uuid::parse_str(&basket_id).map_err(|e| e.to_string())?;
     let aid = uuid::Uuid::parse_str(&asset_id).map_err(|e| e.to_string())?;
     let manager = state.basket_manager.lock().map_err(|e| e.to_string())?;

@@ -1,6 +1,6 @@
+use atlas_core::Asset;
 use std::collections::HashMap;
 use std::sync::RwLock;
-use atlas_core::Asset;
 use uuid::Uuid;
 
 pub struct Library {
@@ -58,5 +58,11 @@ impl Library {
         if let Ok(mut map) = self.assets.write() {
             map.clear();
         }
+    }
+}
+
+impl Default for Library {
+    fn default() -> Self {
+        Self::new()
     }
 }

@@ -1,5 +1,5 @@
-use std::path::Path;
 use crate::types::FileType;
+use std::path::Path;
 
 pub fn detect(path: &str) -> FileType {
     let p = Path::new(path);

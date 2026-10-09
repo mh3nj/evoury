@@ -21,6 +21,7 @@ impl DiagnosticsCollector {
         Self
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub fn collect(
         &self,
         worker_count: usize,
@@ -45,5 +46,11 @@ impl DiagnosticsCollector {
             power_mode: power_mode.to_string(),
             uptime_seconds,
         }
+    }
+}
+
+impl Default for DiagnosticsCollector {
+    fn default() -> Self {
+        Self::new()
     }
 }

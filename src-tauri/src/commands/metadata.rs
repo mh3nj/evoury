@@ -1,6 +1,6 @@
-use tauri::State;
-use atlas_metadata::AssetMetadata;
 use crate::state::AppState;
+use atlas_metadata::AssetMetadata;
+use tauri::State;
 
 fn save_metadata(state: &AppState) {
     if let Ok(store) = state.metadata_store.lock() {
@@ -34,7 +34,11 @@ pub fn update_metadata(state: State<'_, AppState>, metadata: AssetMetadata) -> R
 }
 
 #[tauri::command]
-pub fn set_tags(state: State<'_, AppState>, asset_id: String, tags: Vec<String>) -> Result<(), String> {
+pub fn set_tags(
+    state: State<'_, AppState>,
+    asset_id: String,
+    tags: Vec<String>,
+) -> Result<(), String> {
     let id = uuid::Uuid::parse_str(&asset_id).map_err(|e| e.to_string())?;
     let mut store = state.metadata_store.lock().map_err(|e| e.to_string())?;
     let mut meta = store.get(&id).cloned().unwrap_or_else(|| AssetMetadata {
@@ -64,7 +68,11 @@ pub fn set_rating(state: State<'_, AppState>, asset_id: String, rating: u8) -> R
 }
 
 #[tauri::command]
-pub fn set_favorite(state: State<'_, AppState>, asset_id: String, favorite: bool) -> Result<(), String> {
+pub fn set_favorite(
+    state: State<'_, AppState>,
+    asset_id: String,
+    favorite: bool,
+) -> Result<(), String> {
     let id = uuid::Uuid::parse_str(&asset_id).map_err(|e| e.to_string())?;
     let mut store = state.metadata_store.lock().map_err(|e| e.to_string())?;
     let mut meta = store.get(&id).cloned().unwrap_or_else(|| AssetMetadata {
@@ -79,7 +87,11 @@ pub fn set_favorite(state: State<'_, AppState>, asset_id: String, favorite: bool
 }
 
 #[tauri::command]
-pub fn set_notes(state: State<'_, AppState>, asset_id: String, notes: String) -> Result<(), String> {
+pub fn set_notes(
+    state: State<'_, AppState>,
+    asset_id: String,
+    notes: String,
+) -> Result<(), String> {
     let id = uuid::Uuid::parse_str(&asset_id).map_err(|e| e.to_string())?;
     let mut store = state.metadata_store.lock().map_err(|e| e.to_string())?;
     let mut meta = store.get(&id).cloned().unwrap_or_else(|| AssetMetadata {

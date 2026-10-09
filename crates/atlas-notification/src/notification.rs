@@ -2,11 +2,27 @@ use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub enum NotificationLevel { Info, Success, Warning, Error }
+pub enum NotificationLevel {
+    Info,
+    Success,
+    Warning,
+    Error,
+}
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum NotificationCategory {
-    Scan, Import, Export, BatchOp, Macro, Health, Maintenance, Pipeline, System, Undo, Metadata, Update,
+    Scan,
+    Import,
+    Export,
+    BatchOp,
+    Macro,
+    Health,
+    Maintenance,
+    Pipeline,
+    System,
+    Undo,
+    Metadata,
+    Update,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -24,7 +40,12 @@ pub struct Notification {
 }
 
 impl Notification {
-    pub fn new(title: &str, message: &str, level: NotificationLevel, category: NotificationCategory) -> Self {
+    pub fn new(
+        title: &str,
+        message: &str,
+        level: NotificationLevel,
+        category: NotificationCategory,
+    ) -> Self {
         Self {
             id: Uuid::new_v4(),
             title: title.to_string(),

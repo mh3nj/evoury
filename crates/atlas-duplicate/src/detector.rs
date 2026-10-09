@@ -1,7 +1,7 @@
-use std::collections::HashMap;
+use crate::group::DuplicateGroup;
 use crate::mode::DetectionMode;
 use crate::signature::FileSignature;
-use crate::group::DuplicateGroup;
+use std::collections::HashMap;
 use uuid::Uuid;
 
 pub struct DuplicateDetector;
@@ -37,7 +37,10 @@ impl DuplicateDetector {
         }
         map.into_values()
             .filter(|ids| ids.len() > 1)
-            .map(|ids| DuplicateGroup { id: Uuid::new_v4(), assets: ids })
+            .map(|ids| DuplicateGroup {
+                id: Uuid::new_v4(),
+                assets: ids,
+            })
             .collect()
     }
 
@@ -52,7 +55,10 @@ impl DuplicateDetector {
         }
         map.into_values()
             .filter(|ids| ids.len() > 1)
-            .map(|ids| DuplicateGroup { id: Uuid::new_v4(), assets: ids })
+            .map(|ids| DuplicateGroup {
+                id: Uuid::new_v4(),
+                assets: ids,
+            })
             .collect()
     }
 
@@ -63,11 +69,17 @@ impl DuplicateDetector {
         }
         map.into_values()
             .filter(|ids| ids.len() > 1)
-            .map(|ids| DuplicateGroup { id: Uuid::new_v4(), assets: ids })
+            .map(|ids| DuplicateGroup {
+                id: Uuid::new_v4(),
+                assets: ids,
+            })
             .collect()
     }
 
-    fn by_filename_and_size(&self, assets: &[(Uuid, String, FileSignature)]) -> Vec<DuplicateGroup> {
+    fn by_filename_and_size(
+        &self,
+        assets: &[(Uuid, String, FileSignature)],
+    ) -> Vec<DuplicateGroup> {
         let mut map: HashMap<(String, u64), Vec<Uuid>> = HashMap::new();
         for (id, name, sig) in assets {
             let stem = std::path::Path::new(name)
@@ -78,7 +90,10 @@ impl DuplicateDetector {
         }
         map.into_values()
             .filter(|ids| ids.len() > 1)
-            .map(|ids| DuplicateGroup { id: Uuid::new_v4(), assets: ids })
+            .map(|ids| DuplicateGroup {
+                id: Uuid::new_v4(),
+                assets: ids,
+            })
             .collect()
     }
 }
@@ -90,13 +105,40 @@ mod tests {
     #[test]
     fn test_exact_hash() {
         let assets = vec![
-            (Uuid::new_v4(), "a.zip".into(), FileSignature { hash: "abc".into(), size: 100 }),
-            (Uuid::new_v4(), "b.zip".into(), FileSignature { hash: "abc".into(), size: 100 }),
-            (Uuid::new_v4(), "c.zip".into(), FileSignature { hash: "def".into(), size: 200 }),
+            (
+                Uuid::new_v4(),
+                "a.zip".into(),
+                FileSignature {
+                    hash: "abc".into(),
+                    size: 100,
+                },
+            ),
+            (
+                Uuid::new_v4(),
+                "b.zip".into(),
+                FileSignature {
+                    hash: "abc".into(),
+                    size: 100,
+                },
+            ),
+            (
+                Uuid::new_v4(),
+                "c.zip".into(),
+                FileSignature {
+                    hash: "def".into(),
+                    size: 200,
+                },
+            ),
         ];
         let d = DuplicateDetector::new();
         let groups = d.detect(&assets, DetectionMode::ExactHash);
         assert_eq!(groups.len(), 1);
         assert_eq!(groups[0].assets.len(), 2);
+    }
+}
+
+impl Default for DuplicateDetector {
+    fn default() -> Self {
+        Self::new()
     }
 }

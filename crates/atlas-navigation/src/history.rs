@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::location::NavLocation;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct NavigationEntry {
@@ -72,6 +72,10 @@ impl NavigationHistory {
 
     pub fn len(&self) -> usize {
         self.entries.len()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.entries.is_empty()
     }
 
     pub fn position(&self) -> usize {

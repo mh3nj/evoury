@@ -9,7 +9,10 @@ pub struct TemplateField {
 
 impl TemplateField {
     pub fn new(name: &str, value: &str) -> Self {
-        Self { name: name.to_string(), value: value.to_string() }
+        Self {
+            name: name.to_string(),
+            value: value.to_string(),
+        }
     }
 }
 

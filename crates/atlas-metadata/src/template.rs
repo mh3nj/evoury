@@ -9,7 +9,9 @@ pub struct TemplateManager {
 
 impl TemplateManager {
     pub fn new() -> Self {
-        Self { templates: Vec::new() }
+        Self {
+            templates: Vec::new(),
+        }
     }
 
     pub fn add_template(&mut self, template: MetadataTemplate) {
@@ -35,7 +37,9 @@ impl TemplateManager {
             }
         }
         for field in &template.custom_fields {
-            metadata.custom_fields.insert(field.name.clone(), field.value.clone());
+            metadata
+                .custom_fields
+                .insert(field.name.clone(), field.value.clone());
         }
         if !template.notes_template.is_empty() {
             metadata.notes = template.notes_template.clone();
@@ -46,5 +50,11 @@ impl TemplateManager {
         if let Some(favorite) = template.favorite {
             metadata.favorite = favorite;
         }
+    }
+}
+
+impl Default for TemplateManager {
+    fn default() -> Self {
+        Self::new()
     }
 }

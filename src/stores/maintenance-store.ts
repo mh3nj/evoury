@@ -19,19 +19,29 @@ export const useMaintenanceStore = create<MaintenanceState>((set) => ({
   running: false,
   loadReports: async () => {
     try {
-      const reports = await invoke<MaintenanceReport[]>("get_maintenance_reports");
+      const reports = await invoke<MaintenanceReport[]>(
+        "get_maintenance_reports",
+      );
       set({ reports });
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   },
   loadSchedule: async () => {
     try {
-      const schedule = await invoke<MaintenanceSchedule>("get_maintenance_schedule");
+      const schedule = await invoke<MaintenanceSchedule>(
+        "get_maintenance_schedule",
+      );
       set({ schedule });
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   },
   runTask: async (taskName) => {
     set({ running: true });
-    const report = await invoke<MaintenanceReport>("run_maintenance", { taskName });
+    const report = await invoke<MaintenanceReport>("run_maintenance", {
+      taskName,
+    });
     set((s) => ({ reports: [...s.reports, report], running: false }));
     return report;
   },

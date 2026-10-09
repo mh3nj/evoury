@@ -159,3 +159,9 @@ impl SavedSearchManager {
             .collect()
     }
 }
+
+impl Default for SavedSearchManager {
+    fn default() -> Self {
+        Self::new()
+    }
+}

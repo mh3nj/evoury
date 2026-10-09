@@ -44,3 +44,9 @@ impl ActivityTracker {
         self.sleep_threshold = Duration::from_secs(secs);
     }
 }
+
+impl Default for ActivityTracker {
+    fn default() -> Self {
+        Self::new()
+    }
+}

@@ -34,7 +34,24 @@ export interface SmartCollection {
 }
 
 export interface SmartRule {
-  field: "Tag" | "Rating" | "Favorite" | "Type" | "Name" | "Notes" | "DateAdded" | "DateModified" | "FileSize";
-  operator: "Equals" | "NotEquals" | "GreaterThan" | "LessThan" | "Contains" | "StartsWith" | "EndsWith" | "InRange";
+  field:
+    | "Tag"
+    | "Rating"
+    | "Favorite"
+    | "Type"
+    | "Name"
+    | "Notes"
+    | "DateAdded"
+    | "DateModified"
+    | "FileSize";
+  operator:
+    | "Equals"
+    | "NotEquals"
+    | "GreaterThan"
+    | "LessThan"
+    | "Contains"
+    | "StartsWith"
+    | "EndsWith"
+    | "InRange";
   value: string;
 }

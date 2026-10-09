@@ -1,6 +1,6 @@
-use rayon::prelude::*;
-use atlas_core::Asset;
 use crate::state::IndexProgress;
+use atlas_core::Asset;
+use rayon::prelude::*;
 
 pub struct Indexer;
 
@@ -10,12 +10,10 @@ impl Indexer {
         F: FnMut(IndexProgress),
     {
         let total = assets.len();
-        let mut completed = 0;
 
         assets.par_iter().for_each(|_| {});
 
-        for _ in 0..total {
-            completed += 1;
+        for completed in 1..=total {
             callback(IndexProgress { total, completed });
         }
     }

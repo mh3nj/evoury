@@ -56,7 +56,14 @@ export default function ContextMenu({ x, y, items, onClose }: Props) {
   const renderItem = (item: ContextMenuItem, i: number) => {
     if (item.divider) {
       return (
-        <div key={i} style={{ height: 1, background: "var(--evoury-border)", margin: "4px 8px" }} />
+        <div
+          key={i}
+          style={{
+            height: 1,
+            background: "var(--evoury-border)",
+            margin: "4px 8px",
+          }}
+        />
       );
     }
     return (
@@ -81,12 +88,36 @@ export default function ContextMenu({ x, y, items, onClose }: Props) {
           cursor: item.disabled ? "not-allowed" : "pointer",
           opacity: item.disabled ? 0.4 : 1,
         }}
-        onMouseEnter={(e) => { e.currentTarget.style.background = "var(--evoury-elevated)"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "var(--evoury-elevated)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "transparent";
+        }}
       >
-        {item.icon && <i className={`fas fa-${item.icon}`} style={{ width: 16, textAlign: "center", fontSize: 12, color: "var(--evoury-text-dim)" }} />}
+        {item.icon && (
+          <i
+            className={`fas fa-${item.icon}`}
+            style={{
+              width: 16,
+              textAlign: "center",
+              fontSize: 12,
+              color: "var(--evoury-text-dim)",
+            }}
+          />
+        )}
         <span style={{ flex: 1 }}>{item.label}</span>
-        {item.shortcut && <span style={{ fontSize: 10, color: "var(--evoury-text-dim)", marginLeft: 16 }}>{item.shortcut}</span>}
+        {item.shortcut && (
+          <span
+            style={{
+              fontSize: 10,
+              color: "var(--evoury-text-dim)",
+              marginLeft: 16,
+            }}
+          >
+            {item.shortcut}
+          </span>
+        )}
       </button>
     );
   };

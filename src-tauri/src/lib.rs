@@ -39,8 +39,8 @@ pub fn run() {
             }
         })
         .on_system_tray_event(|app, event| {
-            match event {
-                SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
+            if let SystemTrayEvent::MenuItemClick { id, .. } = event {
+                match id.as_str() {
                     "show" => {
                         if let Some(window) = app.get_window("main") {
                             let _ = window.show();
@@ -51,8 +51,7 @@ pub fn run() {
                         app.exit(0);
                     }
                     _ => {}
-                },
-                _ => {}
+                }
             }
         })
         .invoke_handler(tauri::generate_handler![

@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
 pub enum CompareMode {
+    #[default]
     SideBySide,
     Overlay,
     Slider,
@@ -40,11 +41,5 @@ impl CompareMode {
             Self::Difference => "fa-eye",
             Self::Blend => "fa-droplet",
         }
-    }
-}
-
-impl Default for CompareMode {
-    fn default() -> Self {
-        Self::SideBySide
     }
 }

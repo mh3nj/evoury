@@ -25,7 +25,9 @@ export const useProjectsStore = create<ProjectsState>((set) => ({
     try {
       const projects = await invoke<Project[]>("get_all_projects");
       set({ projects, loading: false });
-    } catch { set({ loading: false }); }
+    } catch {
+      set({ loading: false });
+    }
   },
   createProject: async (name) => {
     const project = await invoke<Project>("create_project", { name });

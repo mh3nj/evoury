@@ -1,5 +1,5 @@
-use crate::tracker::GpuTracker;
 use crate::texture::TextureHandle;
+use crate::tracker::GpuTracker;
 
 pub struct GpuAllocator;
 

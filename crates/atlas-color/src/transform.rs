@@ -30,6 +30,11 @@ impl ColorTransform {
             (ColorSpace::Srgb, ColorSpace::AdobeRgb) => Self::srgb_to_adobe_rgb(r, g, b),
             _ => (r, g, b),
         };
-        [(nr * 255.0) as u8, (ng * 255.0) as u8, (nb * 255.0) as u8, pixel[3]]
+        [
+            (nr * 255.0) as u8,
+            (ng * 255.0) as u8,
+            (nb * 255.0) as u8,
+            pixel[3],
+        ]
     }
 }

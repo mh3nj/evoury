@@ -1,5 +1,5 @@
-use crate::mode::CompareMode;
 use crate::diff::DiffResult;
+use crate::mode::CompareMode;
 
 pub struct CompareEngine {
     pub mode: CompareMode,
@@ -36,7 +36,13 @@ impl CompareEngine {
         self.zoom = zoom.clamp(0.1, 10.0);
     }
 
-    pub fn diff(&self, _left_pixels: &[u8], _right_pixels: &[u8], _width: u32, _height: u32) -> DiffResult {
+    pub fn diff(
+        &self,
+        _left_pixels: &[u8],
+        _right_pixels: &[u8],
+        _width: u32,
+        _height: u32,
+    ) -> DiffResult {
         DiffResult {
             total_pixels: 0,
             changed_pixels: 0,

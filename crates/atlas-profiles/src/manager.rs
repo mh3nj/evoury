@@ -1,7 +1,7 @@
-use std::collections::HashMap;
-use crate::view::ViewProfileEntry;
 use crate::preview::PreviewProfileEntry;
 use crate::search::SearchProfileEntry;
+use crate::view::ViewProfileEntry;
+use std::collections::HashMap;
 
 #[derive(Debug, Clone, Default)]
 pub struct ProfileManager {

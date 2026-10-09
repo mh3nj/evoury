@@ -1,7 +1,10 @@
-use std::sync::{Arc, Mutex, atomic::{AtomicUsize, Ordering}};
+use crate::queue::JobQueue;
+use std::sync::{
+    atomic::{AtomicUsize, Ordering},
+    Arc, Mutex,
+};
 use std::thread;
 use std::time::Duration;
-use crate::queue::JobQueue;
 
 pub struct Worker;
 
@@ -44,29 +47,27 @@ impl WorkerPool {
             let running = self.running.clone();
             let handles = self.handles.clone();
 
-            let handle = thread::spawn(move || {
-                loop {
-                    {
-                        let is_running = running.lock().unwrap();
-                        if !*is_running {
-                            break;
-                        }
+            let handle = thread::spawn(move || loop {
+                {
+                    let is_running = running.lock().unwrap();
+                    if !*is_running {
+                        break;
                     }
+                }
 
-                    let job = {
-                        let mut q = queue.lock().unwrap();
-                        q.dequeue()
-                    };
+                let job = {
+                    let mut q = queue.lock().unwrap();
+                    q.dequeue()
+                };
 
-                    if let Some(job) = job {
-                        active.fetch_add(1, Ordering::SeqCst);
-                        thread::sleep(Duration::from_millis(10));
-                        let mut q = queue.lock().unwrap();
-                        q.complete(job.id);
-                        active.fetch_sub(1, Ordering::SeqCst);
-                    } else {
-                        thread::sleep(Duration::from_millis(50));
-                    }
+                if let Some(job) = job {
+                    active.fetch_add(1, Ordering::SeqCst);
+                    thread::sleep(Duration::from_millis(10));
+                    let mut q = queue.lock().unwrap();
+                    q.complete(job.id);
+                    active.fetch_sub(1, Ordering::SeqCst);
+                } else {
+                    thread::sleep(Duration::from_millis(50));
                 }
             });
 

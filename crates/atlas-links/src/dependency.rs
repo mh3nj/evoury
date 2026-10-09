@@ -13,10 +13,7 @@ impl DependencyGraph {
     }
 
     pub fn add_dependency(&mut self, asset_id: Uuid, depends_on_id: Uuid) {
-        self.edges
-            .entry(asset_id)
-            .or_default()
-            .push(depends_on_id);
+        self.edges.entry(asset_id).or_default().push(depends_on_id);
     }
 
     pub fn remove_dependency(&mut self, asset_id: &Uuid, depends_on_id: &Uuid) {
@@ -29,10 +26,7 @@ impl DependencyGraph {
     }
 
     pub fn dependencies_of(&self, asset_id: &Uuid) -> Vec<Uuid> {
-        self.edges
-            .get(asset_id)
-            .cloned()
-            .unwrap_or_default()
+        self.edges.get(asset_id).cloned().unwrap_or_default()
     }
 
     pub fn dependents_of(&self, asset_id: &Uuid) -> Vec<Uuid> {
@@ -144,5 +138,11 @@ impl DependencyGraph {
             }
         }
         result.push(node);
+    }
+}
+
+impl Default for DependencyGraph {
+    fn default() -> Self {
+        Self::new()
     }
 }

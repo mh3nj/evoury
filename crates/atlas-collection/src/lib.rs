@@ -7,5 +7,5 @@ pub mod smart_executor;
 pub use collection::Collection;
 pub use manager::CollectionManager;
 pub use settings::{CollectionSettings, PreviewBlendMode};
-pub use smart::{SmartCollection, SmartRule, RuleOperator};
+pub use smart::{RuleOperator, SmartCollection, SmartRule};
 pub use smart_executor::SmartCollectionExecutor;

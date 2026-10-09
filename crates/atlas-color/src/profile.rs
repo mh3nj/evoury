@@ -25,7 +25,10 @@ impl ColorSpace {
     }
 
     pub fn is_wide_gamut(&self) -> bool {
-        matches!(self, Self::AdobeRgb | Self::DisplayP3 | Self::ProPhotoRgb | Self::Rec2020)
+        matches!(
+            self,
+            Self::AdobeRgb | Self::DisplayP3 | Self::ProPhotoRgb | Self::Rec2020
+        )
     }
 }
 

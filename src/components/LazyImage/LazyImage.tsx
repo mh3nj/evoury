@@ -8,7 +8,12 @@ interface Props {
   placeholder?: string;
 }
 
-export default function LazyImage({ src, alt, className = "", placeholder }: Props) {
+export default function LazyImage({
+  src,
+  alt,
+  className = "",
+  placeholder,
+}: Props) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -35,7 +40,7 @@ export default function LazyImage({ src, alt, className = "", placeholder }: Pro
           observer.disconnect();
         }
       },
-      { rootMargin: "200px" }
+      { rootMargin: "200px" },
     );
     observer.observe(imgRef.current);
     return () => observer.disconnect();
@@ -43,11 +48,19 @@ export default function LazyImage({ src, alt, className = "", placeholder }: Pro
 
   if (!assetSrc || error) {
     return (
-      <div className={`flex items-center justify-center ${className}`}
-        style={{ background: "var(--evoury-elevated)" }}>
+      <div
+        className={`flex items-center justify-center ${className}`}
+        style={{ background: "var(--evoury-elevated)" }}
+      >
         <div className="text-center">
-          <i className="fas fa-image text-lg" style={{ color: "var(--evoury-text-dim)" }} />
-          <p className="text-[10px] mt-1" style={{ color: "var(--evoury-border-light)" }}>
+          <i
+            className="fas fa-image text-lg"
+            style={{ color: "var(--evoury-text-dim)" }}
+          />
+          <p
+            className="text-[10px] mt-1"
+            style={{ color: "var(--evoury-border-light)" }}
+          >
             {error ? "Error" : placeholder || "No Preview"}
           </p>
         </div>
@@ -56,11 +69,19 @@ export default function LazyImage({ src, alt, className = "", placeholder }: Pro
   }
 
   return (
-    <div className={`relative ${className}`} style={{ background: "var(--evoury-elevated)" }}>
+    <div
+      className={`relative ${className}`}
+      style={{ background: "var(--evoury-elevated)" }}
+    >
       {!loaded && (
-        <div className="absolute inset-0 flex items-center justify-center"
-          style={{ background: "var(--evoury-elevated)" }}>
-          <div className="panel-shimmer" style={{ position: "absolute", inset: 0 }} />
+        <div
+          className="absolute inset-0 flex items-center justify-center"
+          style={{ background: "var(--evoury-elevated)" }}
+        >
+          <div
+            className="panel-shimmer"
+            style={{ position: "absolute", inset: 0 }}
+          />
         </div>
       )}
       <img

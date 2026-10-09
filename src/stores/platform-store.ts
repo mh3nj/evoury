@@ -80,14 +80,18 @@ export const usePlatformStore = create<PlatformState>((set) => ({
         invoke<number[]>("get_db_pending_migrations"),
       ]);
       set({ migrations, pendingMigrations: pending });
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   },
 
   loadPlugins: async () => {
     try {
       const plugins = await invoke<PluginManifest[]>("get_plugins");
       set({ plugins });
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   },
 
   unregisterPlugin: async (id) => {
@@ -99,21 +103,27 @@ export const usePlatformStore = create<PlatformState>((set) => ({
     try {
       const crashReports = await invoke<CrashReport[]>("get_crash_reports");
       set({ crashReports });
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   },
 
   loadSystemInfo: async () => {
     try {
       const systemInfo = await invoke<SystemInfo>("get_system_info");
       set({ systemInfo });
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   },
 
   loadBackups: async () => {
     try {
       const backups = await invoke<string[]>("list_backups");
       set({ backups });
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   },
 
   createBackup: async (name, contents) => {
@@ -138,6 +148,9 @@ export const usePlatformStore = create<PlatformState>((set) => ({
   },
 
   reportCrash: async (message, kind) => {
-    return invoke<string>("report_crash", { errorMessage: message, errorKind: kind });
+    return invoke<string>("report_crash", {
+      errorMessage: message,
+      errorKind: kind,
+    });
   },
 }));

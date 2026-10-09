@@ -1,7 +1,7 @@
-use serde::{Deserialize, Serialize};
 use crate::interaction::InteractionPreference;
 use crate::performance::PerformancePreference;
 use crate::view::ViewPreference;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]

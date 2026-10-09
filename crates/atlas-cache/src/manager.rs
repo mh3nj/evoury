@@ -1,6 +1,6 @@
-use std::path::PathBuf;
-use crate::thumbnail::ThumbnailCache;
 use crate::entry::CacheEntry;
+use crate::thumbnail::ThumbnailCache;
+use std::path::PathBuf;
 
 pub struct CacheManager {
     thumbnail_cache: ThumbnailCache,

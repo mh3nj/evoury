@@ -1,6 +1,6 @@
-use std::collections::HashMap;
-use crate::state::{AnimationState, MotionPreference};
 use crate::preset::AnimationPreset;
+use crate::state::{AnimationState, MotionPreference};
+use std::collections::HashMap;
 
 #[derive(Debug, Clone)]
 pub struct AnimationManager {
@@ -35,7 +35,11 @@ impl AnimationManager {
     }
 
     pub fn effective_duration(&self, preset_id: &str) -> u32 {
-        let base = self.presets.get(preset_id).map(|p| p.duration_ms).unwrap_or(200);
+        let base = self
+            .presets
+            .get(preset_id)
+            .map(|p| p.duration_ms)
+            .unwrap_or(200);
         (base as f32 * self.state.speed_multiplier) as u32
     }
 
@@ -50,5 +54,11 @@ impl AnimationManager {
 
     pub fn should_animate(&self) -> bool {
         self.state.enabled && self.state.motion_preference != MotionPreference::Reduced
+    }
+}
+
+impl Default for AnimationManager {
+    fn default() -> Self {
+        Self::new()
     }
 }

@@ -1,6 +1,6 @@
+use atlas_core::{Deliverable, DeliverableStatus, Project, ProjectNote};
 use std::collections::HashMap;
 use uuid::Uuid;
-use atlas_core::{Project, ProjectNote, Deliverable, DeliverableStatus};
 
 pub struct ProjectManager {
     projects: HashMap<Uuid, Project>,
@@ -50,7 +50,10 @@ impl ProjectManager {
         icon: Option<&str>,
         color: Option<&str>,
     ) -> Result<(), String> {
-        let project = self.projects.get_mut(id).ok_or_else(|| format!("Project with id {id} not found"))?;
+        let project = self
+            .projects
+            .get_mut(id)
+            .ok_or_else(|| format!("Project with id {id} not found"))?;
         if let Some(v) = name {
             project.name = v.to_string();
         }
@@ -73,15 +76,29 @@ impl ProjectManager {
 
     // ── Asset management ───────────────────────────────────
 
-    pub fn add_asset_to_project(&mut self, project_id: &Uuid, asset_id: Uuid) -> Result<(), String> {
-        let project = self.projects.get_mut(project_id).ok_or_else(|| format!("Project with id {project_id} not found"))?;
+    pub fn add_asset_to_project(
+        &mut self,
+        project_id: &Uuid,
+        asset_id: Uuid,
+    ) -> Result<(), String> {
+        let project = self
+            .projects
+            .get_mut(project_id)
+            .ok_or_else(|| format!("Project with id {project_id} not found"))?;
         project.asset_ids.push(asset_id);
         project.updated_at = chrono::Utc::now();
         Ok(())
     }
 
-    pub fn remove_asset_from_project(&mut self, project_id: &Uuid, asset_id: &Uuid) -> Result<(), String> {
-        let project = self.projects.get_mut(project_id).ok_or_else(|| format!("Project with id {project_id} not found"))?;
+    pub fn remove_asset_from_project(
+        &mut self,
+        project_id: &Uuid,
+        asset_id: &Uuid,
+    ) -> Result<(), String> {
+        let project = self
+            .projects
+            .get_mut(project_id)
+            .ok_or_else(|| format!("Project with id {project_id} not found"))?;
         let len_before = project.asset_ids.len();
         project.asset_ids.retain(|id| id != asset_id);
         if project.asset_ids.len() == len_before {
@@ -99,13 +116,23 @@ impl ProjectManager {
     }
 
     pub fn find_project_for_asset(&self, asset_id: &Uuid) -> Option<&Project> {
-        self.projects.values().find(|p| p.asset_ids.contains(asset_id))
+        self.projects
+            .values()
+            .find(|p| p.asset_ids.contains(asset_id))
     }
 
     // ── Notes ──────────────────────────────────────────────
 
-    pub fn add_note(&mut self, project_id: &Uuid, title: &str, content: &str) -> Result<ProjectNote, String> {
-        let project = self.projects.get_mut(project_id).ok_or_else(|| format!("Project with id {project_id} not found"))?;
+    pub fn add_note(
+        &mut self,
+        project_id: &Uuid,
+        title: &str,
+        content: &str,
+    ) -> Result<ProjectNote, String> {
+        let project = self
+            .projects
+            .get_mut(project_id)
+            .ok_or_else(|| format!("Project with id {project_id} not found"))?;
         let note = ProjectNote {
             id: Uuid::new_v4(),
             title: title.to_string(),
@@ -126,7 +153,10 @@ impl ProjectManager {
         content: Option<&str>,
         pinned: Option<bool>,
     ) -> Result<(), String> {
-        let project = self.projects.get_mut(project_id).ok_or_else(|| format!("Project with id {project_id} not found"))?;
+        let project = self
+            .projects
+            .get_mut(project_id)
+            .ok_or_else(|| format!("Project with id {project_id} not found"))?;
         let note = project
             .notes
             .iter_mut()
@@ -146,7 +176,10 @@ impl ProjectManager {
     }
 
     pub fn remove_note(&mut self, project_id: &Uuid, note_id: &Uuid) -> Result<(), String> {
-        let project = self.projects.get_mut(project_id).ok_or_else(|| format!("Project with id {project_id} not found"))?;
+        let project = self
+            .projects
+            .get_mut(project_id)
+            .ok_or_else(|| format!("Project with id {project_id} not found"))?;
         let len_before = project.notes.len();
         project.notes.retain(|n| n.id != *note_id);
         if project.notes.len() == len_before {
@@ -165,8 +198,16 @@ impl ProjectManager {
 
     // ── Deliverables ───────────────────────────────────────
 
-    pub fn add_deliverable(&mut self, project_id: &Uuid, name: &str, description: &str) -> Result<Deliverable, String> {
-        let project = self.projects.get_mut(project_id).ok_or_else(|| format!("Project with id {project_id} not found"))?;
+    pub fn add_deliverable(
+        &mut self,
+        project_id: &Uuid,
+        name: &str,
+        description: &str,
+    ) -> Result<Deliverable, String> {
+        let project = self
+            .projects
+            .get_mut(project_id)
+            .ok_or_else(|| format!("Project with id {project_id} not found"))?;
         let deliverable = Deliverable {
             id: Uuid::new_v4(),
             name: name.to_string(),
@@ -187,7 +228,10 @@ impl ProjectManager {
         deliverable_id: &Uuid,
         status: DeliverableStatus,
     ) -> Result<(), String> {
-        let project = self.projects.get_mut(project_id).ok_or_else(|| format!("Project with id {project_id} not found"))?;
+        let project = self
+            .projects
+            .get_mut(project_id)
+            .ok_or_else(|| format!("Project with id {project_id} not found"))?;
         let d = project
             .deliverables
             .iter_mut()
@@ -204,7 +248,10 @@ impl ProjectManager {
         deliverable_id: &Uuid,
         asset_id: Uuid,
     ) -> Result<(), String> {
-        let project = self.projects.get_mut(project_id).ok_or_else(|| format!("Project with id {project_id} not found"))?;
+        let project = self
+            .projects
+            .get_mut(project_id)
+            .ok_or_else(|| format!("Project with id {project_id} not found"))?;
         let d = project
             .deliverables
             .iter_mut()
@@ -215,8 +262,15 @@ impl ProjectManager {
         Ok(())
     }
 
-    pub fn remove_deliverable(&mut self, project_id: &Uuid, deliverable_id: &Uuid) -> Result<(), String> {
-        let project = self.projects.get_mut(project_id).ok_or_else(|| format!("Project with id {project_id} not found"))?;
+    pub fn remove_deliverable(
+        &mut self,
+        project_id: &Uuid,
+        deliverable_id: &Uuid,
+    ) -> Result<(), String> {
+        let project = self
+            .projects
+            .get_mut(project_id)
+            .ok_or_else(|| format!("Project with id {project_id} not found"))?;
         let len_before = project.deliverables.len();
         project.deliverables.retain(|d| d.id != *deliverable_id);
         if project.deliverables.len() == len_before {
@@ -233,10 +287,19 @@ impl ProjectManager {
             .unwrap_or_default()
     }
 
-    pub fn deliverables_by_status(&self, project_id: &Uuid, status: &DeliverableStatus) -> Vec<&Deliverable> {
+    pub fn deliverables_by_status(
+        &self,
+        project_id: &Uuid,
+        status: &DeliverableStatus,
+    ) -> Vec<&Deliverable> {
         self.projects
             .get(project_id)
-            .map(|p| p.deliverables.iter().filter(|d| d.status == *status).collect())
+            .map(|p| {
+                p.deliverables
+                    .iter()
+                    .filter(|d| d.status == *status)
+                    .collect()
+            })
             .unwrap_or_default()
     }
 }

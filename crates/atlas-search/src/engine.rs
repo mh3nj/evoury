@@ -1,7 +1,7 @@
-use atlas_core::Asset;
-use atlas_metadata::AssetMetadata;
 use crate::query::{SearchQuery, SortField};
 use crate::result::SearchResult;
+use atlas_core::Asset;
+use atlas_metadata::AssetMetadata;
 
 pub struct SearchEngine;
 
@@ -11,10 +11,8 @@ impl SearchEngine {
         metadata: &[AssetMetadata],
         query: &SearchQuery,
     ) -> Vec<SearchResult> {
-        let meta_map: std::collections::HashMap<_, _> = metadata
-            .iter()
-            .map(|m| (m.asset_id, m))
-            .collect();
+        let meta_map: std::collections::HashMap<_, _> =
+            metadata.iter().map(|m| (m.asset_id, m)).collect();
 
         let mut results: Vec<SearchResult> = Vec::new();
 
@@ -125,7 +123,7 @@ impl SearchEngine {
         score
     }
 
-    fn sort_results(results: &mut Vec<SearchResult>, query: &SearchQuery) {
+    fn sort_results(results: &mut [SearchResult], query: &SearchQuery) {
         match query.sort {
             SortField::Score => {
                 if query.sort_desc {

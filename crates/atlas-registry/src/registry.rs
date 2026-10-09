@@ -1,6 +1,6 @@
-use std::collections::HashMap;
-use atlas_core::Capability;
 use crate::{Provider, ProviderKind};
+use atlas_core::Capability;
+use std::collections::HashMap;
 
 #[derive(Debug, Clone)]
 pub struct RegistryEntry {
@@ -44,7 +44,10 @@ impl Registry {
     }
 
     pub fn get_providers_by_kind(&self, kind: &ProviderKind) -> Vec<&Provider> {
-        self.by_kind.get(kind).map(|v| v.iter().collect()).unwrap_or_default()
+        self.by_kind
+            .get(kind)
+            .map(|v| v.iter().collect())
+            .unwrap_or_default()
     }
 
     pub fn get_provider(&self, id: &str) -> Option<&Provider> {
@@ -68,5 +71,11 @@ impl Registry {
             providers: self.by_id.values().cloned().collect(),
             capabilities: self.capabilities.clone(),
         }
+    }
+}
+
+impl Default for Registry {
+    fn default() -> Self {
+        Self::new()
     }
 }

@@ -6,6 +6,6 @@ pub mod validator;
 
 pub use entry::CacheEntry;
 pub use manager::CacheManager;
-pub use progressive::{ProgressiveLevel, ProgressivePipeline, LevelImage};
-pub use thumbnail::{ThumbnailCache, ThumbnailSize, ThumbnailEntry};
+pub use progressive::{LevelImage, ProgressiveLevel, ProgressivePipeline};
+pub use thumbnail::{ThumbnailCache, ThumbnailEntry, ThumbnailSize};
 pub use validator::CacheValidator;

@@ -1,6 +1,6 @@
-use uuid::Uuid;
 use crate::preview::PreviewDescriptor;
 use crate::state::PreviewStatus;
+use uuid::Uuid;
 
 #[derive(Debug, Clone)]
 pub struct ProviderOutput {
@@ -26,16 +26,21 @@ pub struct PreviewProviderRegistry {
 
 impl PreviewProviderRegistry {
     pub fn new() -> Self {
-        Self { providers: Vec::new() }
+        Self {
+            providers: Vec::new(),
+        }
     }
 
     pub fn register(&mut self, provider: Box<dyn PreviewProvider>) {
         self.providers.push(provider);
     }
 
-    pub fn find_provider(&self, asset_id: &Uuid, extension: &str) -> Option<&Box<dyn PreviewProvider>> {
-        let mut candidates: Vec<&Box<dyn PreviewProvider>> = self.providers.iter()
+    pub fn find_provider(&self, asset_id: &Uuid, extension: &str) -> Option<&dyn PreviewProvider> {
+        let mut candidates: Vec<&dyn PreviewProvider> = self
+            .providers
+            .iter()
             .filter(|p| p.can_handle(asset_id, extension))
+            .map(|p| p.as_ref())
             .collect();
         candidates.sort_by_key(|p| std::cmp::Reverse(p.priority()));
         candidates.into_iter().next()
@@ -49,9 +54,14 @@ impl PreviewProviderRegistry {
 pub struct DefaultImageProvider;
 
 impl PreviewProvider for DefaultImageProvider {
-    fn name(&self) -> &str { "Default Image Provider" }
+    fn name(&self) -> &str {
+        "Default Image Provider"
+    }
     fn can_handle(&self, _asset_id: &Uuid, extension: &str) -> bool {
-        matches!(extension.to_lowercase().as_str(), "png" | "jpg" | "jpeg" | "webp" | "avif" | "bmp" | "gif")
+        matches!(
+            extension.to_lowercase().as_str(),
+            "png" | "jpg" | "jpeg" | "webp" | "avif" | "bmp" | "gif"
+        )
     }
     fn generate(&self, _asset_id: &Uuid, file_path: &str) -> Result<ProviderOutput, String> {
         Ok(ProviderOutput {
@@ -67,7 +77,17 @@ impl PreviewProvider for DefaultImageProvider {
         })
     }
     fn supported_extensions(&self) -> Vec<String> {
-        vec!["png".into(), "jpg".into(), "jpeg".into(), "webp".into(), "avif".into(), "bmp".into(), "gif".into()]
+        vec![
+            "png".into(),
+            "jpg".into(),
+            "jpeg".into(),
+            "webp".into(),
+            "avif".into(),
+            "bmp".into(),
+            "gif".into(),
+        ]
     }
-    fn priority(&self) -> u8 { 0 }
+    fn priority(&self) -> u8 {
+        0
+    }
 }

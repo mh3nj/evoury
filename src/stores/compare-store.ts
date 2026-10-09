@@ -1,6 +1,15 @@
 import { create } from "zustand";
 
-export type CompareMode = "side-by-side" | "overlay" | "slider" | "diff" | "swipe" | "split" | "toggle" | "difference" | "blend";
+export type CompareMode =
+  | "side-by-side"
+  | "overlay"
+  | "slider"
+  | "diff"
+  | "swipe"
+  | "split"
+  | "toggle"
+  | "difference"
+  | "blend";
 
 interface CompareState {
   open: boolean;
@@ -31,10 +40,19 @@ export const useCompareStore = create<CompareState>((set, get) => ({
   linkedPan: true,
   synchronizedZoom: true,
 
-  openCompare: (left, right) => set({ open: true, leftAssetId: left, rightAssetId: right, sliderPosition: 0.5, zoom: 1 }),
-  closeCompare: () => set({ open: false, leftAssetId: null, rightAssetId: null }),
+  openCompare: (left, right) =>
+    set({
+      open: true,
+      leftAssetId: left,
+      rightAssetId: right,
+      sliderPosition: 0.5,
+      zoom: 1,
+    }),
+  closeCompare: () =>
+    set({ open: false, leftAssetId: null, rightAssetId: null }),
   setMode: (mode) => set({ mode }),
-  setSliderPosition: (pos) => set({ sliderPosition: Math.max(0, Math.min(1, pos)) }),
+  setSliderPosition: (pos) =>
+    set({ sliderPosition: Math.max(0, Math.min(1, pos)) }),
   setZoom: (zoom) => set({ zoom: Math.max(0.1, Math.min(10, zoom)) }),
   setLinkedPan: (linkedPan) => set({ linkedPan }),
   setSynchronizedZoom: (synchronizedZoom) => set({ synchronizedZoom }),

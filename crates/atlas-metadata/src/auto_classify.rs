@@ -23,8 +23,14 @@ impl AutoClassifier {
         self.rules.iter().collect()
     }
 
-    pub fn classify(&self, _name: &str, mime_type: Option<&str>, extension: Option<&str>) -> Vec<&AutoClassifyRule> {
-        let mut matched: Vec<&AutoClassifyRule> = self.rules
+    pub fn classify(
+        &self,
+        _name: &str,
+        mime_type: Option<&str>,
+        extension: Option<&str>,
+    ) -> Vec<&AutoClassifyRule> {
+        let mut matched: Vec<&AutoClassifyRule> = self
+            .rules
             .iter()
             .filter(|rule| {
                 if let Some(ext) = extension {
@@ -40,11 +46,17 @@ impl AutoClassifier {
                 false
             })
             .collect();
-        matched.sort_by(|a, b| b.priority.cmp(&a.priority));
+        matched.sort_by_key(|r| std::cmp::Reverse(r.priority));
         matched
     }
 
     pub fn set_rules(&mut self, rules: Vec<AutoClassifyRule>) {
         self.rules = rules;
+    }
+}
+
+impl Default for AutoClassifier {
+    fn default() -> Self {
+        Self::new()
     }
 }

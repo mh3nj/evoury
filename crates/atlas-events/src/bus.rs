@@ -1,5 +1,5 @@
-use crossbeam_channel::{Receiver, Sender, unbounded};
 use crate::AtlasEvent;
+use crossbeam_channel::{unbounded, Receiver, Sender};
 
 pub struct EventBus {
     sender: Sender<AtlasEvent>,
@@ -18,5 +18,11 @@ impl EventBus {
 
     pub fn subscribe(&self) -> Receiver<AtlasEvent> {
         self.receiver.clone()
+    }
+}
+
+impl Default for EventBus {
+    fn default() -> Self {
+        Self::new()
     }
 }

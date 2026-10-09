@@ -5,7 +5,11 @@ import type { ActivityEvent } from "../types";
 interface ActivityState {
   events: ActivityEvent[];
   loading: boolean;
-  record: (assetId: string, eventType: string, details: string) => Promise<ActivityEvent>;
+  record: (
+    assetId: string,
+    eventType: string,
+    details: string,
+  ) => Promise<ActivityEvent>;
   getForAsset: (assetId: string, limit?: number) => Promise<ActivityEvent[]>;
   getRecent: (hours?: number) => Promise<ActivityEvent[]>;
   getMostViewed: (limit?: number) => Promise<[string, number][]>;
@@ -15,7 +19,11 @@ export const useActivityStore = create<ActivityState>(() => ({
   events: [],
   loading: false,
   record: async (assetId, eventType, details) => {
-    return invoke<ActivityEvent>("record_activity", { assetId, eventType, details });
+    return invoke<ActivityEvent>("record_activity", {
+      assetId,
+      eventType,
+      details,
+    });
   },
   getForAsset: async (assetId, limit = 50) => {
     return invoke<ActivityEvent[]>("get_asset_activity", { assetId, limit });

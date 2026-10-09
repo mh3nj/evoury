@@ -1,5 +1,5 @@
-use rusqlite::{Connection, Result as SqlResult};
 use crate::migrations::ALL_MIGRATIONS;
+use rusqlite::{Connection, Result as SqlResult};
 
 pub struct MigrationRunner;
 
@@ -10,7 +10,7 @@ impl MigrationRunner {
                 version INTEGER PRIMARY KEY,
                 name TEXT NOT NULL,
                 applied_at TEXT NOT NULL
-            );"
+            );",
         )?;
 
         let applied: Vec<u32> = {
@@ -58,7 +58,9 @@ impl MigrationRunner {
 
     pub fn applied_versions(conn: &Connection) -> SqlResult<Vec<(u32, String)>> {
         let mut stmt = conn.prepare("SELECT version, name FROM _migrations ORDER BY version")?;
-        let rows = stmt.query_map([], |row| Ok((row.get::<_, u32>(0)?, row.get::<_, String>(1)?)))?;
+        let rows = stmt.query_map([], |row| {
+            Ok((row.get::<_, u32>(0)?, row.get::<_, String>(1)?))
+        })?;
         rows.collect()
     }
 }
@@ -81,7 +83,10 @@ mod tests {
         let conn = connection::open_in_memory().unwrap();
         MigrationRunner::run(&conn).unwrap();
         let ran_again = MigrationRunner::run(&conn).unwrap();
-        assert!(ran_again.is_empty(), "second run should not apply any migrations");
+        assert!(
+            ran_again.is_empty(),
+            "second run should not apply any migrations"
+        );
     }
 
     #[test]

@@ -41,8 +41,14 @@ export default function FocusMode({ children }: Props) {
           fontSize: 14,
           transition: "all 0.15s ease",
         }}
-        onMouseEnter={(e) => { e.currentTarget.style.background = "var(--evoury-elevated)"; e.currentTarget.style.color = "var(--evoury-text)"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.background = "var(--evoury-surface)"; e.currentTarget.style.color = "var(--evoury-text-dim)"; }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "var(--evoury-elevated)";
+          e.currentTarget.style.color = "var(--evoury-text)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "var(--evoury-surface)";
+          e.currentTarget.style.color = "var(--evoury-text-dim)";
+        }}
         title="Exit Focus Mode (Ctrl+Shift+F)"
       >
         <i className="fas fa-compress" />

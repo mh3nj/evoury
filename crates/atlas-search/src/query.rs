@@ -49,20 +49,36 @@ pub fn parse_query(input: &str) -> SearchQuery {
                 "collection" | "col" => query.collection = Some(value.to_string()),
                 "category" | "cat" => query.category = Some(value.to_string()),
                 "type" | "filetype" | "ext" => query.file_type = Some(value.to_string()),
-                "favorite" | "fav" => query.favorite_only = value.eq_ignore_ascii_case("true") || value == "1",
+                "favorite" | "fav" => {
+                    query.favorite_only = value.eq_ignore_ascii_case("true") || value == "1"
+                }
                 "rating" | "rate" | "stars" => {
                     if let Ok(r) = value.parse::<u8>() {
                         query.min_rating = r.min(5);
                     }
                 }
                 "sort" => match value.to_lowercase().as_str() {
-                    "name" | "alpha" => { query.sort = SortField::Name; }
-                    "rating" | "stars" => { query.sort = SortField::Rating; }
-                    "date" | "modified" | "age" => { query.sort = SortField::Date; }
-                    "size" => { query.sort = SortField::Size; }
-                    "score" | "relevance" => { query.sort = SortField::Score; }
-                    "asc" => { query.sort_desc = false; }
-                    "desc" => { query.sort_desc = true; }
+                    "name" | "alpha" => {
+                        query.sort = SortField::Name;
+                    }
+                    "rating" | "stars" => {
+                        query.sort = SortField::Rating;
+                    }
+                    "date" | "modified" | "age" => {
+                        query.sort = SortField::Date;
+                    }
+                    "size" => {
+                        query.sort = SortField::Size;
+                    }
+                    "score" | "relevance" => {
+                        query.sort = SortField::Score;
+                    }
+                    "asc" => {
+                        query.sort_desc = false;
+                    }
+                    "desc" => {
+                        query.sort_desc = true;
+                    }
                     _ => {}
                 },
                 _ => query.text.push(token.to_string()),
@@ -89,17 +105,29 @@ pub fn suggest_completions(input: &str) -> Vec<String> {
         ];
     }
 
-    let fields = ["type:", "tag:", "rating:", "favorite:", "collection:", "category:", "sort:"];
+    let fields = [
+        "type:",
+        "tag:",
+        "rating:",
+        "favorite:",
+        "collection:",
+        "category:",
+        "sort:",
+    ];
     fields
         .iter()
         .filter(|f| f.starts_with(input) || input.starts_with(&f[..f.len().saturating_sub(1)]))
         .map(|f| {
             if let Some((_key, val)) = input.split_once(':') {
                 if input.starts_with("type:") {
-                    return format!("type:{}{}", val, ["zip", "rar", "7z", "tar", "avif", "png", "jpg"]
-                        .iter()
-                        .find(|s| s.starts_with(val))
-                        .unwrap_or(&val));
+                    return format!(
+                        "type:{}{}",
+                        val,
+                        ["zip", "rar", "7z", "tar", "avif", "png", "jpg"]
+                            .iter()
+                            .find(|s| s.starts_with(val))
+                            .unwrap_or(&val)
+                    );
                 }
                 if input.starts_with("tag:") || input.starts_with("tags:") {
                     return input.to_string();

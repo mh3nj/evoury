@@ -37,7 +37,9 @@ impl Default for MaintenanceSchedule {
             interval_hours: 24,
             tasks: vec![
                 MaintenanceTask::VacuumOrphanedMetadata,
-                MaintenanceTask::PruneActivityLog { older_than_days: 90 },
+                MaintenanceTask::PruneActivityLog {
+                    older_than_days: 90,
+                },
                 MaintenanceTask::CompactCache,
             ],
         }
@@ -51,7 +53,10 @@ pub struct MaintenanceEngine {
 
 impl MaintenanceEngine {
     pub fn new() -> Self {
-        Self { reports: Vec::new(), schedule: MaintenanceSchedule::default() }
+        Self {
+            reports: Vec::new(),
+            schedule: MaintenanceSchedule::default(),
+        }
     }
 
     pub fn run_task(&mut self, task: &MaintenanceTask) -> MaintenanceReport {
@@ -85,11 +90,28 @@ impl MaintenanceEngine {
         tasks.iter().map(|t| self.run_task(t)).collect()
     }
 
-    pub fn schedule(&self) -> &MaintenanceSchedule { &self.schedule }
-    pub fn schedule_mut(&mut self) -> &mut MaintenanceSchedule { &mut self.schedule }
-    pub fn reports(&self) -> &Vec<MaintenanceReport> { &self.reports }
-    pub fn last_report(&self) -> Option<&MaintenanceReport> { self.reports.last() }
+    pub fn schedule(&self) -> &MaintenanceSchedule {
+        &self.schedule
+    }
+    pub fn schedule_mut(&mut self) -> &mut MaintenanceSchedule {
+        &mut self.schedule
+    }
+    pub fn reports(&self) -> &Vec<MaintenanceReport> {
+        &self.reports
+    }
+    pub fn last_report(&self) -> Option<&MaintenanceReport> {
+        self.reports.last()
+    }
     pub fn reports_since(&self, since: &chrono::DateTime<chrono::Utc>) -> Vec<&MaintenanceReport> {
-        self.reports.iter().filter(|r| r.completed_at > *since).collect()
+        self.reports
+            .iter()
+            .filter(|r| r.completed_at > *since)
+            .collect()
+    }
+}
+
+impl Default for MaintenanceEngine {
+    fn default() -> Self {
+        Self::new()
     }
 }

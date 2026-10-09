@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::easing::EasingFunction;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AnimationPreset {
@@ -61,20 +61,25 @@ impl AnimationPreset {
             id: "spring".into(),
             name: "Spring".into(),
             duration_ms: 400,
-            easing: EasingFunction::Spring { stiffness: 0.5, damping: 0.7 },
+            easing: EasingFunction::Spring {
+                stiffness: 0.5,
+                damping: 0.7,
+            },
             delay_ms: 0,
             property: "transform".into(),
         }
     }
 
     pub fn staggered(items: usize) -> Vec<Self> {
-        (0..items).map(|i| Self {
-            id: format!("stagger-{}", i),
-            name: format!("Stagger {}", i + 1),
-            duration_ms: 200,
-            easing: EasingFunction::EaseOutCubic,
-            delay_ms: (i as u32) * 50,
-            property: "all".into(),
-        }).collect()
+        (0..items)
+            .map(|i| Self {
+                id: format!("stagger-{}", i),
+                name: format!("Stagger {}", i + 1),
+                duration_ms: 200,
+                easing: EasingFunction::EaseOutCubic,
+                delay_ms: (i as u32) * 50,
+                property: "all".into(),
+            })
+            .collect()
     }
 }

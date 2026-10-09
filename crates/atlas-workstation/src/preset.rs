@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::roles::WorkstationRole;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WorkstationPreset {
@@ -26,8 +26,12 @@ impl WorkstationPreset {
             role: WorkstationRole::LogoDesign,
             description: "Optimized for logo files, brand assets, and vector graphics".into(),
             default_sidebar_sections: vec![
-                "libraries".into(), "collections".into(), "smart_collections".into(),
-                "tags".into(), "history".into(), "trash".into(),
+                "libraries".into(),
+                "collections".into(),
+                "smart_collections".into(),
+                "tags".into(),
+                "history".into(),
+                "trash".into(),
             ],
             default_view_profile: "grid".into(),
             default_search_profile: "logo-design".into(),
@@ -36,7 +40,8 @@ impl WorkstationPreset {
             default_sort_field: "name".into(),
             default_sort_direction: "asc".into(),
             enabled_filters: vec!["type".into(), "tags".into(), "rating".into(), "date".into()],
-            welcome_message: "Welcome to Logo Design mode. Browse your brand assets organized by project.".into(),
+            welcome_message:
+                "Welcome to Logo Design mode. Browse your brand assets organized by project.".into(),
         }
     }
 
@@ -46,9 +51,7 @@ impl WorkstationPreset {
             name: "Packaging".into(),
             role: WorkstationRole::Packaging,
             description: "Layout for packaging mockups, dielines, and print assets".into(),
-            default_sidebar_sections: vec![
-                "libraries".into(), "collections".into(), "tags".into(),
-            ],
+            default_sidebar_sections: vec!["libraries".into(), "collections".into(), "tags".into()],
             default_view_profile: "grid".into(),
             default_search_profile: "packaging".into(),
             default_preview_profile: "mockup".into(),
@@ -67,7 +70,9 @@ impl WorkstationPreset {
             role: WorkstationRole::UiDesign,
             description: "Perfect for UI kits, icons, screenshots, and design system assets".into(),
             default_sidebar_sections: vec![
-                "collections".into(), "smart_collections".into(), "tags".into(),
+                "collections".into(),
+                "smart_collections".into(),
+                "tags".into(),
             ],
             default_view_profile: "compact-grid".into(),
             default_search_profile: "ui-design".into(),
@@ -75,7 +80,12 @@ impl WorkstationPreset {
             default_thumbnail_size: 200,
             default_sort_field: "name".into(),
             default_sort_direction: "asc".into(),
-            enabled_filters: vec!["type".into(), "tags".into(), "rating".into(), "favorite".into()],
+            enabled_filters: vec![
+                "type".into(),
+                "tags".into(),
+                "rating".into(),
+                "favorite".into(),
+            ],
             welcome_message: "UI Design mode loaded. Your design system assets at a glance.".into(),
         }
     }
@@ -104,9 +114,7 @@ impl WorkstationPreset {
             name: "Archival".into(),
             role: WorkstationRole::Archival,
             description: "Focus on metadata, version history, and file organization".into(),
-            default_sidebar_sections: vec![
-                "libraries".into(), "history".into(), "trash".into(),
-            ],
+            default_sidebar_sections: vec!["libraries".into(), "history".into(), "trash".into()],
             default_view_profile: "list".into(),
             default_search_profile: "archival".into(),
             default_preview_profile: "detailed".into(),

@@ -25,6 +25,12 @@ export interface Deliverable {
   description: string;
   path: string | null;
   asset_id: string | null;
-  status: "Planned" | "InProgress" | "Review" | "Approved" | "Delivered" | "Cancelled";
+  status:
+    | "Planned"
+    | "InProgress"
+    | "Review"
+    | "Approved"
+    | "Delivered"
+    | "Cancelled";
   due_date: string | null;
 }

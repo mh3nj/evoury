@@ -1,6 +1,6 @@
+use crate::icc::IccProfile;
 use crate::profile::{ColorSpace, DisplayColorSpace};
 use crate::transform::ColorTransform;
-use crate::icc::IccProfile;
 
 #[derive(Debug, Clone)]
 pub struct ColorManager {
@@ -42,5 +42,11 @@ impl ColorManager {
             _ => ColorSpace::Srgb,
         };
         ColorTransform::convert(pixel, source, target)
+    }
+}
+
+impl Default for ColorManager {
+    fn default() -> Self {
+        Self::new()
     }
 }

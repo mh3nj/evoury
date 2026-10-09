@@ -1,8 +1,8 @@
+use crate::state::AppState;
+use atlas_health::{DiagnosticsCollector, DiagnosticsSnapshot};
+use std::sync::Mutex;
 use std::time::Instant;
 use tauri::State;
-use std::sync::Mutex;
-use atlas_health::{DiagnosticsCollector, DiagnosticsSnapshot};
-use crate::state::AppState;
 
 static START_TIME: Mutex<Option<Instant>> = Mutex::new(None);
 
@@ -32,16 +32,28 @@ pub fn get_version() -> String {
 pub fn get_diagnostics(state: State<'_, AppState>) -> Result<DiagnosticsSnapshot, String> {
     let collector = DiagnosticsCollector::new();
 
-    let (worker_count, active_count) = {
-        (1, state.scheduler.active_workers())
-    };
+    let (worker_count, active_count) = { (1, state.scheduler.active_workers()) };
     let (pending_jobs, running_jobs) = {
-        (state.scheduler.pending_count(), state.scheduler.running_count())
+        (
+            state.scheduler.pending_count(),
+            state.scheduler.running_count(),
+        )
     };
-    let registered_commands = state.command_registry.lock().map_err(|e| e.to_string())?.count();
+    let registered_commands = state
+        .command_registry
+        .lock()
+        .map_err(|e| e.to_string())?
+        .count();
     let asset_count = state.library.len();
     let cache_entries = 0;
-    let power_mode = format!("{:?}", state.sleep_manager.lock().map_err(|e| e.to_string())?.mode());
+    let power_mode = format!(
+        "{:?}",
+        state
+            .sleep_manager
+            .lock()
+            .map_err(|e| e.to_string())?
+            .mode()
+    );
 
     Ok(collector.collect(
         worker_count,
@@ -58,13 +70,21 @@ pub fn get_diagnostics(state: State<'_, AppState>) -> Result<DiagnosticsSnapshot
 
 #[tauri::command]
 pub fn get_power_mode(state: State<'_, AppState>) -> Result<String, String> {
-    let mode = state.sleep_manager.lock().map_err(|e| e.to_string())?.mode();
+    let mode = state
+        .sleep_manager
+        .lock()
+        .map_err(|e| e.to_string())?
+        .mode();
     Ok(format!("{:?}", mode))
 }
 
 #[tauri::command]
 pub fn touch_activity(state: State<'_, AppState>) -> Result<(), String> {
-    state.sleep_manager.lock().map_err(|e| e.to_string())?.touch();
+    state
+        .sleep_manager
+        .lock()
+        .map_err(|e| e.to_string())?
+        .touch();
     Ok(())
 }
 

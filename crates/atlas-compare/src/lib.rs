@@ -4,6 +4,6 @@ pub mod engine;
 pub mod mode;
 
 pub use canvas::CompareCanvas;
-pub use diff::{DiffResult, DiffRegion};
+pub use diff::{DiffRegion, DiffResult};
 pub use engine::CompareEngine;
 pub use mode::CompareMode;

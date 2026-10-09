@@ -17,7 +17,10 @@ export function getLocale(): Locale {
   return currentLocale;
 }
 
-export function t(path: string, params?: Record<string, string | number>): string {
+export function t(
+  path: string,
+  params?: Record<string, string | number>,
+): string {
   const keys = path.split(".");
   let value: any = currentTranslations;
   for (const key of keys) {
@@ -25,7 +28,10 @@ export function t(path: string, params?: Record<string, string | number>): strin
   }
   if (typeof value !== "string") return path;
   if (!params) return value;
-  return Object.entries(params).reduce((str, [k, v]) => str.replace(`{${k}}`, String(v)), value);
+  return Object.entries(params).reduce(
+    (str, [k, v]) => str.replace(`{${k}}`, String(v)),
+    value,
+  );
 }
 
 export function useT() {

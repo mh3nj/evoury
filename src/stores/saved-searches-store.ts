@@ -25,10 +25,15 @@ export const useSavedSearchesStore = create<SavedSearchesState>((set) => ({
         invoke<SearchFolder[]>("get_search_folders"),
       ]);
       set({ searches, folders, loading: false });
-    } catch { set({ loading: false }); }
+    } catch {
+      set({ loading: false });
+    }
   },
   saveSearch: async (name, queryText) => {
-    const search = await invoke<SavedSearch>("save_search", { name, queryText });
+    const search = await invoke<SavedSearch>("save_search", {
+      name,
+      queryText,
+    });
     set((s) => ({ searches: [...s.searches, search] }));
     return search;
   },

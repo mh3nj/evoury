@@ -1,6 +1,6 @@
+use atlas_core::Asset;
 use std::sync::mpsc::{self, Receiver, Sender};
 use std::thread;
-use atlas_core::Asset;
 use uuid::Uuid;
 
 pub enum SearchResult {
@@ -63,5 +63,11 @@ impl ProgressiveSearch {
         if let Some(tx) = self.cancel_token.take() {
             let _ = tx.send(());
         }
+    }
+}
+
+impl Default for ProgressiveSearch {
+    fn default() -> Self {
+        Self::new()
     }
 }

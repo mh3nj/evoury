@@ -1,7 +1,17 @@
 export type NotificationLevel = "Info" | "Success" | "Warning" | "Error";
 export type NotificationCategory =
-  | "Scan" | "Import" | "Export" | "BatchOp" | "Macro" | "Health"
-  | "Maintenance" | "Pipeline" | "System" | "Undo" | "Metadata" | "Update";
+  | "Scan"
+  | "Import"
+  | "Export"
+  | "BatchOp"
+  | "Macro"
+  | "Health"
+  | "Maintenance"
+  | "Pipeline"
+  | "System"
+  | "Undo"
+  | "Metadata"
+  | "Update";
 
 export interface AppNotification {
   id: string;
@@ -17,10 +27,14 @@ export interface AppNotification {
 }
 
 export type MaintenanceTask =
-  | "VacuumOrphanedMetadata" | "RebuildMissingPreviews" | "ReindexAll"
+  | "VacuumOrphanedMetadata"
+  | "RebuildMissingPreviews"
+  | "ReindexAll"
   | { CleanupOldVersions: { keep: number } }
   | { PruneActivityLog: { older_than_days: number } }
-  | "CompactCache" | "VerifyFileIntegrity" | "RepairBrokenReferences";
+  | "CompactCache"
+  | "VerifyFileIntegrity"
+  | "RepairBrokenReferences";
 
 export interface MaintenanceReport {
   task: MaintenanceTask;
@@ -39,7 +53,14 @@ export interface MaintenanceSchedule {
 }
 
 export type RenamePattern =
-  | { Counter: { prefix: string; start: number; digits: number; suffix: string } }
+  | {
+      Counter: {
+        prefix: string;
+        start: number;
+        digits: number;
+        suffix: string;
+      };
+    }
   | { Date: { format: string; suffix: string } }
   | { Regex: { pattern: string; replacement: string } }
   | { Metadata: { field: string; template: string } }
@@ -61,14 +82,18 @@ export interface PipelineStage {
 }
 
 export type StageAction =
-  | "DetectDuplicates" | "Deduplicate" | "Classify"
+  | "DetectDuplicates"
+  | "Deduplicate"
+  | "Classify"
   | { ApplyTemplate: { template_id: string | null } }
   | { AddTags: { tags: string[] } }
   | { AddToCollection: { collection_id: string | null } }
   | "GeneratePreviews"
   | { AddToBasket: { basket_id: string | null } }
   | { Export: { format: string; destination: string } }
-  | "SkipExisting" | "ValidateSources" | "RemoveOriginalsAfterImport"
+  | "SkipExisting"
+  | "ValidateSources"
+  | "RemoveOriginalsAfterImport"
   | { Custom: { name: string; config: string } };
 
 export interface Pipeline {

@@ -25,7 +25,9 @@ export const useMacroStore = create<MacroState>((set) => ({
         invoke<boolean>("is_recording"),
       ]);
       set({ macros, isRecording, loading: false });
-    } catch { set({ loading: false }); }
+    } catch {
+      set({ loading: false });
+    }
   },
   startRecording: async (name) => {
     await invoke("start_macro_recording", { name });

@@ -48,8 +48,11 @@ pub struct TypographyTokens {
 impl Default for TypographyTokens {
     fn default() -> Self {
         Self {
-            font_family: "\"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif".into(),
-            font_family_mono: "\"JetBrains Mono\", \"Fira Code\", \"Cascadia Code\", monospace".into(),
+            font_family:
+                "\"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif"
+                    .into(),
+            font_family_mono: "\"JetBrains Mono\", \"Fira Code\", \"Cascadia Code\", monospace"
+                .into(),
             font_size_xs: "10px".into(),
             font_size_sm: "12px".into(),
             font_size_base: "14px".into(),

@@ -1,5 +1,5 @@
-use std::{fs, path::PathBuf};
 use crate::workspace::Workspace;
+use std::{fs, path::PathBuf};
 use uuid::Uuid;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -81,7 +81,7 @@ impl WorkspaceManager {
         fs::read_to_string(&self.path)
             .ok()
             .and_then(|data| serde_json::from_str(&data).ok())
-            .unwrap_or_else(WorkspaceList::new)
+            .unwrap_or_default()
     }
 
     pub fn save_all(&self, list: &WorkspaceList) -> Result<(), String> {
@@ -90,7 +90,10 @@ impl WorkspaceManager {
     }
 
     pub fn load_active(&self) -> Workspace {
-        self.load_all().active().cloned().unwrap_or_else(|| Workspace::new("Default"))
+        self.load_all()
+            .active()
+            .cloned()
+            .unwrap_or_else(|| Workspace::new("Default"))
     }
 
     pub fn save(&self, workspace: &Workspace) -> Result<(), String> {
@@ -112,5 +115,11 @@ impl WorkspaceManager {
 
     pub fn path(&self) -> &PathBuf {
         &self.path
+    }
+}
+
+impl Default for WorkspaceList {
+    fn default() -> Self {
+        Self::new()
     }
 }

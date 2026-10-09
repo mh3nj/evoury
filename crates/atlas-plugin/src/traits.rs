@@ -1,16 +1,26 @@
-use serde::{Deserialize, Serialize};
 use atlas_core::Capability;
+use serde::{Deserialize, Serialize};
 
 pub trait Plugin: Send + Sync {
     fn id(&self) -> &str;
     fn name(&self) -> &str;
     fn version(&self) -> &str;
-    fn description(&self) -> &str { "" }
-    fn author(&self) -> &str { "" }
+    fn description(&self) -> &str {
+        ""
+    }
+    fn author(&self) -> &str {
+        ""
+    }
 
-    fn on_load(&mut self) -> PluginResult { Ok(()) }
-    fn on_unload(&mut self) -> PluginResult { Ok(()) }
-    fn capabilities(&self) -> Vec<Capability> { Vec::new() }
+    fn on_load(&mut self) -> PluginResult {
+        Ok(())
+    }
+    fn on_unload(&mut self) -> PluginResult {
+        Ok(())
+    }
+    fn capabilities(&self) -> Vec<Capability> {
+        Vec::new()
+    }
 }
 
 pub type PluginResult = Result<(), PluginError>;
@@ -23,7 +33,10 @@ pub struct PluginError {
 
 impl PluginError {
     pub fn new(code: impl Into<String>, message: impl Into<String>) -> Self {
-        Self { code: code.into(), message: message.into() }
+        Self {
+            code: code.into(),
+            message: message.into(),
+        }
     }
 }
 

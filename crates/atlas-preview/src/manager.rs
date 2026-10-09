@@ -1,9 +1,9 @@
-use uuid::Uuid;
 use crate::cache::PreviewCache;
-use crate::provider::PreviewProviderRegistry;
 use crate::preview::PreviewDescriptor;
-use crate::state::PreviewStatus;
+use crate::provider::PreviewProviderRegistry;
 use crate::resolver::PreviewResolver;
+use crate::state::PreviewStatus;
+use uuid::Uuid;
 
 pub struct PreviewManager {
     pub cache: PreviewCache,
@@ -21,10 +21,17 @@ impl PreviewManager {
     }
 
     pub fn resolve(&self, asset_id: &Uuid) -> Option<&std::path::PathBuf> {
-        self.cache.get(asset_id).or_else(|| self.resolver.resolve_path(asset_id))
+        self.cache
+            .get(asset_id)
+            .or_else(|| self.resolver.resolve_path(asset_id))
     }
 
-    pub fn resolve_descriptor(&mut self, asset_id: &Uuid, file_path: &str, extension: &str) -> Result<PreviewDescriptor, String> {
+    pub fn resolve_descriptor(
+        &mut self,
+        asset_id: &Uuid,
+        file_path: &str,
+        extension: &str,
+    ) -> Result<PreviewDescriptor, String> {
         if let Some(cached) = self.cache.get(asset_id) {
             return Ok(PreviewDescriptor {
                 path: cached.clone(),
@@ -48,5 +55,11 @@ impl PreviewManager {
         } else {
             PreviewStatus::Missing
         }
+    }
+}
+
+impl Default for PreviewManager {
+    fn default() -> Self {
+        Self::new()
     }
 }

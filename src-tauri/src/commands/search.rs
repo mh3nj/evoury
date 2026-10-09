@@ -1,7 +1,7 @@
-use tauri::State;
-use atlas_core::Asset;
-use atlas_search::{SearchEngine, query::parse_query, result::SearchResult};
 use crate::state::AppState;
+use atlas_core::Asset;
+use atlas_search::{query::parse_query, result::SearchResult, SearchEngine};
+use tauri::State;
 
 #[tauri::command]
 pub fn search_assets(
@@ -10,7 +10,11 @@ pub fn search_assets(
 ) -> Result<Vec<SearchResult>, String> {
     let parsed = parse_query(&query);
     let assets = state.library.all();
-    let metadata = state.metadata_store.lock().map_err(|e| e.to_string())?.all();
+    let metadata = state
+        .metadata_store
+        .lock()
+        .map_err(|e| e.to_string())?
+        .all();
     let results = SearchEngine::search(&assets, &metadata, &parsed);
     Ok(results)
 }

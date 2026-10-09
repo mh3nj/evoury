@@ -8,7 +8,12 @@ interface TagsState {
   loadTags: () => Promise<void>;
   addTag: (tag: HierarchicalTag) => Promise<void>;
   removeTag: (id: string) => Promise<void>;
-  updateTag: (id: string, name?: string, color?: string, description?: string) => Promise<void>;
+  updateTag: (
+    id: string,
+    name?: string,
+    color?: string,
+    description?: string,
+  ) => Promise<void>;
   moveTag: (id: string, newParentId: string | null) => Promise<void>;
 }
 
@@ -20,7 +25,9 @@ export const useTagsStore = create<TagsState>((set) => ({
     try {
       const tags = await invoke<HierarchicalTag[]>("get_all_tags");
       set({ tags, loading: false });
-    } catch { set({ loading: false }); }
+    } catch {
+      set({ loading: false });
+    }
   },
   addTag: async (tag) => {
     await invoke("add_tag", { tag });

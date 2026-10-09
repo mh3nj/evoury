@@ -21,7 +21,15 @@ export interface HierarchicalTag {
 export interface CustomFieldDefinition {
   id: string;
   name: string;
-  field_type: "Text" | "Number" | "Boolean" | "Date" | "Dropdown" | "Url" | "Color" | "Dimensions";
+  field_type:
+    | "Text"
+    | "Number"
+    | "Boolean"
+    | "Date"
+    | "Dropdown"
+    | "Url"
+    | "Color"
+    | "Dimensions";
   required: boolean;
   default_value: string | null;
   description: string;

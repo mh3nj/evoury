@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use uuid::Uuid;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -45,11 +45,14 @@ impl VersionDetector {
                 VersionGroup {
                     id: Uuid::new_v4(),
                     base_name,
-                    versions: versions.into_iter().map(|(id, label, _)| VersionEntry {
-                        asset_id: id,
-                        label,
-                        sort_key: 0,
-                    }).collect(),
+                    versions: versions
+                        .into_iter()
+                        .map(|(id, label, _)| VersionEntry {
+                            asset_id: id,
+                            label,
+                            sort_key: 0,
+                        })
+                        .collect(),
                 }
             })
             .collect()
@@ -117,10 +120,14 @@ mod tests {
 
     #[test]
     fn test_no_version_single_file() {
-        let assets = vec![
-            (Uuid::new_v4(), "logo.ai".into()),
-        ];
+        let assets = vec![(Uuid::new_v4(), "logo.ai".into())];
         let groups = VersionDetector::detect(&assets);
         assert_eq!(groups.len(), 0);
+    }
+}
+
+impl Default for VersionDetector {
+    fn default() -> Self {
+        Self::new()
     }
 }

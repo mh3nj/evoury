@@ -26,5 +26,12 @@ export const useSearchStore = create<SearchState>((set) => ({
   setActive: (active) => set({ active }),
   setSuggestions: (suggestions) => set({ suggestions }),
   setFilters: (filters) => set({ filters }),
-  clear: () => set({ query: "", results: [], active: false, suggestions: [], filters: [] }),
+  clear: () =>
+    set({
+      query: "",
+      results: [],
+      active: false,
+      suggestions: [],
+      filters: [],
+    }),
 }));

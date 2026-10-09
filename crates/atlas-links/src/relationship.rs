@@ -14,10 +14,7 @@ impl RelationshipManager {
 
     pub fn add_relationship(&mut self, rel: Relationship) -> Result<(), String> {
         if self.relationships.iter().any(|r| r.id == rel.id) {
-            return Err(format!(
-                "Relationship with id {} already exists",
-                rel.id
-            ));
+            return Err(format!("Relationship with id {} already exists", rel.id));
         }
         self.relationships.push(rel);
         Ok(())
@@ -75,5 +72,11 @@ impl RelationshipManager {
             .iter()
             .filter(|r| r.kind == *kind)
             .collect()
+    }
+}
+
+impl Default for RelationshipManager {
+    fn default() -> Self {
+        Self::new()
     }
 }

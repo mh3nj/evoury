@@ -11,7 +11,13 @@ interface ScanState {
   errors: string[];
 
   startScan: (scanId: string) => void;
-  updateProgress: (total: number, scanned: number, archives: number, previews: number, file: string | null) => void;
+  updateProgress: (
+    total: number,
+    scanned: number,
+    archives: number,
+    previews: number,
+    file: string | null,
+  ) => void;
   finishScan: () => void;
   setError: (error: string) => void;
   reset: () => void;
@@ -48,11 +54,9 @@ export const useScanStore = create<ScanState>((set) => ({
       currentFile: file,
     }),
 
-  finishScan: () =>
-    set({ scanning: false, currentFile: null }),
+  finishScan: () => set({ scanning: false, currentFile: null }),
 
-  setError: (error) =>
-    set((s) => ({ errors: [...s.errors, error] })),
+  setError: (error) => set((s) => ({ errors: [...s.errors, error] })),
 
   reset: () =>
     set({

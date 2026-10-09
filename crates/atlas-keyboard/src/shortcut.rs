@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::category::ShortcutCategory;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct KeyCombo {
@@ -22,19 +22,39 @@ impl KeyCombo {
     }
 
     pub fn ctrl(key: &str) -> Self {
-        Self { key: key.to_string(), ctrl: true, shift: false, alt: false, meta: false }
+        Self {
+            key: key.to_string(),
+            ctrl: true,
+            shift: false,
+            alt: false,
+            meta: false,
+        }
     }
 
     pub fn ctrl_shift(key: &str) -> Self {
-        Self { key: key.to_string(), ctrl: true, shift: true, alt: false, meta: false }
+        Self {
+            key: key.to_string(),
+            ctrl: true,
+            shift: true,
+            alt: false,
+            meta: false,
+        }
     }
 
     pub fn description(&self) -> String {
         let mut parts = Vec::new();
-        if self.ctrl { parts.push("Ctrl"); }
-        if self.meta { parts.push("Cmd"); }
-        if self.shift { parts.push("Shift"); }
-        if self.alt { parts.push("Alt"); }
+        if self.ctrl {
+            parts.push("Ctrl");
+        }
+        if self.meta {
+            parts.push("Cmd");
+        }
+        if self.shift {
+            parts.push("Shift");
+        }
+        if self.alt {
+            parts.push("Alt");
+        }
         let key_upper = self.key.to_uppercase();
         parts.push(&key_upper);
         parts.join("+")

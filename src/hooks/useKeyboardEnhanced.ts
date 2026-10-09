@@ -1,5 +1,11 @@
 import { useEffect } from "react";
-import { useKeyboardStore, useLayoutStore, useSelectionStore, useNavHistoryStore, useCommandStore } from "../stores";
+import {
+  useKeyboardStore,
+  useLayoutStore,
+  useSelectionStore,
+  useNavHistoryStore,
+  useCommandStore,
+} from "../stores";
 
 export function useKeyboardEnhanced() {
   const findMatch = useKeyboardStore((s) => s.findMatch);
@@ -66,5 +72,16 @@ export function useKeyboardEnhanced() {
 
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [enabled, findMatch, toggleSidebar, toggleInspector, toggleFocusMode, clear, goBack, goForward, openPalette, openSettings]);
+  }, [
+    enabled,
+    findMatch,
+    toggleSidebar,
+    toggleInspector,
+    toggleFocusMode,
+    clear,
+    goBack,
+    goForward,
+    openPalette,
+    openSettings,
+  ]);
 }

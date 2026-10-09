@@ -1,6 +1,6 @@
+use crate::collection::Collection;
 use std::collections::HashMap;
 use uuid::Uuid;
-use crate::collection::Collection;
 
 pub struct CollectionManager {
     collections: HashMap<Uuid, Collection>,
@@ -49,11 +49,7 @@ impl CollectionManager {
     pub fn ancestors(&self, collection_id: Uuid) -> Vec<Collection> {
         let mut result = Vec::new();
         let mut current_id = collection_id;
-        loop {
-            let current = match self.collections.get(&current_id) {
-                Some(c) => c,
-                None => break,
-            };
+        while let Some(current) = self.collections.get(&current_id) {
             match current.parent_id {
                 Some(pid) => {
                     if let Some(parent) = self.collections.get(&pid) {
@@ -87,7 +83,11 @@ impl CollectionManager {
         result
     }
 
-    pub fn move_to(&mut self, collection_id: Uuid, new_parent_id: Option<Uuid>) -> Result<(), String> {
+    pub fn move_to(
+        &mut self,
+        collection_id: Uuid,
+        new_parent_id: Option<Uuid>,
+    ) -> Result<(), String> {
         if !self.collections.contains_key(&collection_id) {
             return Err(format!("Collection {} not found", collection_id));
         }
@@ -123,5 +123,11 @@ impl CollectionManager {
                 None => return false,
             }
         }
+    }
+}
+
+impl Default for CollectionManager {
+    fn default() -> Self {
+        Self::new()
     }
 }

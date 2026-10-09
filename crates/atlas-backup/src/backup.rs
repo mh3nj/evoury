@@ -1,7 +1,7 @@
-use std::path::{Path, PathBuf};
-use std::fs;
-use crate::manifest::BackupManifest;
 use crate::content::BackupContents;
+use crate::manifest::BackupManifest;
+use std::fs;
+use std::path::{Path, PathBuf};
 
 pub struct BackupManager {
     pub backup_dir: PathBuf,
@@ -38,25 +38,29 @@ impl BackupManager {
         if contents.collections {
             let col_src = data_dir.join("collections.json");
             if col_src.exists() {
-                fs::copy(&col_src, backup_path.join("collections.json")).map_err(|e| e.to_string())?;
+                fs::copy(&col_src, backup_path.join("collections.json"))
+                    .map_err(|e| e.to_string())?;
             }
         }
         if contents.metadata {
             let meta_src = data_dir.join("metadata.json");
             if meta_src.exists() {
-                fs::copy(&meta_src, backup_path.join("metadata.json")).map_err(|e| e.to_string())?;
+                fs::copy(&meta_src, backup_path.join("metadata.json"))
+                    .map_err(|e| e.to_string())?;
             }
         }
         if contents.baskets {
             let basket_src = data_dir.join("baskets.json");
             if basket_src.exists() {
-                fs::copy(&basket_src, backup_path.join("baskets.json")).map_err(|e| e.to_string())?;
+                fs::copy(&basket_src, backup_path.join("baskets.json"))
+                    .map_err(|e| e.to_string())?;
             }
         }
         if contents.preferences {
             let pref_src = data_dir.join("preferences.json");
             if pref_src.exists() {
-                fs::copy(&pref_src, backup_path.join("preferences.json")).map_err(|e| e.to_string())?;
+                fs::copy(&pref_src, backup_path.join("preferences.json"))
+                    .map_err(|e| e.to_string())?;
             }
         }
 
@@ -70,7 +74,8 @@ impl BackupManager {
     pub fn restore_backup(&self, backup_path: &Path, data_dir: &Path) -> Result<(), String> {
         let manifest_path = backup_path.join("manifest.json");
         let manifest_json = fs::read_to_string(&manifest_path).map_err(|e| e.to_string())?;
-        let manifest: BackupManifest = serde_json::from_str(&manifest_json).map_err(|e| e.to_string())?;
+        let manifest: BackupManifest =
+            serde_json::from_str(&manifest_json).map_err(|e| e.to_string())?;
 
         if manifest.includes.workspace {
             let src = backup_path.join("workspace.json");
@@ -171,9 +176,15 @@ mod tests {
 
         let manager = BackupManager::new(dir.join("backups"));
         let contents = BackupContents {
-            workspace: false, collections: false, metadata: false, baskets: false, preferences: true,
+            workspace: false,
+            collections: false,
+            metadata: false,
+            baskets: false,
+            preferences: true,
         };
-        let backup_path = manager.create_backup("restore_test", &contents, &data_dir).unwrap();
+        let backup_path = manager
+            .create_backup("restore_test", &contents, &data_dir)
+            .unwrap();
 
         let restore_dir = dir.join("restore");
         fs::create_dir_all(&restore_dir).unwrap();

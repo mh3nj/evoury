@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use crate::preset::WorkstationPreset;
+use std::collections::HashMap;
 
 #[derive(Debug, Clone, Default)]
 pub struct WorkstationRegistry {

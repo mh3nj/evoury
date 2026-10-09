@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
-type SelectionMode = "replace" | "toggle" | "add" | "remove" | "range" | "invert";
+type SelectionMode =
+  "replace" | "toggle" | "add" | "remove" | "range" | "invert";
 
 interface SelectionState {
   selectedIds: Set<string>;
@@ -80,7 +81,8 @@ export const useSelectionStore = create<SelectionState>((set, get) => ({
     set({ selectedIds: newSet });
   },
 
-  clear: () => set({ selectedIds: new Set(), lastSelected: null, anchor: null }),
+  clear: () =>
+    set({ selectedIds: new Set(), lastSelected: null, anchor: null }),
 
   isSelected: (id) => get().selectedIds.has(id),
 

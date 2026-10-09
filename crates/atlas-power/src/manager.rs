@@ -1,7 +1,7 @@
+use crate::{ActivityTracker, PowerMode};
 use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::Duration;
-use crate::{ActivityTracker, PowerMode};
 
 pub struct SleepManager {
     tracker: Arc<Mutex<ActivityTracker>>,
@@ -42,24 +42,28 @@ impl SleepManager {
         let tracker = self.tracker.clone();
         let mut last_mode = self.mode();
 
-        thread::spawn(move || {
-            loop {
-                thread::sleep(Duration::from_secs(interval_secs));
-                let current = {
-                    let t = tracker.lock().unwrap();
-                    if t.is_active() {
-                        PowerMode::Active
-                    } else if t.is_idle() {
-                        PowerMode::Idle
-                    } else {
-                        PowerMode::Sleeping
-                    }
-                };
-
-                if current != last_mode {
-                    last_mode = current;
+        thread::spawn(move || loop {
+            thread::sleep(Duration::from_secs(interval_secs));
+            let current = {
+                let t = tracker.lock().unwrap();
+                if t.is_active() {
+                    PowerMode::Active
+                } else if t.is_idle() {
+                    PowerMode::Idle
+                } else {
+                    PowerMode::Sleeping
                 }
+            };
+
+            if current != last_mode {
+                last_mode = current;
             }
         });
+    }
+}
+
+impl Default for SleepManager {
+    fn default() -> Self {
+        Self::new()
     }
 }

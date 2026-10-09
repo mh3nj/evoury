@@ -1,8 +1,8 @@
-use std::sync::{Arc, Mutex};
-use crate::task::{BackgroundTask, TaskStatus, TaskEntry};
+use crate::task::{BackgroundTask, TaskEntry, TaskStatus};
 use crate::worker::Worker;
-use uuid::Uuid;
 use chrono::Utc;
+use std::sync::{Arc, Mutex};
+use uuid::Uuid;
 
 pub struct WorkerPool {
     workers: Vec<Box<dyn Worker>>,
@@ -43,18 +43,26 @@ impl WorkerPool {
 
     pub fn dequeue(&self) -> Option<TaskEntry> {
         let mut queue = self.queue.lock().unwrap();
-        let pos = queue.iter().position(|e| matches!(e.status, TaskStatus::Pending))?;
+        let pos = queue
+            .iter()
+            .position(|e| matches!(e.status, TaskStatus::Pending))?;
         Some(queue.remove(pos))
     }
 
     pub fn pending_count(&self) -> usize {
         let queue = self.queue.lock().unwrap();
-        queue.iter().filter(|e| matches!(e.status, TaskStatus::Pending)).count()
+        queue
+            .iter()
+            .filter(|e| matches!(e.status, TaskStatus::Pending))
+            .count()
     }
 
     pub fn running_count(&self) -> usize {
         let queue = self.queue.lock().unwrap();
-        queue.iter().filter(|e| matches!(e.status, TaskStatus::Running)).count()
+        queue
+            .iter()
+            .filter(|e| matches!(e.status, TaskStatus::Running))
+            .count()
     }
 
     pub fn status(&self, id: &Uuid) -> Option<TaskStatus> {

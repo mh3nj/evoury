@@ -1,6 +1,6 @@
+use crate::location::NavLocation;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
-use crate::location::NavLocation;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TabEntry {
@@ -64,7 +64,9 @@ impl TabManager {
 
     pub fn close(&mut self, id: Uuid) {
         if let Some(pos) = self.tabs.iter().position(|t| t.id == id) {
-            if self.tabs[pos].pinned { return; }
+            if self.tabs[pos].pinned {
+                return;
+            }
             self.tabs.remove(pos);
             if self.active_id == id {
                 self.active_id = self.tabs.last().map(|t| t.id).unwrap_or_default();
@@ -93,5 +95,11 @@ impl TabManager {
 
     pub fn count(&self) -> usize {
         self.tabs.len()
+    }
+}
+
+impl Default for TabManager {
+    fn default() -> Self {
+        Self::new()
     }
 }

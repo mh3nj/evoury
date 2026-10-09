@@ -1,5 +1,5 @@
-use std::collections::VecDeque;
 use atlas_core::Asset;
+use std::collections::VecDeque;
 
 #[derive(Debug)]
 pub struct LazyPage {
@@ -24,7 +24,7 @@ impl PageBuffer {
     }
 
     pub fn page_count(&self, total_assets: usize) -> usize {
-        (total_assets + self.page_size - 1) / self.page_size
+        total_assets.div_ceil(self.page_size)
     }
 
     pub fn insert_page(&mut self, page: LazyPage) {
@@ -64,10 +64,18 @@ impl PageBuffer {
 impl LazyPage {
     pub fn new(index: usize, assets: Vec<Asset>) -> Self {
         let loaded = !assets.is_empty();
-        Self { index, assets, loaded }
+        Self {
+            index,
+            assets,
+            loaded,
+        }
     }
 
     pub fn empty(index: usize) -> Self {
-        Self { index, assets: Vec::new(), loaded: false }
+        Self {
+            index,
+            assets: Vec::new(),
+            loaded: false,
+        }
     }
 }

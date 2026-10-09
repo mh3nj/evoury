@@ -12,8 +12,15 @@ impl TagManager {
     }
 
     pub fn add_tag(&mut self, tag: HierarchicalTag) -> Result<(), String> {
-        if self.tags.iter().any(|t| t.name == tag.name && t.namespace == tag.namespace) {
-            return Err(format!("Tag with name '{}' already exists in namespace '{}'", tag.name, tag.namespace));
+        if self
+            .tags
+            .iter()
+            .any(|t| t.name == tag.name && t.namespace == tag.namespace)
+        {
+            return Err(format!(
+                "Tag with name '{}' already exists in namespace '{}'",
+                tag.name, tag.namespace
+            ));
         }
         self.tags.push(tag);
         Ok(())
@@ -39,15 +46,23 @@ impl TagManager {
     }
 
     pub fn get_tag_by_name(&self, name: &str, namespace: &str) -> Option<&HierarchicalTag> {
-        self.tags.iter().find(|t| t.name == name && t.namespace == namespace)
+        self.tags
+            .iter()
+            .find(|t| t.name == name && t.namespace == namespace)
     }
 
     pub fn all_in_namespace(&self, namespace: &str) -> Vec<&HierarchicalTag> {
-        self.tags.iter().filter(|t| t.namespace == namespace).collect()
+        self.tags
+            .iter()
+            .filter(|t| t.namespace == namespace)
+            .collect()
     }
 
     pub fn children_of(&self, parent_id: &Uuid) -> Vec<&HierarchicalTag> {
-        self.tags.iter().filter(|t| t.parent_id == Some(*parent_id)).collect()
+        self.tags
+            .iter()
+            .filter(|t| t.parent_id == Some(*parent_id))
+            .collect()
     }
 
     pub fn ancestors(&self, id: &Uuid) -> Vec<Uuid> {
@@ -65,8 +80,18 @@ impl TagManager {
         chain
     }
 
-    pub fn update_tag(&mut self, id: &Uuid, name: Option<&str>, color: Option<&str>, description: Option<&str>) -> Result<(), String> {
-        let tag = self.tags.iter_mut().find(|t| t.id == *id).ok_or_else(|| "Tag not found".to_string())?;
+    pub fn update_tag(
+        &mut self,
+        id: &Uuid,
+        name: Option<&str>,
+        color: Option<&str>,
+        description: Option<&str>,
+    ) -> Result<(), String> {
+        let tag = self
+            .tags
+            .iter_mut()
+            .find(|t| t.id == *id)
+            .ok_or_else(|| "Tag not found".to_string())?;
         if let Some(n) = name {
             tag.name = n.to_string();
         }
@@ -89,8 +114,18 @@ impl TagManager {
                 return Err("Moving would create a cycle".to_string());
             }
         }
-        let tag = self.tags.iter_mut().find(|t| t.id == *id).ok_or_else(|| "Tag not found".to_string())?;
+        let tag = self
+            .tags
+            .iter_mut()
+            .find(|t| t.id == *id)
+            .ok_or_else(|| "Tag not found".to_string())?;
         tag.parent_id = new_parent_id;
         Ok(())
+    }
+}
+
+impl Default for TagManager {
+    fn default() -> Self {
+        Self::new()
     }
 }

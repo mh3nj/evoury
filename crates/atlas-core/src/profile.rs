@@ -67,7 +67,12 @@ impl Default for SearchProfile {
             id: "default".into(),
             name: "Default".into(),
             indexed_fields: vec!["name".into(), "tags".into(), "notes".into()],
-            visible_filters: vec!["type".into(), "rating".into(), "favorite".into(), "tag".into()],
+            visible_filters: vec![
+                "type".into(),
+                "rating".into(),
+                "favorite".into(),
+                "tag".into(),
+            ],
             suggested_queries: vec![],
         }
     }

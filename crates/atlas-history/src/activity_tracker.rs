@@ -34,12 +34,7 @@ impl ActivityTracker {
     }
 
     pub fn get_all_events(&self, limit: usize, offset: usize) -> Vec<&ActivityEvent> {
-        self.events
-            .iter()
-            .rev()
-            .skip(offset)
-            .take(limit)
-            .collect()
+        self.events.iter().rev().skip(offset).take(limit).collect()
     }
 
     pub fn get_events_by_type(
@@ -96,7 +91,7 @@ impl ActivityTracker {
             }
         }
         let mut sorted: Vec<(Uuid, usize)> = counts.into_iter().collect();
-        sorted.sort_by(|a, b| b.1.cmp(&a.1));
+        sorted.sort_by_key(|(_, count)| std::cmp::Reverse(*count));
         sorted.truncate(limit);
         sorted
     }
@@ -111,5 +106,11 @@ impl ActivityTracker {
                         == std::mem::discriminant(&ActivityEventType::Open)
             })
             .map(|e| e.timestamp)
+    }
+}
+
+impl Default for ActivityTracker {
+    fn default() -> Self {
+        Self::new()
     }
 }

@@ -1,6 +1,6 @@
+use crate::texture::{TextureHandle, TextureState};
 use std::collections::HashMap;
 use uuid::Uuid;
-use crate::texture::{TextureHandle, TextureState};
 
 #[derive(Debug, Clone)]
 pub struct MemoryBudget {
@@ -81,8 +81,13 @@ impl GpuTracker {
     }
 
     pub fn evict_oldest(&mut self, count: usize) -> usize {
-        let mut candidates: Vec<(chrono::DateTime<chrono::Utc>, Uuid)> = self.textures.iter()
-            .filter(|(_, t)| matches!(t.state, TextureState::Resident) && t.priority <= self.budget.eviction_priority_threshold)
+        let mut candidates: Vec<(chrono::DateTime<chrono::Utc>, Uuid)> = self
+            .textures
+            .iter()
+            .filter(|(_, t)| {
+                matches!(t.state, TextureState::Resident)
+                    && t.priority <= self.budget.eviction_priority_threshold
+            })
             .map(|(id, t)| (t.last_accessed, *id))
             .collect();
         candidates.sort_by_key(|(time, _)| *time);
@@ -97,7 +102,8 @@ impl GpuTracker {
     }
 
     pub fn bytes_resident(&self) -> u64 {
-        self.textures.values()
+        self.textures
+            .values()
             .filter(|t| matches!(t.state, TextureState::Resident))
             .map(|t| t.estimated_vram())
             .sum()

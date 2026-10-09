@@ -1,9 +1,9 @@
+use crate::state::AppState;
+use atlas_core::scan::ScanMode;
+use atlas_scanner::Scanner;
 use std::path::Path;
 use std::time::Duration;
 use tauri::State;
-use atlas_core::scan::ScanMode;
-use atlas_scanner::Scanner;
-use crate::state::AppState;
 
 #[tauri::command]
 pub fn scan_library(
@@ -35,10 +35,7 @@ pub fn scan_library(
 }
 
 #[tauri::command]
-pub fn start_watching(
-    state: State<'_, AppState>,
-    path: String,
-) -> Result<(), String> {
+pub fn start_watching(state: State<'_, AppState>, path: String) -> Result<(), String> {
     let sender = state.event_bus.sender();
     let mut watcher = state.watcher.lock().map_err(|e| e.to_string())?;
     watcher.start(path, sender, Duration::from_secs(2));

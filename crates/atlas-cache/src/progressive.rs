@@ -66,28 +66,38 @@ impl ProgressivePipeline {
     pub fn add_level(&mut self, image: LevelImage) {
         self.levels.push(image);
         self.levels.sort_by_key(|l| l.level.max_dimension());
-        if self.levels.iter().any(|l| l.level == ProgressiveLevel::Full) {
+        if self
+            .levels
+            .iter()
+            .any(|l| l.level == ProgressiveLevel::Full)
+        {
             self.completed = true;
         }
     }
 
     pub fn best_available(&self, max_dimension: u32) -> Option<&LevelImage> {
-        self.levels.iter()
-            .filter(|l| l.level.max_dimension() >= max_dimension || l.level == ProgressiveLevel::Full)
-            .next()
+        self.levels
+            .iter()
+            .find(|l| l.level.max_dimension() >= max_dimension || l.level == ProgressiveLevel::Full)
             .or_else(|| self.levels.last())
     }
 
     pub fn placeholder(&self) -> Option<&LevelImage> {
-        self.levels.iter().find(|l| l.level == ProgressiveLevel::Placeholder)
+        self.levels
+            .iter()
+            .find(|l| l.level == ProgressiveLevel::Placeholder)
     }
 
     pub fn thumbnail(&self) -> Option<&LevelImage> {
-        self.levels.iter().find(|l| l.level == ProgressiveLevel::Small)
+        self.levels
+            .iter()
+            .find(|l| l.level == ProgressiveLevel::Small)
     }
 
     pub fn progress_pct(&self) -> f32 {
-        if self.completed { return 1.0; }
+        if self.completed {
+            return 1.0;
+        }
         let weights: [(ProgressiveLevel, f32); 4] = [
             (ProgressiveLevel::Placeholder, 0.05),
             (ProgressiveLevel::Small, 0.25),

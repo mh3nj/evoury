@@ -76,8 +76,8 @@ impl SelectionEngine {
                     if let (Some(ap), Some(cp)) = (anchor_pos, current_pos) {
                         let start = ap.min(cp);
                         let end = ap.max(cp);
-                        for i in start..=end {
-                            self.state.selected.insert(ordered_ids[i]);
+                        for id in &ordered_ids[start..=end] {
+                            self.state.selected.insert(*id);
                         }
                     }
                 }
@@ -114,5 +114,11 @@ impl SelectionEngine {
 
     pub fn set_anchor(&mut self, id: Uuid) {
         self.state.anchor = Some(id);
+    }
+}
+
+impl Default for SelectionEngine {
+    fn default() -> Self {
+        Self::new()
     }
 }

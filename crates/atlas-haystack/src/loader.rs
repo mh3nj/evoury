@@ -8,11 +8,14 @@ pub struct ChunkedAssetLoader {
 
 impl ChunkedAssetLoader {
     pub fn new(assets: Vec<Asset>, chunk_size: usize) -> Self {
-        Self { all_assets: assets, chunk_size }
+        Self {
+            all_assets: assets,
+            chunk_size,
+        }
     }
 
     pub fn chunk_count(&self) -> usize {
-        (self.all_assets.len() + self.chunk_size - 1) / self.chunk_size
+        self.all_assets.len().div_ceil(self.chunk_size)
     }
 
     pub fn load_chunk(&self, index: usize) -> Vec<&Asset> {
@@ -26,7 +29,10 @@ impl ChunkedAssetLoader {
     }
 
     pub fn load_by_ids(&self, ids: &[Uuid]) -> Vec<&Asset> {
-        self.all_assets.iter().filter(|a| ids.contains(&a.id)).collect()
+        self.all_assets
+            .iter()
+            .filter(|a| ids.contains(&a.id))
+            .collect()
     }
 
     pub fn total(&self) -> usize {

@@ -30,7 +30,10 @@ impl VersionHistory {
         let mut record = VersionRecord::new(asset_id, label, file_path, file_size);
         record.previous_version_id = previous;
 
-        self.history.entry(asset_id).or_default().push(record.clone());
+        self.history
+            .entry(asset_id)
+            .or_default()
+            .push(record.clone());
         record
     }
 
@@ -56,12 +59,8 @@ impl VersionHistory {
             .find(|v| &v.id == version_id)?
             .clone();
 
-        let restored = self.commit_version(
-            *asset_id,
-            "Restored",
-            &record.file_path,
-            record.file_size,
-        );
+        let restored =
+            self.commit_version(*asset_id, "Restored", &record.file_path, record.file_size);
         Some(restored)
     }
 
@@ -73,7 +72,10 @@ impl VersionHistory {
         file_size: u64,
     ) -> VersionRecord {
         let record = VersionRecord::new(asset_id, label, file_path, file_size);
-        self.history.entry(asset_id).or_default().push(record.clone());
+        self.history
+            .entry(asset_id)
+            .or_default()
+            .push(record.clone());
         record
     }
 
@@ -84,10 +86,7 @@ impl VersionHistory {
     }
 
     pub fn version_count(&self, asset_id: &Uuid) -> usize {
-        self.history
-            .get(asset_id)
-            .map(|v| v.len())
-            .unwrap_or(0)
+        self.history.get(asset_id).map(|v| v.len()).unwrap_or(0)
     }
 
     pub fn prune_versions(&mut self, asset_id: &Uuid, keep: usize) {
@@ -101,5 +100,11 @@ impl VersionHistory {
 
     pub fn latest_version(&self, asset_id: &Uuid) -> Option<&VersionRecord> {
         self.history.get(asset_id).and_then(|v| v.last())
+    }
+}
+
+impl Default for VersionHistory {
+    fn default() -> Self {
+        Self::new()
     }
 }

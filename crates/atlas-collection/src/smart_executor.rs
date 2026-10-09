@@ -1,8 +1,8 @@
-use std::collections::HashMap;
-use uuid::Uuid;
+use crate::smart::SmartCollection;
 use atlas_core::Asset;
 use atlas_metadata::AssetMetadata;
-use crate::smart::SmartCollection;
+use std::collections::HashMap;
+use uuid::Uuid;
 
 pub struct SmartCollectionExecutor;
 

@@ -1,5 +1,5 @@
-use std::path::Path;
 use crate::link::AssetLink;
+use std::path::Path;
 
 pub struct LinkResolver;
 

@@ -24,7 +24,12 @@ impl SearchProfileEntry {
         Self {
             id: "packaging".into(),
             name: "Packaging".into(),
-            indexed_fields: vec!["name".into(), "tags".into(), "notes".into(), "category".into()],
+            indexed_fields: vec![
+                "name".into(),
+                "tags".into(),
+                "notes".into(),
+                "category".into(),
+            ],
             visible_filters: vec!["type".into(), "date".into(), "tags".into()],
             suggested_queries: vec!["dieline".into(), "mockup".into(), "label".into()],
         }
@@ -35,7 +40,12 @@ impl SearchProfileEntry {
             id: "ui-design".into(),
             name: "UI Design".into(),
             indexed_fields: vec!["name".into(), "tags".into(), "notes".into()],
-            visible_filters: vec!["type".into(), "tags".into(), "rating".into(), "favorite".into()],
+            visible_filters: vec![
+                "type".into(),
+                "tags".into(),
+                "rating".into(),
+                "favorite".into(),
+            ],
             suggested_queries: vec!["icon".into(), "button".into(), "screen".into()],
         }
     }
@@ -54,7 +64,12 @@ impl SearchProfileEntry {
         Self {
             id: "archival".into(),
             name: "Archival".into(),
-            indexed_fields: vec!["name".into(), "tags".into(), "notes".into(), "category".into()],
+            indexed_fields: vec![
+                "name".into(),
+                "tags".into(),
+                "notes".into(),
+                "category".into(),
+            ],
             visible_filters: vec!["type".into(), "date".into(), "tags".into(), "rating".into()],
             suggested_queries: vec!["archive".into(), "backup".into(), "export".into()],
         }

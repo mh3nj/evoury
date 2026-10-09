@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use crate::Command;
+use std::collections::HashMap;
 
 pub struct CommandRegistry {
     commands: HashMap<String, Command>,
@@ -49,5 +49,11 @@ impl CommandRegistry {
 
     pub fn count(&self) -> usize {
         self.commands.len()
+    }
+}
+
+impl Default for CommandRegistry {
+    fn default() -> Self {
+        Self::new()
     }
 }

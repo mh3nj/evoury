@@ -10,9 +10,22 @@ const DEFAULTS = {
   loaded: false,
   theme: "Dark" as const,
   density: "Normal" as const,
-  default_view: { grid_size: 240, remember_last_collection: true, show_details: false, view_mode: "grid" as const },
-  performance: { max_preview_memory: 512, enable_background_indexing: true, reduce_motion: false },
-  interaction: { keyboard_navigation: true, double_click_to_open: true, show_tooltips: true },
+  default_view: {
+    grid_size: 240,
+    remember_last_collection: true,
+    show_details: false,
+    view_mode: "grid" as const,
+  },
+  performance: {
+    max_preview_memory: 512,
+    enable_background_indexing: true,
+    reduce_motion: false,
+  },
+  interaction: {
+    keyboard_navigation: true,
+    double_click_to_open: true,
+    show_tooltips: true,
+  },
   default_workspace: null,
 };
 
@@ -39,7 +52,9 @@ describe("preferences store", () => {
   });
 
   it("saves layout and card size together", () => {
-    usePreferencesStore.getState().setView({ view_mode: "comfortable", grid_size: 320 });
+    usePreferencesStore
+      .getState()
+      .setView({ view_mode: "comfortable", grid_size: 320 });
     const prefs = lastSaved();
     expect(prefs.default_view.view_mode).toBe("comfortable");
     expect(prefs.default_view.grid_size).toBe(320);
@@ -50,9 +65,22 @@ describe("preferences store", () => {
       theme: "Light",
       density: "Comfortable",
       default_workspace: null,
-      default_view: { grid_size: 300, remember_last_collection: false, show_details: true, view_mode: "compact" },
-      performance: { max_preview_memory: 256, enable_background_indexing: false, reduce_motion: true },
-      interaction: { keyboard_navigation: false, double_click_to_open: false, show_tooltips: false },
+      default_view: {
+        grid_size: 300,
+        remember_last_collection: false,
+        show_details: true,
+        view_mode: "compact",
+      },
+      performance: {
+        max_preview_memory: 256,
+        enable_background_indexing: false,
+        reduce_motion: true,
+      },
+      interaction: {
+        keyboard_navigation: false,
+        double_click_to_open: false,
+        show_tooltips: false,
+      },
     };
     invokeMock.mockResolvedValueOnce(stored);
 

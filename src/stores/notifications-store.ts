@@ -25,12 +25,16 @@ export const useNotificationsStore = create<NotificationsState>((set) => ({
         invoke<number>("get_unread_count"),
       ]);
       set({ notifications, unreadCount, loading: false });
-    } catch { set({ loading: false }); }
+    } catch {
+      set({ loading: false });
+    }
   },
   markRead: async (id) => {
     await invoke("mark_notification_read", { notificationId: id });
     set((s) => ({
-      notifications: s.notifications.map((n) => n.id === id ? { ...n, read: true } : n),
+      notifications: s.notifications.map((n) =>
+        n.id === id ? { ...n, read: true } : n,
+      ),
       unreadCount: Math.max(0, s.unreadCount - 1),
     }));
   },

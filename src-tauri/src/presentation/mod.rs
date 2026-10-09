@@ -1,3 +1,6 @@
+// Presentation mode scaffolding, wired up in a later release.
+#![allow(dead_code)]
+
 pub mod display;
 pub mod manager;
 pub mod session;

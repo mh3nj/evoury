@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::panel::PanelId;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum SplitDirection {
@@ -9,13 +9,18 @@ pub enum SplitDirection {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum DockNode {
-    Leaf { panel: PanelId },
+    Leaf {
+        panel: PanelId,
+    },
     Split {
         direction: SplitDirection,
         children: Vec<DockNode>,
         ratios: Vec<f32>,
     },
-    TabGroup { panels: Vec<PanelId>, active: usize },
+    TabGroup {
+        panels: Vec<PanelId>,
+        active: usize,
+    },
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -43,12 +48,16 @@ impl Default for DockConfig {
             root: DockNode::Split {
                 direction: SplitDirection::Horizontal,
                 children: vec![
-                    DockNode::Leaf { panel: PanelId::Sidebar },
+                    DockNode::Leaf {
+                        panel: PanelId::Sidebar,
+                    },
                     DockNode::TabGroup {
                         panels: vec![PanelId::Gallery, PanelId::Search],
                         active: 0,
                     },
-                    DockNode::Leaf { panel: PanelId::Inspector },
+                    DockNode::Leaf {
+                        panel: PanelId::Inspector,
+                    },
                 ],
                 ratios: vec![0.18, 0.60, 0.22],
             },

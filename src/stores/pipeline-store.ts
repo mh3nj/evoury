@@ -19,10 +19,15 @@ export const usePipelineStore = create<PipelineState>((set) => ({
     try {
       const pipelines = await invoke<Pipeline[]>("get_pipelines");
       set({ pipelines, loading: false });
-    } catch { set({ loading: false }); }
+    } catch {
+      set({ loading: false });
+    }
   },
   create: async (name, description) => {
-    const pipeline = await invoke<Pipeline>("create_pipeline", { name, description });
+    const pipeline = await invoke<Pipeline>("create_pipeline", {
+      name,
+      description,
+    });
     set((s) => ({ pipelines: [...s.pipelines, pipeline] }));
     return pipeline;
   },

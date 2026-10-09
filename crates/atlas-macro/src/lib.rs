@@ -1,4 +1,4 @@
-pub mod recorder;
 pub mod playback;
-pub use recorder::{MacroRecorder, MacroRecording, MacroStep};
+pub mod recorder;
 pub use playback::MacroPlayback;
+pub use recorder::{MacroRecorder, MacroRecording, MacroStep};

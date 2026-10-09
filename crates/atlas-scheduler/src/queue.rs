@@ -1,6 +1,6 @@
-use std::collections::{BinaryHeap, HashMap};
-use std::cmp::Ordering;
 use crate::job::{Job, JobStatus};
+use std::cmp::Ordering;
+use std::collections::{BinaryHeap, HashMap};
 
 struct JobWrapper(Job);
 
@@ -20,7 +20,10 @@ impl PartialOrd for JobWrapper {
 
 impl Ord for JobWrapper {
     fn cmp(&self, other: &Self) -> Ordering {
-        other.0.priority.cmp(&self.0.priority)
+        other
+            .0
+            .priority
+            .cmp(&self.0.priority)
             .then_with(|| self.0.created_at.cmp(&other.0.created_at))
     }
 }
@@ -150,5 +153,11 @@ mod tests {
         assert_eq!(dequeued.status, JobStatus::Running);
         q.complete(id);
         assert_eq!(q.history().last().unwrap().status, JobStatus::Completed);
+    }
+}
+
+impl Default for JobQueue {
+    fn default() -> Self {
+        Self::new()
     }
 }

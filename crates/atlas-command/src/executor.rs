@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use crate::{Command, CommandResult};
+use std::collections::HashMap;
 
 pub type CommandHandler = Box<dyn Fn(&Command) -> CommandResult + Send + Sync>;
 
@@ -18,7 +18,8 @@ impl CommandExecutor {
     where
         F: Fn(&Command) -> CommandResult + Send + Sync + 'static,
     {
-        self.handlers.insert(command_id.to_string(), Box::new(handler));
+        self.handlers
+            .insert(command_id.to_string(), Box::new(handler));
     }
 
     pub fn execute(&self, command: &Command) -> Option<CommandResult> {
@@ -33,5 +34,11 @@ impl CommandExecutor {
 
     pub fn registered_ids(&self) -> Vec<String> {
         self.handlers.keys().cloned().collect()
+    }
+}
+
+impl Default for CommandExecutor {
+    fn default() -> Self {
+        Self::new()
     }
 }

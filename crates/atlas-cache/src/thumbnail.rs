@@ -1,6 +1,6 @@
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::PathBuf;
-use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -31,10 +31,15 @@ impl ThumbnailSize {
     }
 
     pub fn from_zoom(zoom: f32) -> Self {
-        if zoom <= 0.5 { Self::Small }
-        else if zoom <= 1.0 { Self::Medium }
-        else if zoom <= 2.0 { Self::Large }
-        else { Self::Retina }
+        if zoom <= 0.5 {
+            Self::Small
+        } else if zoom <= 1.0 {
+            Self::Medium
+        } else if zoom <= 2.0 {
+            Self::Large
+        } else {
+            Self::Retina
+        }
     }
 }
 

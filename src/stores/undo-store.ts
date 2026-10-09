@@ -17,15 +17,28 @@ export const useUndoStore = create<UndoState>((set) => ({
   undoLabel: "",
   check: async () => {
     try {
-      const [cu, cr] = await Promise.all([invoke<boolean>("can_undo"), invoke<boolean>("can_redo")]);
+      const [cu, cr] = await Promise.all([
+        invoke<boolean>("can_undo"),
+        invoke<boolean>("can_redo"),
+      ]);
       set({ canUndo: cu, canRedo: cr });
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   },
   undo: async () => {
-    try { return await invoke<string>("undo"); } catch { return null; }
+    try {
+      return await invoke<string>("undo");
+    } catch {
+      return null;
+    }
   },
   redo: async () => {
-    try { return await invoke<string>("redo"); } catch { return null; }
+    try {
+      return await invoke<string>("redo");
+    } catch {
+      return null;
+    }
   },
   push: async (label, undoData, redoData) => {
     await invoke("push_undo", { label, undoData, redoData });

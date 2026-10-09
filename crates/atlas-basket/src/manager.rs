@@ -1,6 +1,6 @@
+use crate::basket::Basket;
 use std::collections::HashMap;
 use uuid::Uuid;
-use crate::basket::Basket;
 
 pub struct BasketManager {
     baskets: HashMap<Uuid, Basket>,
@@ -31,7 +31,7 @@ impl BasketManager {
 
     pub fn all(&self) -> Vec<Basket> {
         let mut baskets: Vec<Basket> = self.baskets.values().cloned().collect();
-        baskets.sort_by(|a, b| b.created.cmp(&a.created));
+        baskets.sort_by_key(|b| std::cmp::Reverse(b.created));
         baskets
     }
 
@@ -65,5 +65,11 @@ impl BasketManager {
             .get(basket_id)
             .map(|b| b.assets.contains(asset_id))
             .unwrap_or(false)
+    }
+}
+
+impl Default for BasketManager {
+    fn default() -> Self {
+        Self::new()
     }
 }

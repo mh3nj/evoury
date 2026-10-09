@@ -22,7 +22,9 @@ export const useCollectionsStore = create<CollectionsState>((set) => ({
     try {
       const collections = await invoke<Collection[]>("get_collections");
       set({ collections, loading: false });
-    } catch { set({ loading: false }); }
+    } catch {
+      set({ loading: false });
+    }
   },
   addCollection: async (collection) => {
     await invoke("add_collection", { collection });
@@ -39,6 +41,8 @@ export const useCollectionsStore = create<CollectionsState>((set) => ({
     set({ collections });
   },
   getChildren: async (parentId) => {
-    return invoke<Collection[]>("get_collection_children", { collectionId: parentId });
+    return invoke<Collection[]>("get_collection_children", {
+      collectionId: parentId,
+    });
   },
 }));

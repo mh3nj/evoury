@@ -1,7 +1,6 @@
-
+use crate::metadata::AssetMetadata;
 use atlas_core::Asset;
 use atlas_events::{AtlasEvent, EventBus};
-use crate::metadata::AssetMetadata;
 
 #[derive(Debug)]
 pub enum MetadataIssue {
@@ -24,7 +23,11 @@ impl MetadataPipeline {
         self
     }
 
-    pub fn process(&self, metadata: &mut AssetMetadata, asset: Option<&Asset>) -> Vec<MetadataIssue> {
+    pub fn process(
+        &self,
+        metadata: &mut AssetMetadata,
+        asset: Option<&Asset>,
+    ) -> Vec<MetadataIssue> {
         let issues = self.validate(metadata, asset);
         self.store(metadata);
         self.notify(metadata);
@@ -32,13 +35,19 @@ impl MetadataPipeline {
     }
 
     pub fn extract(&self, asset: &Asset) -> AssetMetadata {
-        let mut meta = AssetMetadata::default();
-        meta.asset_id = asset.id;
-        meta
+        AssetMetadata {
+            asset_id: asset.id,
+            ..AssetMetadata::default()
+        }
     }
 
     pub fn normalize(&self, metadata: &mut AssetMetadata) {
-        metadata.tags = metadata.tags.iter().map(|t| t.trim().to_lowercase()).filter(|t| !t.is_empty()).collect();
+        metadata.tags = metadata
+            .tags
+            .iter()
+            .map(|t| t.trim().to_lowercase())
+            .filter(|t| !t.is_empty())
+            .collect();
         metadata.notes = metadata.notes.trim().to_string();
         metadata.rating = metadata.rating.min(5);
     }
@@ -52,9 +61,10 @@ impl MetadataPipeline {
 
         if let Some(asset) = asset {
             if !asset.archive_path.exists() {
-                issues.push(MetadataIssue::BrokenReference(
-                    format!("Archive path missing: {}", asset.archive_path.display())
-                ));
+                issues.push(MetadataIssue::BrokenReference(format!(
+                    "Archive path missing: {}",
+                    asset.archive_path.display()
+                )));
             }
         }
 
@@ -72,7 +82,9 @@ impl MetadataPipeline {
     pub fn notify(&self, metadata: &AssetMetadata) {
         if let Some(ref bus) = self.event_bus {
             let sender = bus.sender();
-            let _ = sender.send(AtlasEvent::MetadataChanged { asset_id: metadata.asset_id });
+            let _ = sender.send(AtlasEvent::MetadataChanged {
+                asset_id: metadata.asset_id,
+            });
         }
     }
 }
@@ -103,6 +115,14 @@ mod tests {
         };
         let pipeline = MetadataPipeline::new();
         let issues = pipeline.validate(&meta, None);
-        assert!(issues.iter().any(|i| matches!(i, MetadataIssue::InvalidValue(_))));
+        assert!(issues
+            .iter()
+            .any(|i| matches!(i, MetadataIssue::InvalidValue(_))));
+    }
+}
+
+impl Default for MetadataPipeline {
+    fn default() -> Self {
+        Self::new()
     }
 }

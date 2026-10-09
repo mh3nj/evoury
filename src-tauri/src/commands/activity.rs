@@ -1,36 +1,63 @@
+use crate::state::AppState;
+use atlas_core::{ActivityEvent, ActivityEventType};
 use tauri::State;
 use uuid::Uuid;
-use atlas_core::{ActivityEvent, ActivityEventType};
-use crate::state::AppState;
 
 #[tauri::command]
-pub fn record_activity(state: State<'_, AppState>, asset_id: String, event_type: String, details: String) -> Result<ActivityEvent, String> {
+pub fn record_activity(
+    state: State<'_, AppState>,
+    asset_id: String,
+    event_type: String,
+    details: String,
+) -> Result<ActivityEvent, String> {
     let id = Uuid::parse_str(&asset_id).map_err(|e| e.to_string())?;
     let etype = parse_event_type(&event_type).ok_or("Invalid event type")?;
-    state.activity_tracker.lock()
+    state
+        .activity_tracker
+        .lock()
         .map_err(|e| e.to_string())
         .map(|mut t| t.record_event(id, etype, &details))
 }
 
 #[tauri::command]
-pub fn get_asset_activity(state: State<'_, AppState>, asset_id: String, limit: usize) -> Vec<ActivityEvent> {
+pub fn get_asset_activity(
+    state: State<'_, AppState>,
+    asset_id: String,
+    limit: usize,
+) -> Vec<ActivityEvent> {
     let id = Uuid::parse_str(&asset_id).unwrap_or_default();
-    state.activity_tracker.lock()
-        .map(|t| t.get_events_for_asset(&id, limit).into_iter().cloned().collect())
+    state
+        .activity_tracker
+        .lock()
+        .map(|t| {
+            t.get_events_for_asset(&id, limit)
+                .into_iter()
+                .cloned()
+                .collect()
+        })
         .unwrap_or_default()
 }
 
 #[tauri::command]
 pub fn get_recent_activity(state: State<'_, AppState>, hours: i64) -> Vec<ActivityEvent> {
-    state.activity_tracker.lock()
+    state
+        .activity_tracker
+        .lock()
         .map(|t| t.recent_activity(hours).into_iter().cloned().collect())
         .unwrap_or_default()
 }
 
 #[tauri::command]
 pub fn get_most_viewed(state: State<'_, AppState>, limit: usize) -> Vec<(String, usize)> {
-    state.activity_tracker.lock()
-        .map(|t| t.most_viewed(limit).into_iter().map(|(id, c)| (id.to_string(), c)).collect())
+    state
+        .activity_tracker
+        .lock()
+        .map(|t| {
+            t.most_viewed(limit)
+                .into_iter()
+                .map(|(id, c)| (id.to_string(), c))
+                .collect()
+        })
         .unwrap_or_default()
 }
 

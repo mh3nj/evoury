@@ -1,13 +1,13 @@
+use atlas_core::{
+    scan::{ScanFingerprint, ScanMode, ScanProgress, ScanStats},
+    ArchiveType, Asset, AssetState, Preview,
+};
+use chrono::{DateTime, Utc};
+use crossbeam_channel::Sender;
 use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::time::Instant;
-use crossbeam_channel::Sender;
-use atlas_core::{
-    ArchiveType, Asset, AssetState, Preview,
-    scan::{ScanFingerprint, ScanMode, ScanProgress, ScanStats},
-};
-use chrono::{DateTime, Utc};
 use uuid::Uuid;
 use walkdir::WalkDir;
 
@@ -36,7 +36,11 @@ impl Scanner {
         self
     }
 
-    pub fn scan(&self, root: impl AsRef<Path>, fingerprints: &[ScanFingerprint]) -> (Vec<Asset>, ScanStats) {
+    pub fn scan(
+        &self,
+        root: impl AsRef<Path>,
+        fingerprints: &[ScanFingerprint],
+    ) -> (Vec<Asset>, ScanStats) {
         let start = Instant::now();
         let root = root.as_ref();
 
@@ -74,10 +78,15 @@ impl Scanner {
                         Err(_) => continue,
                     };
                     let modified = match meta.modified() {
-                        Ok(t) => t.duration_since(std::time::UNIX_EPOCH).unwrap_or_default().as_secs(),
+                        Ok(t) => t
+                            .duration_since(std::time::UNIX_EPOCH)
+                            .unwrap_or_default()
+                            .as_secs(),
                         Err(_) => 0,
                     };
-                    if modified <= fp.last_modified && meta.len() <= fp.total_size / std::cmp::max(fp.file_count, 1) {
+                    if modified <= fp.last_modified
+                        && meta.len() <= fp.total_size / std::cmp::max(fp.file_count, 1)
+                    {
                         continue;
                     }
                 }
@@ -87,11 +96,17 @@ impl Scanner {
                 Some(v) => v.to_string_lossy().to_string(),
                 None => continue,
             };
-            let ext = path.extension().unwrap_or_default().to_string_lossy().to_lowercase();
+            let ext = path
+                .extension()
+                .unwrap_or_default()
+                .to_string_lossy()
+                .to_lowercase();
 
             match ext.as_str() {
                 "zip" | "rar" | "7z" | "tar" | "tgz" | "gz" => {
-                    if ext == "gz" && !stem.ends_with(".tar") { continue; }
+                    if ext == "gz" && !stem.ends_with(".tar") {
+                        continue;
+                    }
                     archives.entry(stem.clone()).or_insert(path.to_path_buf());
                     scanned_archives += 1;
                 }
@@ -122,7 +137,11 @@ impl Scanner {
             let metadata = match fs::metadata(archive_path) {
                 Ok(m) => m,
                 Err(e) => {
-                    errors.push(format!("Failed to read metadata for {}: {}", archive_path.display(), e));
+                    errors.push(format!(
+                        "Failed to read metadata for {}: {}",
+                        archive_path.display(),
+                        e
+                    ));
                     continue;
                 }
             };
@@ -130,7 +149,9 @@ impl Scanner {
                 Ok(t) => t.into(),
                 Err(_) => Utc::now(),
             };
-            let preview = previews.get(name).map(|path| Preview { path: path.clone() });
+            let preview = previews
+                .get(name)
+                .map(|path| Preview { path: path.clone() });
 
             assets.push(Asset {
                 id: Uuid::new_v4(),
@@ -156,7 +177,9 @@ impl Scanner {
             duration_ms: duration,
         };
 
-        self.emit(atlas_events::AtlasEvent::ScanFinished { scan_id: self.scan_id });
+        self.emit(atlas_events::AtlasEvent::ScanFinished {
+            scan_id: self.scan_id,
+        });
 
         (assets, stats)
     }
@@ -165,12 +188,23 @@ impl Scanner {
         let mut fingerprints = Vec::new();
         let mut folder_map: HashMap<PathBuf, (u64, u64, u64)> = HashMap::new();
 
-        for entry in WalkDir::new(root.as_ref()).follow_links(false).into_iter().filter_map(|e| e.ok()).filter(|e| e.file_type().is_file()) {
+        for entry in WalkDir::new(root.as_ref())
+            .follow_links(false)
+            .into_iter()
+            .filter_map(|e| e.ok())
+            .filter(|e| e.file_type().is_file())
+        {
             let path = entry.path().to_path_buf();
             let parent = path.parent().unwrap_or(root.as_ref()).to_path_buf();
-            let meta = match entry.metadata() { Ok(m) => m, Err(_) => continue };
+            let meta = match entry.metadata() {
+                Ok(m) => m,
+                Err(_) => continue,
+            };
             let modified = match meta.modified() {
-                Ok(t) => t.duration_since(std::time::UNIX_EPOCH).unwrap_or_default().as_secs(),
+                Ok(t) => t
+                    .duration_since(std::time::UNIX_EPOCH)
+                    .unwrap_or_default()
+                    .as_secs(),
                 Err(_) => 0,
             };
             let entry = folder_map.entry(parent).or_insert((0, 0, 0));
@@ -199,11 +233,23 @@ impl Scanner {
 }
 
 fn archive_type(path: &Path) -> ArchiveType {
-    match path.extension().unwrap_or_default().to_string_lossy().to_lowercase().as_str() {
+    match path
+        .extension()
+        .unwrap_or_default()
+        .to_string_lossy()
+        .to_lowercase()
+        .as_str()
+    {
         "zip" => ArchiveType::Zip,
         "rar" => ArchiveType::Rar,
         "7z" => ArchiveType::SevenZip,
         "tar" | "tgz" | "gz" => ArchiveType::Tar,
         _ => ArchiveType::Unknown,
+    }
+}
+
+impl Default for Scanner {
+    fn default() -> Self {
+        Self::new()
     }
 }
