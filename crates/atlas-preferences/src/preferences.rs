@@ -4,19 +4,14 @@ use crate::performance::PerformancePreference;
 use crate::view::ViewPreference;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(default)]
 pub struct Preferences {
     pub theme: ThemeMode,
     pub default_workspace: Option<String>,
     pub default_view: ViewPreference,
     pub performance: PerformancePreference,
     pub interaction: InteractionPreference,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub enum ThemeMode {
-    Dark,
-    Light,
-    System,
+    pub density: String,
 }
 
 impl Default for Preferences {
@@ -27,6 +22,14 @@ impl Default for Preferences {
             default_view: ViewPreference::default(),
             performance: PerformancePreference::default(),
             interaction: InteractionPreference::default(),
+            density: "Normal".to_string(),
         }
     }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum ThemeMode {
+    Dark,
+    Light,
+    System,
 }

@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="Верзија">
+  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="Верзија">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="Лиценца">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="Платформа">
@@ -210,5 +210,5 @@ cargo fmt             # Форматирајте Rust код
 ---
 
 <p align="center">
-  Направљено са ❤️ од <a href="https://github.com/mh3nj">Ваше Име</a>
+  Built by <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

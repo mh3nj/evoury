@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="संस्करण">
+  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="संस्करण">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="लाइसेंस">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="प्लेटफ़ॉर्म">
@@ -85,7 +85,7 @@ Evoury एक शक्तिशाली, ऑफ़लाइन-फ़र्स
 </p>
 
 <p align="center">
-  <em>मेन इंटरफ़ेस — गैलरी व्यू</em>
+  <em>मेन इंटरफ़ेस, गैलरी व्यू</em>
 </p>
 
 <p align="center">
@@ -93,7 +93,7 @@ Evoury एक शक्तिशाली, ऑफ़लाइन-फ़र्स
 </p>
 
 <p align="center">
-  <em>इंस्पेक्टर पैनल — एसेट डिटेल्स</em>
+  <em>इंस्पेक्टर पैनल, एसेट डिटेल्स</em>
 </p>
 
 <p align="center">
@@ -169,18 +169,18 @@ cargo fmt             # Rust कोड फ़ॉर्मेट करें
 
 ### बैकएंड
 
-- **Rust** — सिस्टम प्रोग्रामिंग भाषा
-- **Tauri** — डेस्कटॉप ऐप फ़्रेमवर्क
-- **SQLite** — लोकल डेटाबेस
-- **Crossbeam** — कॉन्करेंसी प्रिमिटिव्स
+- **Rust**: सिस्टम प्रोग्रामिंग भाषा
+- **Tauri**: डेस्कटॉप ऐप फ़्रेमवर्क
+- **SQLite**: लोकल डेटाबेस
+- **Crossbeam**: कॉन्करेंसी प्रिमिटिव्स
 
 ### फ़्रंटएंड
 
-- **React** — UI लाइब्रेरी
-- **TypeScript** — टाइप-सेफ़ JavaScript
-- **Tailwind CSS** — यूटिलिटी-फ़र्स्ट CSS फ़्रेमवर्क
-- **Zustand** — स्टेट मैनेजमेंट
-- **Vite** — बिल्ड टूल और डेवलपमेंट सर्वर
+- **React**: UI लाइब्रेरी
+- **TypeScript**: टाइप-सेफ़ JavaScript
+- **Tailwind CSS**: यूटिलिटी-फ़र्स्ट CSS फ़्रेमवर्क
+- **Zustand**: स्टेट मैनेजमेंट
+- **Vite**: बिल्ड टूल और डेवलपमेंट सर्वर
 
 ---
 
@@ -198,7 +198,7 @@ cargo fmt             # Rust कोड फ़ॉर्मेट करें
 
 ## लाइसेंस
 
-यह प्रोजेक्ट MIT लाइसेंस के तहत लाइसेंस प्राप्त है — विवरण के लिए [LICENSE](LICENSE) फ़ाइल देखें।
+यह प्रोजेक्ट MIT लाइसेंस के तहत लाइसेंस प्राप्त है, विवरण के लिए [LICENSE](LICENSE) फ़ाइल देखें।
 
 ---
 
@@ -210,5 +210,5 @@ cargo fmt             # Rust कोड फ़ॉर्मेट करें
 ---
 
 <p align="center">
-  <a href="https://github.com/mh3nj">आपका नाम</a> द्वारा ❤️ से बनाया गया
+  Built by <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

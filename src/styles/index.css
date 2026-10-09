@@ -3,7 +3,7 @@
 
 @layer base {
   :root {
-    /* Dark (Dracula-inspired) — default */
+    /* Dark theme, default */
     --evoury-bg: #1a1a2e;
     --evoury-surface: #222240;
     --evoury-elevated: #2a2a4a;
@@ -21,7 +21,13 @@
     --evoury-radius: 12px;
     --evoury-animation-speed: 200ms;
     --evoury-density-multiplier: 1;
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family:
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
     font-size: 14px;
     line-height: 1.5;
     font-weight: 400;
@@ -58,15 +64,27 @@
     box-sizing: border-box;
   }
 
-  html, body, #root {
+  html,
+  body,
+  #root {
     height: 100%;
     overflow: hidden;
   }
 
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--evoury-border-light); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: #5a5a7e; }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--evoury-border-light);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #5a5a7e;
+  }
 
   input[type="range"] {
     -webkit-appearance: none;
@@ -119,18 +137,31 @@
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, var(--evoury-accent), var(--evoury-accent2), var(--evoury-accent));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    background: linear-gradient(
+      135deg,
+      var(--evoury-accent),
+      var(--evoury-accent2),
+      var(--evoury-accent)
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     opacity: 0;
     transition: opacity 0.3s;
   }
 
-  .glow-border:hover::after { opacity: 1; }
+  .glow-border:hover::after {
+    opacity: 1;
+  }
 
   .text-gradient {
-    background: linear-gradient(135deg, var(--evoury-accent), var(--evoury-accent2));
+    background: linear-gradient(
+      135deg,
+      var(--evoury-accent),
+      var(--evoury-accent2)
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -151,53 +182,107 @@
     transform: translateY(-1px);
   }
 
-  .premium-btn:active { transform: translateY(0); }
+  .premium-btn:active {
+    transform: translateY(0);
+  }
 
   .panel-shimmer {
-    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.03) 50%,
+      transparent 100%
+    );
     background-size: 200% 100%;
     animation: shimmer 2s infinite;
   }
 
   @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @keyframes scaleIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   @keyframes slideUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  .animate-fade-in { animation: fadeIn 0.2s ease-out; }
-  .animate-scale-in { animation: scaleIn 0.15s ease-out; }
-  .animate-slide-up { animation: slideUp 0.2s ease-out; }
+  .animate-fade-in {
+    animation: fadeIn 0.2s ease-out;
+  }
+  .animate-scale-in {
+    animation: scaleIn 0.15s ease-out;
+  }
+  .animate-slide-up {
+    animation: slideUp 0.2s ease-out;
+  }
 
   .animate-stagger {
     animation: slideUp 0.25s ease-out both;
   }
 
-  .animate-stagger:nth-child(1) { animation-delay: 0ms; }
-  .animate-stagger:nth-child(2) { animation-delay: 30ms; }
-  .animate-stagger:nth-child(3) { animation-delay: 60ms; }
-  .animate-stagger:nth-child(4) { animation-delay: 90ms; }
-  .animate-stagger:nth-child(5) { animation-delay: 120ms; }
-  .animate-stagger:nth-child(6) { animation-delay: 150ms; }
-  .animate-stagger:nth-child(7) { animation-delay: 180ms; }
-  .animate-stagger:nth-child(8) { animation-delay: 210ms; }
+  .animate-stagger:nth-child(1) {
+    animation-delay: 0ms;
+  }
+  .animate-stagger:nth-child(2) {
+    animation-delay: 30ms;
+  }
+  .animate-stagger:nth-child(3) {
+    animation-delay: 60ms;
+  }
+  .animate-stagger:nth-child(4) {
+    animation-delay: 90ms;
+  }
+  .animate-stagger:nth-child(5) {
+    animation-delay: 120ms;
+  }
+  .animate-stagger:nth-child(6) {
+    animation-delay: 150ms;
+  }
+  .animate-stagger:nth-child(7) {
+    animation-delay: 180ms;
+  }
+  .animate-stagger:nth-child(8) {
+    animation-delay: 210ms;
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    .animate-fade-in, .animate-scale-in, .animate-slide-up, .animate-stagger {
+    .animate-fade-in,
+    .animate-scale-in,
+    .animate-slide-up,
+    .animate-stagger {
       animation: none !important;
       transition: none !important;
     }
@@ -211,4 +296,12 @@
 .reduced-motion .animate-stagger {
   animation: none !important;
   transition: none !important;
+}
+
+/* Density scales the gallery spacing so the setting is visible immediately */
+.density-compact {
+  --evoury-density-multiplier: 0.7;
+}
+.density-comfortable {
+  --evoury-density-multiplier: 1.3;
 }

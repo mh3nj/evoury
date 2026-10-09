@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="Versjon">
+  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="Versjon">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="Lisens">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="Plattform">
@@ -210,5 +210,5 @@ Dette prosjektet er lisensiert under MIT-lisensen - se filen [LICENSE](LICENSE) 
 ---
 
 <p align="center">
-  Laget med ❤️ av <a href="https://github.com/mh3nj">Ditt navn</a>
+  Built by <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

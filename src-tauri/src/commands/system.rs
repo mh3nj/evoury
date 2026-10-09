@@ -75,10 +75,10 @@ pub fn open_external_file(path: String) -> Result<(), String> {
     if !p.exists() {
         return Err(format!("File not found: {}", path));
     }
-    // Use `shell.open` equivalent — open with default system app
+    // Open with the default system application
     #[cfg(target_os = "windows")]
     {
-        // `start "" "path with spaces"` — empty title, then the path quoted
+        // `start "" "path"`: empty title first, then the quoted path
         Command::new("cmd")
             .arg("/C")
             .arg("start")

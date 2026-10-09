@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="الإصدار">
+  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="الإصدار">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="الترخيص">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="المنصة">
@@ -85,7 +85,7 @@ Evoury هو مدير أصول إبداعية قوي ودون اتصال، مبن
 </p>
 
 <p align="center">
-  <em>الواجهة الرئيسية — عرض المعرض</em>
+  <em>الواجهة الرئيسية, عرض المعرض</em>
 </p>
 
 <p align="center">
@@ -93,7 +93,7 @@ Evoury هو مدير أصول إبداعية قوي ودون اتصال، مبن
 </p>
 
 <p align="center">
-  <em>لوحة الفاحص — تفاصيل الأصل</em>
+  <em>لوحة الفاحص, تفاصيل الأصل</em>
 </p>
 
 <p align="center">
@@ -169,18 +169,18 @@ cargo fmt             # تنسيق كود Rust
 
 ### الخادم الخلفي
 
-- **Rust** — لغة برمجة الأنظمة
-- **Tauri** — إطار عمل تطبيقات سطح المكتب
-- **SQLite** — قاعدة بيانات محلية
-- **Crossbeam** — بدائل البرمجة المتزامنة
+- **Rust**: لغة برمجة الأنظمة
+- **Tauri**: إطار عمل تطبيقات سطح المكتب
+- **SQLite**: قاعدة بيانات محلية
+- **Crossbeam**: بدائل البرمجة المتزامنة
 
 ### الواجهة الأمامية
 
-- **React** — مكتبة واجهة المستخدم
-- **TypeScript** — JavaScript مُرقَّم
-- **Tailwind CSS** — إطار CSS أداة
-- **Zustand** — إدارة الحالة
-- **Vite** — أداة بناء وخادم التطوير
+- **React**: مكتبة واجهة المستخدم
+- **TypeScript**: JavaScript مُرقَّم
+- **Tailwind CSS**: إطار CSS أداة
+- **Zustand**: إدارة الحالة
+- **Vite**: أداة بناء وخادم التطوير
 
 ---
 
@@ -198,7 +198,7 @@ cargo fmt             # تنسيق كود Rust
 
 ## الترخيص
 
-هذا المشروع مرخص بموجب ترخيص MIT — انظر ملف [LICENSE](LICENSE) للتفاصيل.
+هذا المشروع مرخص بموجب ترخيص MIT, انظر ملف [LICENSE](LICENSE) للتفاصيل.
 
 ---
 
@@ -210,5 +210,5 @@ cargo fmt             # تنسيق كود Rust
 ---
 
 <p align="center">
-  صنع بـ ❤️ بواسطة <a href="https://github.com/mh3nj">اسمك</a>
+  Built by <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

@@ -1,14 +1,35 @@
 import { create } from "zustand";
 import { invoke } from "@tauri-apps/api/tauri";
-import type { Preferences, ThemeMode, ViewPreference, PerformancePreference, InteractionPreference } from "../types/preferences";
+import type {
+  Preferences,
+  ThemeMode,
+  Density,
+  ViewPreference,
+  PerformancePreference,
+  InteractionPreference,
+} from "../types/preferences";
 
-const DEFAULT_VIEW: ViewPreference = { grid_size: 240, remember_last_collection: true, show_details: false };
-const DEFAULT_PERF: PerformancePreference = { max_preview_memory: 512, enable_background_indexing: true, reduce_motion: false };
-const DEFAULT_INT: InteractionPreference = { keyboard_navigation: true, double_click_to_open: true, show_tooltips: true };
+const DEFAULT_VIEW: ViewPreference = {
+  grid_size: 240,
+  remember_last_collection: true,
+  show_details: false,
+  view_mode: "grid",
+};
+const DEFAULT_PERF: PerformancePreference = {
+  max_preview_memory: 512,
+  enable_background_indexing: true,
+  reduce_motion: false,
+};
+const DEFAULT_INT: InteractionPreference = {
+  keyboard_navigation: true,
+  double_click_to_open: true,
+  show_tooltips: true,
+};
 
 interface PreferencesState {
   loaded: boolean;
   theme: ThemeMode;
+  density: Density;
   default_view: ViewPreference;
   performance: PerformancePreference;
   interaction: InteractionPreference;
@@ -16,6 +37,7 @@ interface PreferencesState {
   load: () => Promise<void>;
   save: () => Promise<void>;
   setTheme: (theme: ThemeMode) => void;
+  setDensity: (density: Density) => void;
   setView: (v: Partial<ViewPreference>) => void;
   setPerformance: (p: Partial<PerformancePreference>) => void;
   setInteraction: (i: Partial<InteractionPreference>) => void;
@@ -25,6 +47,7 @@ interface PreferencesState {
 export const usePreferencesStore = create<PreferencesState>((set, get) => ({
   loaded: false,
   theme: "Dark",
+  density: "Normal",
   default_view: DEFAULT_VIEW,
   performance: DEFAULT_PERF,
   interaction: DEFAULT_INT,
@@ -36,9 +59,10 @@ export const usePreferencesStore = create<PreferencesState>((set, get) => ({
       set({
         loaded: true,
         theme: p.theme,
-        default_view: p.default_view,
-        performance: p.performance,
-        interaction: p.interaction,
+        density: p.density ?? "Normal",
+        default_view: { ...DEFAULT_VIEW, ...p.default_view },
+        performance: { ...DEFAULT_PERF, ...p.performance },
+        interaction: { ...DEFAULT_INT, ...p.interaction },
         default_workspace: p.default_workspace,
       });
     } catch {
@@ -50,16 +74,26 @@ export const usePreferencesStore = create<PreferencesState>((set, get) => ({
     const s = get();
     const prefs: Preferences = {
       theme: s.theme,
+      density: s.density,
       default_workspace: s.default_workspace,
       default_view: s.default_view,
       performance: s.performance,
       interaction: s.interaction,
     };
-    await invoke("set_preferences", { prefs });
+    try {
+      await invoke("set_preferences", { prefs });
+    } catch (e) {
+      console.error("Failed to save preferences", e);
+    }
   },
 
   setTheme: (theme) => {
     set({ theme });
+    get().save();
+  },
+
+  setDensity: (density) => {
+    set({ density });
     get().save();
   },
 

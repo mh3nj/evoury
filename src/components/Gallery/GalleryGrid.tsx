@@ -13,10 +13,17 @@ const PADDING = 32;
 const GAP = 12;
 
 function isPsd(name: string, mime?: string): boolean {
-  return name.toLowerCase().endsWith(".psd") || (mime?.includes("photoshop") ?? false);
+  return (
+    name.toLowerCase().endsWith(".psd") ||
+    (mime?.includes("photoshop") ?? false)
+  );
 }
 
-export default function GalleryGrid({ assets, onOpenExternal, onOpenPath }: Props) {
+export default function GalleryGrid({
+  assets,
+  onOpenExternal,
+  onOpenPath,
+}: Props) {
   const gridSize = useGalleryStore((s) => s.gridSize);
   const viewMode = useGalleryStore((s) => s.viewMode);
   const scanning = useScanStore((s) => s.scanning);
@@ -26,7 +33,7 @@ export default function GalleryGrid({ assets, onOpenExternal, onOpenPath }: Prop
 
   const filteredAssets = useMemo(
     () => assets.filter((a) => !isPsd(a.name, a.mime_type)),
-    [assets]
+    [assets],
   );
 
   useEffect(() => {
@@ -41,8 +48,10 @@ export default function GalleryGrid({ assets, onOpenExternal, onOpenPath }: Prop
 
   // Card size based on viewMode
   const cardSize = useMemo(() => {
-    if (viewMode === "compact") return Math.max(90, Math.min(160, gridSize * 0.5));
-    if (viewMode === "comfortable") return Math.max(220, Math.min(500, gridSize * 1.3));
+    if (viewMode === "compact")
+      return Math.max(90, Math.min(160, gridSize * 0.5));
+    if (viewMode === "comfortable")
+      return Math.max(220, Math.min(500, gridSize * 1.3));
     return Math.max(140, Math.min(350, gridSize));
   }, [viewMode, gridSize]);
 
@@ -70,15 +79,32 @@ export default function GalleryGrid({ assets, onOpenExternal, onOpenPath }: Prop
 
   if (filteredAssets.length === 0 && !scanning) {
     return (
-      <div className="flex-1 flex items-center justify-center"
-        style={{ background: "var(--evoury-bg)" }}>
+      <div
+        className="flex-1 flex items-center justify-center"
+        style={{ background: "var(--evoury-bg)" }}
+      >
         <div className="text-center animate-fade-in">
-          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-            style={{ background: "var(--evoury-elevated)" }}>
-            <i className="fas fa-images text-2xl" style={{ color: "var(--evoury-text-dim)" }} />
+          <div
+            className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
+            style={{ background: "var(--evoury-elevated)" }}
+          >
+            <i
+              className="fas fa-images text-2xl"
+              style={{ color: "var(--evoury-text-dim)" }}
+            />
           </div>
-          <p className="text-sm font-medium" style={{ color: "var(--evoury-text-dim)" }}>No assets yet</p>
-          <p className="text-xs mt-1" style={{ color: "var(--evoury-border-light)" }}>Scan a folder to get started</p>
+          <p
+            className="text-sm font-medium"
+            style={{ color: "var(--evoury-text-dim)" }}
+          >
+            No assets yet
+          </p>
+          <p
+            className="text-xs mt-1"
+            style={{ color: "var(--evoury-border-light)" }}
+          >
+            Scan a folder to get started
+          </p>
         </div>
       </div>
     );
@@ -87,19 +113,31 @@ export default function GalleryGrid({ assets, onOpenExternal, onOpenPath }: Prop
   return (
     <div ref={containerRef} className="flex-1 flex flex-col overflow-hidden">
       {scanning && (
-        <div className="px-5 py-2 text-[10px] flex items-center gap-2 animate-fade-in"
-          style={{ background: "var(--evoury-surface)", borderBottom: "1px solid var(--evoury-border)", color: "var(--evoury-accent)" }}>
+        <div
+          className="px-5 py-2 text-[10px] flex items-center gap-2 animate-fade-in"
+          style={{
+            background: "var(--evoury-surface)",
+            borderBottom: "1px solid var(--evoury-border)",
+            color: "var(--evoury-accent)",
+          }}
+        >
           <i className="fas fa-spinner fa-pulse" />
           Scanning...
         </div>
       )}
-      <div ref={gridRef} className="flex-1 overflow-auto" style={{ background: "var(--evoury-bg)" }}>
-        <div className="p-4"
+      <div
+        ref={gridRef}
+        className="flex-1 overflow-auto"
+        style={{ background: "var(--evoury-bg)" }}
+      >
+        <div
           style={{
             display: "grid",
             gridTemplateColumns: `repeat(${columns}, 1fr)`,
-            gap: `${GAP}px`,
-          }}>
+            padding: `calc(16px * var(--evoury-density-multiplier, 1))`,
+            gap: `calc(${GAP}px * var(--evoury-density-multiplier, 1))`,
+          }}
+        >
           {filteredAssets.map((asset) => (
             <AssetCard
               key={asset.id}

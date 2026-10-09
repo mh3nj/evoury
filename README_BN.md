@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="ভার্সন">
+  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="ভার্সন">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="লাইসেন্স">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="প্ল্যাটফর্ম">
@@ -210,5 +210,5 @@ cargo fmt             # Rust কোড ফরম্যাট করুন
 ---
 
 <p align="center">
-  <a href="https://github.com/mh3nj">আপনার নাম</a> দ্বারা ❤️ দিয়ে তৈরি
+  Built by <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

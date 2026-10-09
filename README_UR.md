@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="ورژن">
+  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="ورژن">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="لائسنس">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="پلیٹ فارم">
@@ -210,5 +210,5 @@ cargo fmt             # Rust کوڈ فارمیٹ کریں
 ---
 
 <p align="center">
-  <a href="https://github.com/username">آپ کا نام</a> کی طرف سے ❤️ سے بنایا گیا
+  Built by <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

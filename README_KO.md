@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="버전">
+  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="버전">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="라이선스">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="플랫폼">
@@ -210,5 +210,5 @@ cargo fmt             # Rust 코드 포맷
 ---
 
 <p align="center">
-  <a href="https://github.com/mh3nj">Mohsen Jafari</a>이 ❤️로 제작
+  Built by <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

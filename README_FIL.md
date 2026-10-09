@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="Bersyon">
+  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="Bersyon">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="Lisensya">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="Platform">
@@ -210,5 +210,5 @@ Ang proyektong ito ay lisensyado sa ilalim ng MIT Lisensya - tingnan ang file na
 ---
 
 <p align="center">
-  Ginawa ng ❤️ ni <a href="https://github.com/mh3nj">Mohsen Jafari</a>
+  Built by <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

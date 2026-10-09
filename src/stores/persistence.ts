@@ -1,10 +1,11 @@
 import { useGalleryStore, useWorkspaceStore } from ".";
+import type { ViewMode } from "../types/preferences";
 
 const STORAGE_KEY = "evoury_state";
 
 interface SavedState {
   libraryPath: string | null;
-  viewMode: "grid" | "comfortable" | "compact";
+  viewMode: ViewMode;
   gridSize: number;
   currentCollection: string | null;
   currentCategory: string | null;

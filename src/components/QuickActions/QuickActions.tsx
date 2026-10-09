@@ -1,3 +1,5 @@
+import { revealLabel } from "../../utils/platform";
+
 interface Props {
   isFavorite: boolean;
   isInBasket: boolean;
@@ -6,7 +8,13 @@ interface Props {
   onReveal: () => void;
 }
 
-export default function QuickActions({ isFavorite, isInBasket, onFavorite, onToggleBasket, onReveal }: Props) {
+export default function QuickActions({
+  isFavorite,
+  isInBasket,
+  onFavorite,
+  onToggleBasket,
+  onReveal,
+}: Props) {
   const btnStyle: React.CSSProperties = {
     width: 28,
     height: 28,
@@ -27,28 +35,56 @@ export default function QuickActions({ isFavorite, isInBasket, onFavorite, onTog
     <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
       <button
         style={{ ...btnStyle, color: isFavorite ? "#f59e0b" : undefined }}
-        onClick={(e) => { e.stopPropagation(); onFavorite(); }}
+        onClick={(e) => {
+          e.stopPropagation();
+          onFavorite();
+        }}
         title="Toggle Favorite"
-        onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.15)"; e.currentTarget.style.color = "#f59e0b"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(0,0,0,0.5)"; e.currentTarget.style.color = isFavorite ? "#f59e0b" : "var(--evoury-text-dim)"; }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "rgba(255,255,255,0.15)";
+          e.currentTarget.style.color = "#f59e0b";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "rgba(0,0,0,0.5)";
+          e.currentTarget.style.color = isFavorite
+            ? "#f59e0b"
+            : "var(--evoury-text-dim)";
+        }}
       >
         <i className={`fas fa-${isFavorite ? "star" : "star"}`} />
       </button>
       <button
         style={btnStyle}
-        onClick={(e) => { e.stopPropagation(); onToggleBasket(); }}
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggleBasket();
+        }}
         title={isInBasket ? "Remove from Basket" : "Add to Basket"}
-        onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.15)"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(0,0,0,0.5)"; }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "rgba(255,255,255,0.15)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "rgba(0,0,0,0.5)";
+        }}
       >
-        <i className={`fas fa-${isInBasket ? "shopping-basket" : "basket-shopping"}`} style={{ color: isInBasket ? "#6366f1" : undefined }} />
+        <i
+          className={`fas fa-${isInBasket ? "shopping-basket" : "basket-shopping"}`}
+          style={{ color: isInBasket ? "#6366f1" : undefined }}
+        />
       </button>
       <button
         style={btnStyle}
-        onClick={(e) => { e.stopPropagation(); onReveal(); }}
-        title="Reveal in Explorer"
-        onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.15)"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(0,0,0,0.5)"; }}
+        onClick={(e) => {
+          e.stopPropagation();
+          onReveal();
+        }}
+        title={revealLabel()}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "rgba(255,255,255,0.15)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "rgba(0,0,0,0.5)";
+        }}
       >
         <i className="fas fa-folder-open" />
       </button>

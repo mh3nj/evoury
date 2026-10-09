@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="Phiên bản">
+  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="Phiên bản">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="Giấy phép">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="Nền tảng">
@@ -210,5 +210,5 @@ Dự án này được cấp phép theo Giấy phép MIT - xem tệp [LICENSE](L
 ---
 
 <p align="center">
-  Được tạo với ❤️ bởi <a href="https://github.com/mh3nj">Tên của bạn</a>
+  Built by <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

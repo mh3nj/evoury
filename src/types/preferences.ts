@@ -1,9 +1,12 @@
 export type ThemeMode = "Dark" | "Light" | "System";
+export type ViewMode = "grid" | "comfortable" | "compact";
+export type Density = "Compact" | "Normal" | "Comfortable";
 
 export interface ViewPreference {
   grid_size: number;
   remember_last_collection: boolean;
   show_details: boolean;
+  view_mode: ViewMode;
 }
 
 export interface PerformancePreference {
@@ -24,4 +27,5 @@ export interface Preferences {
   default_view: ViewPreference;
   performance: PerformancePreference;
   interaction: InteractionPreference;
+  density: Density;
 }

@@ -1,8 +1,8 @@
 [package]
 name = "evoury"
-version = "0.1.0"
+version = "0.1.1"
 description = "Evoury - Offline-first Creative Asset Manager"
-authors = ["you"]
+authors = ["Mohsen Jafari"]
 edition = "2021"
 
 [features]

@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="版本">
+  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="版本">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust 版本">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="许可证">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="平台">
@@ -210,5 +210,5 @@ cargo fmt             # 格式化 Rust 代码
 ---
 
 <p align="center">
-  由 <a href="https://github.com/mh3nj">Mohsen Jafari</a> 用 ❤️ 制作
+  Built by <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

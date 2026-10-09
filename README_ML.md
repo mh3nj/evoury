@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="പതിപ്പ്">
+  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="പതിപ്പ്">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="ലൈസൻസ്">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="പ്ലാറ്റ്‌ഫോം">
@@ -210,5 +210,5 @@ cargo fmt             # Rust കോഡ് ഫോർമാറ്റ് ചെയ�
 ---
 
 <p align="center">
-  <a href="https://github.com/mh3nj">നിങ്ങളുടെ പേര്</a> യുടെ ❤️ ഉപയോഗിച്ച് നിർമ്മിച്ചത്
+  Built by <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>

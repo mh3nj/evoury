@@ -1,8 +1,10 @@
 import { create } from "zustand";
 import { invoke } from "@tauri-apps/api/tauri";
+import { usePreferencesStore } from "./preferences-store";
+import type { Density } from "../types/preferences";
 
 export type ThemeMode = "Dark" | "Light" | "System";
-export type Density = "Compact" | "Normal" | "Comfortable";
+export type { Density };
 export type IconPack = "FontAwesome" | "Phosphor" | "Lucide" | "Material";
 
 export interface TypographyTokens {
@@ -53,12 +55,25 @@ export interface ThemeConfig {
   spacing: SpacingTokens;
 }
 
-function applyThemeToDOM(theme: ThemeConfig) {
+function prefersLight(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-color-scheme: light)").matches
+  );
+}
+
+function resolveLight(mode: ThemeMode): boolean {
+  if (mode === "Light") return true;
+  if (mode === "Dark") return false;
+  return prefersLight();
+}
+
+export function applyThemeToDOM(theme: ThemeConfig) {
   const root = document.documentElement;
   const t = theme.typography;
   const s = theme.spacing;
 
-  root.classList.toggle("theme-light", theme.mode === "Light");
+  root.classList.toggle("theme-light", resolveLight(theme.mode));
 
   root.style.setProperty("--evoury-accent", theme.accent_color);
   root.style.setProperty("--evoury-radius", theme.border_radius);
@@ -90,7 +105,12 @@ function applyThemeToDOM(theme: ThemeConfig) {
   root.style.fontFamily = t.font_family;
   root.style.fontSize = t.font_size_base;
 
-  const mul = theme.density === "Compact" ? "0.75" : theme.density === "Comfortable" ? "1.25" : "1";
+  const mul =
+    theme.density === "Compact"
+      ? "0.75"
+      : theme.density === "Comfortable"
+        ? "1.25"
+        : "1";
   root.style.setProperty("--evoury-density-multiplier", mul);
 }
 
@@ -114,16 +134,37 @@ const defaultTheme: ThemeConfig = {
   typography: {
     font_family: `"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`,
     font_family_mono: `"JetBrains Mono", "Fira Code", "Cascadia Code", monospace`,
-    font_size_xs: "10px", font_size_sm: "12px", font_size_base: "14px",
-    font_size_lg: "16px", font_size_xl: "18px", font_size_2xl: "24px", font_size_3xl: "32px",
-    font_weight_normal: 400, font_weight_medium: 500, font_weight_semibold: 600, font_weight_bold: 700,
-    line_height_tight: 1.25, line_height_normal: 1.5, line_height_relaxed: 1.75,
-    letter_spacing_tight: "-0.025em", letter_spacing_normal: "0", letter_spacing_wide: "0.05em",
+    font_size_xs: "10px",
+    font_size_sm: "12px",
+    font_size_base: "14px",
+    font_size_lg: "16px",
+    font_size_xl: "18px",
+    font_size_2xl: "24px",
+    font_size_3xl: "32px",
+    font_weight_normal: 400,
+    font_weight_medium: 500,
+    font_weight_semibold: 600,
+    font_weight_bold: 700,
+    line_height_tight: 1.25,
+    line_height_normal: 1.5,
+    line_height_relaxed: 1.75,
+    letter_spacing_tight: "-0.025em",
+    letter_spacing_normal: "0",
+    letter_spacing_wide: "0.05em",
   },
   spacing: {
-    spacing_xs: "4px", spacing_sm: "8px", spacing_md: "12px",
-    spacing_lg: "16px", spacing_xl: "24px", spacing_2xl: "32px", spacing_3xl: "48px",
-    radius_sm: "6px", radius_md: "8px", radius_lg: "12px", radius_xl: "16px", radius_full: "9999px",
+    spacing_xs: "4px",
+    spacing_sm: "8px",
+    spacing_md: "12px",
+    spacing_lg: "16px",
+    spacing_xl: "24px",
+    spacing_2xl: "32px",
+    spacing_3xl: "48px",
+    radius_sm: "6px",
+    radius_md: "8px",
+    radius_lg: "12px",
+    radius_xl: "16px",
+    radius_full: "9999px",
   },
 };
 
@@ -136,28 +177,31 @@ export const useThemeStore = create<ThemeState>((set, get) => ({
     set({ loading: true });
     try {
       const prefs = await invoke<any>("get_preferences");
-      if (prefs?.theme) {
-        const config = { ...defaultTheme, mode: prefs.theme };
-        applyThemeToDOM(config);
-        set({ config, loading: false });
-      } else {
-        set({ loading: false });
-      }
-    } catch { set({ loading: false }); }
+      const config: ThemeConfig = {
+        ...defaultTheme,
+        mode: prefs?.theme ?? defaultTheme.mode,
+        density: prefs?.density ?? defaultTheme.density,
+      };
+      applyThemeToDOM(config);
+      set({ config, loading: false });
+    } catch {
+      set({ loading: false });
+    }
   },
   update: async (partial) => {
     const next = { ...get().config, ...partial };
     applyThemeToDOM(next);
     set({ config: next });
-    try { await invoke("set_preferences", { prefs: { theme: next.mode } }); } catch { /* ignore */ }
   },
   setAccent: async (color) => {
     await get().update({ accent_color: color });
   },
   setMode: async (mode) => {
     await get().update({ mode });
+    usePreferencesStore.getState().setTheme(mode);
   },
   setDensity: async (density) => {
     await get().update({ density });
+    usePreferencesStore.getState().setDensity(density);
   },
 }));

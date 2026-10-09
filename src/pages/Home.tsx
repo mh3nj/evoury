@@ -14,7 +14,14 @@ import {
   Logo,
   RightSidebar,
 } from "../components";
-import { useCommandStore, useScanStore, useWorkspaceStore, useSearchStore, useGalleryStore, useUndoStore } from "../stores";
+import {
+  useCommandStore,
+  useScanStore,
+  useWorkspaceStore,
+  useSearchStore,
+  useGalleryStore,
+  useUndoStore,
+} from "../stores";
 import { useAtlasEvents } from "../hooks";
 import { invoke } from "@tauri-apps/api/tauri";
 import { open } from "@tauri-apps/api/dialog";
@@ -31,13 +38,19 @@ export default function Home() {
   useWorkspaceStore();
 
   const onOpenExternal = useCallback(async (asset: Asset) => {
-    try { await invoke("open_external_file", { path: asset.archive_path }); }
-    catch (e) { console.error("open external failed", e); }
+    try {
+      await invoke("open_external_file", { path: asset.archive_path });
+    } catch (e) {
+      console.error("open external failed", e);
+    }
   }, []);
 
   const onOpenPath = useCallback(async (asset: Asset) => {
-    try { await invoke("open_file_location", { path: asset.archive_path }); }
-    catch (e) { console.error("open path failed", e); }
+    try {
+      await invoke("open_file_location", { path: asset.archive_path });
+    } catch (e) {
+      console.error("open path failed", e);
+    }
   }, []);
 
   // Ctrl+= / Ctrl+- for grid zoom
@@ -83,71 +96,86 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handler);
   }, [openSettings]);
 
-  const extractCollections = useCallback((allAssets: Asset[], rootPath: string) => {
-    const path = rootPath.replace(/\\/g, "/");
-    const rootName = path.split("/").pop() || "Root";
-    const folders = new Map<string, { name: string; assets: Asset[] }>();
+  const extractCollections = useCallback(
+    (allAssets: Asset[], rootPath: string) => {
+      const path = rootPath.replace(/\\/g, "/");
+      const rootName = path.split("/").pop() || "Root";
+      const folders = new Map<string, { name: string; assets: Asset[] }>();
 
-    for (const asset of allAssets) {
-      const dir = asset.archive_path.replace(/\\/g, "/");
-      const parts = dir.split("/");
-      const folderKey = parts.length > 1 ? parts.slice(0, -1).join("/") : "root";
-      if (!folders.has(folderKey)) {
-        const folderName = folderKey === "root" ? rootName : folderKey.split("/").pop() || rootName;
-        folders.set(folderKey, { name: folderName, assets: [] });
+      for (const asset of allAssets) {
+        const dir = asset.archive_path.replace(/\\/g, "/");
+        const parts = dir.split("/");
+        const folderKey =
+          parts.length > 1 ? parts.slice(0, -1).join("/") : "root";
+        if (!folders.has(folderKey)) {
+          const folderName =
+            folderKey === "root"
+              ? rootName
+              : folderKey.split("/").pop() || rootName;
+          folders.set(folderKey, { name: folderName, assets: [] });
+        }
+        folders.get(folderKey)!.assets.push(asset);
       }
-      folders.get(folderKey)!.assets.push(asset);
-    }
 
-    const collectionsList: Collection[] = [];
-    const categoriesMap = new Map<string, Category[]>();
+      const collectionsList: Collection[] = [];
+      const categoriesMap = new Map<string, Category[]>();
 
-    for (const [folderKey] of folders) {
-      const parts = folderKey.split("/");
-      if (parts.length <= 1 && folderKey === "root") {
-        categoriesMap.set("root", []);
-        continue;
+      for (const [folderKey] of folders) {
+        const parts = folderKey.split("/");
+        if (parts.length <= 1 && folderKey === "root") {
+          categoriesMap.set("root", []);
+          continue;
+        }
+        const collectionName = parts[parts.length - 1] || rootName;
+        const parentKey = parts.slice(0, -1).join("/") || "root";
+        const cat: Category = {
+          id: crypto.randomUUID(),
+          name: collectionName,
+          path: folderKey,
+        };
+        if (!categoriesMap.has(parentKey)) {
+          categoriesMap.set(parentKey, []);
+        }
+        categoriesMap.get(parentKey)!.push(cat);
       }
-      const collectionName = parts[parts.length - 1] || rootName;
-      const parentKey = parts.slice(0, -1).join("/") || "root";
-      const cat: Category = { id: crypto.randomUUID(), name: collectionName, path: folderKey };
-      if (!categoriesMap.has(parentKey)) {
-        categoriesMap.set(parentKey, []);
+
+      const rootCat = categoriesMap.get("root");
+      if (rootCat && rootCat.length > 0) {
+        collectionsList.push({
+          id: crypto.randomUUID(),
+          name: rootName,
+          path: path,
+          icon_path: null,
+          accent_color: null,
+          categories: rootCat,
+        });
       }
-      categoriesMap.get(parentKey)!.push(cat);
-    }
 
-    const rootCat = categoriesMap.get("root");
-    if (rootCat && rootCat.length > 0) {
-      collectionsList.push({
-        id: crypto.randomUUID(),
-        name: rootName,
-        path: path,
-        icon_path: null,
-        accent_color: null,
-        categories: rootCat,
-      });
-    }
+      for (const [folderKey, cats] of categoriesMap) {
+        if (folderKey === "root") continue;
+        const name = folderKey.split("/").pop() || rootName;
+        collectionsList.push({
+          id: crypto.randomUUID(),
+          name,
+          path: folderKey,
+          icon_path: null,
+          accent_color: null,
+          categories: cats,
+        });
+      }
 
-    for (const [folderKey, cats] of categoriesMap) {
-      if (folderKey === "root") continue;
-      const name = folderKey.split("/").pop() || rootName;
-      collectionsList.push({
-        id: crypto.randomUUID(),
-        name,
-        path: folderKey,
-        icon_path: null,
-        accent_color: null,
-        categories: cats,
-      });
-    }
-
-    setCollections(collectionsList);
-  }, []);
+      setCollections(collectionsList);
+    },
+    [],
+  );
 
   const handleScan = useCallback(async () => {
     try {
-      const selected = await open({ directory: true, multiple: false, title: "Select Library Folder" });
+      const selected = await open({
+        directory: true,
+        multiple: false,
+        title: "Select Library Folder",
+      });
       if (!selected || typeof selected !== "string") return;
 
       setStatus("Scanning...");
@@ -183,7 +211,7 @@ export default function Home() {
             p.scanned_files,
             p.archives_found,
             p.previews_found,
-            p.current_file
+            p.current_file,
           );
         }
 
@@ -193,8 +221,8 @@ export default function Home() {
             .catch(() => {});
         }
       },
-      [scanState]
-    )
+      [scanState],
+    ),
   );
 
   // Apply tray & autostart settings saved in localStorage to Rust backend
@@ -226,7 +254,7 @@ export default function Home() {
             extractCollections(all, all[0].archive_path);
             setStatus("Ready");
           } else {
-            // Library exists but empty — auto-rescan
+            // Library exists but empty, so auto-rescan
             autoScan(savedPath);
           }
         })
@@ -273,7 +301,10 @@ export default function Home() {
     for (const token of tokens) {
       if (token.includes(":")) {
         const [field, ...rest] = token.split(":");
-        conds.push({ field: field.toLowerCase(), value: rest.join(":").toLowerCase() });
+        conds.push({
+          field: field.toLowerCase(),
+          value: rest.join(":").toLowerCase(),
+        });
       } else {
         const t = token.toLowerCase();
         if (t) textTokens.push(t);
@@ -288,8 +319,12 @@ export default function Home() {
 
       // Text tokens: must match at least one field OR a tag
       if (textTokens.length > 0) {
-        const matchesAny = textTokens.some((t) =>
-          name.includes(t) || type.includes(t) || mime.includes(t) || tags.includes(t)
+        const matchesAny = textTokens.some(
+          (t) =>
+            name.includes(t) ||
+            type.includes(t) ||
+            mime.includes(t) ||
+            tags.includes(t),
         );
         if (!matchesAny) return false;
       }
@@ -309,28 +344,46 @@ export default function Home() {
   }, [assets, searchQuery, searchFilters]);
 
   return (
-    <div className="h-screen flex flex-col" style={{ background: "var(--evoury-bg)" }}>
+    <div
+      className="h-screen flex flex-col"
+      style={{ background: "var(--evoury-bg)" }}
+    >
       <header
         className="flex items-center justify-between px-5 py-3"
         style={{ borderBottom: "1px solid var(--evoury-border)" }}
       >
         <div className="flex items-center gap-4">
           <Logo size={24} showText />
-          <div className="w-px h-6" style={{ background: "var(--evoury-border-light)" }} />
+          <div
+            className="w-px h-6"
+            style={{ background: "var(--evoury-border-light)" }}
+          />
           <button
             onClick={handleScan}
             disabled={scanState.scanning}
             className="premium-btn px-4 py-1.5 text-xs disabled:opacity-50"
           >
-            <i className={`fas fa-${scanState.scanning ? "spinner fa-pulse" : "sync-alt"} mr-1.5 text-[10px]`} />
+            <i
+              className={`fas fa-${scanState.scanning ? "spinner fa-pulse" : "sync-alt"} mr-1.5 text-[10px]`}
+            />
             {scanState.scanning ? "Scanning..." : "Scan Library"}
           </button>
           <button
             onClick={() => setPresentationMode(true)}
             className="px-3 py-1.5 text-xs rounded-lg transition-all duration-200"
-            style={{ background: "var(--evoury-elevated)", color: "var(--evoury-text-dim)", border: "1px solid var(--evoury-border-light)" }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--evoury-accent)"; e.currentTarget.style.color = "var(--evoury-text)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--evoury-border-light)"; e.currentTarget.style.color = "var(--evoury-text-dim)"; }}
+            style={{
+              background: "var(--evoury-elevated)",
+              color: "var(--evoury-text-dim)",
+              border: "1px solid var(--evoury-border-light)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "var(--evoury-accent)";
+              e.currentTarget.style.color = "var(--evoury-text)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "var(--evoury-border-light)";
+              e.currentTarget.style.color = "var(--evoury-text-dim)";
+            }}
           >
             <i className="fas fa-tv mr-1.5 text-[10px]" />
             Present
@@ -338,16 +391,30 @@ export default function Home() {
         </div>
         <div className="flex items-center gap-2">
           <NotificationCenter />
-          <button onClick={openSettings}
+          <button
+            onClick={openSettings}
             className="w-7 h-7 rounded-lg flex items-center justify-center text-xs transition-all duration-200"
             style={{ color: "var(--evoury-text-dim)" }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = "var(--evoury-text)"; e.currentTarget.style.background = "var(--evoury-elevated)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = "var(--evoury-text-dim)"; e.currentTarget.style.background = "transparent"; }}
-            title="Settings (Ctrl+,)">
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "var(--evoury-text)";
+              e.currentTarget.style.background = "var(--evoury-elevated)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "var(--evoury-text-dim)";
+              e.currentTarget.style.background = "transparent";
+            }}
+            title="Settings (Ctrl+,)"
+          >
             <i className="fas fa-cog" />
           </button>
-          <span className="px-2 py-1 text-[10px] rounded-md font-mono"
-            style={{ background: "var(--evoury-elevated)", color: "var(--evoury-text-dim)", border: "1px solid var(--evoury-border)" }}>
+          <span
+            className="px-2 py-1 text-[10px] rounded-md font-mono"
+            style={{
+              background: "var(--evoury-elevated)",
+              color: "var(--evoury-text-dim)",
+              border: "1px solid var(--evoury-border)",
+            }}
+          >
             Ctrl+K
           </span>
         </div>
@@ -356,10 +423,16 @@ export default function Home() {
       <div className="flex flex-1 overflow-hidden">
         <Sidebar collections={collections} />
 
-        <div className="flex flex-col flex-1 overflow-hidden"
-          style={{ borderLeft: "1px solid var(--evoury-border)" }}>
-          <GalleryToolbar onScan={handleScan} />
-          <GalleryGrid assets={filteredAssets} onOpenExternal={onOpenExternal} onOpenPath={onOpenPath} />
+        <div
+          className="flex flex-col flex-1 overflow-hidden"
+          style={{ borderLeft: "1px solid var(--evoury-border)" }}
+        >
+          <GalleryToolbar />
+          <GalleryGrid
+            assets={filteredAssets}
+            onOpenExternal={onOpenExternal}
+            onOpenPath={onOpenPath}
+          />
         </div>
 
         <RightSidebar />
@@ -378,7 +451,6 @@ export default function Home() {
           onClose={() => setPresentationMode(false)}
         />
       )}
-
     </div>
   );
 }

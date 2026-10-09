@@ -24,10 +24,27 @@ interface BasketState {
   createBasket: (name: string) => Promise<Basket>;
   renameBasket: (id: string, name: string) => void;
   setActiveBasket: (id: string | null) => void;
-  addAsset: (asset: { id: string; name: string; archive_path: string; preview?: { path: string } | null }) => Promise<void>;
-  addToBasket: (basketId: string, asset: { id: string; name: string; archive_path: string; preview?: { path: string } | null }) => void;
+  addAsset: (asset: {
+    id: string;
+    name: string;
+    archive_path: string;
+    preview?: { path: string } | null;
+  }) => Promise<void>;
+  addToBasket: (
+    basketId: string,
+    asset: {
+      id: string;
+      name: string;
+      archive_path: string;
+      preview?: { path: string } | null;
+    },
+  ) => void;
   removeAsset: (basketId: string, assetId: string) => void;
-  moveAsset: (fromBasketId: string, toBasketId: string, assetId: string) => void;
+  moveAsset: (
+    fromBasketId: string,
+    toBasketId: string,
+    assetId: string,
+  ) => void;
   setTempName: (basketId: string, assetId: string, tempName: string) => void;
   clearBasket: (basketId: string) => void;
   deleteBasket: (id: string) => void;
@@ -42,7 +59,9 @@ function loadPersisted(): Basket[] {
   try {
     const raw = localStorage.getItem("evoury_baskets");
     return raw ? JSON.parse(raw) : [];
-  } catch { return []; }
+  } catch {
+    return [];
+  }
 }
 
 export const useBasketStore = create<BasketState>((set, get) => ({
@@ -65,20 +84,33 @@ export const useBasketStore = create<BasketState>((set, get) => ({
         set({ activeBasketId: baskets[0].id });
       }
       persist(baskets);
-    } catch { set({ loading: false }); }
+    } catch {
+      set({ loading: false });
+    }
   },
 
   createBasket: async (name) => {
-    const basket: Basket = { id: crypto.randomUUID(), name, assets: [], created: new Date().toISOString() };
+    const basket: Basket = {
+      id: crypto.randomUUID(),
+      name,
+      assets: [],
+      created: new Date().toISOString(),
+    };
     const baskets = [basket, ...get().baskets];
     set({ baskets, activeBasketId: basket.id });
     persist(baskets);
-    try { await invoke("create_basket", { name }); } catch {}
+    try {
+      await invoke("create_basket", { name });
+    } catch {
+      /* backend sync is best effort */
+    }
     return basket;
   },
 
   renameBasket: (id, name) => {
-    const baskets = get().baskets.map((b) => b.id === id ? { ...b, name } : b);
+    const baskets = get().baskets.map((b) =>
+      b.id === id ? { ...b, name } : b,
+    );
     set({ baskets });
     persist(baskets);
   },
@@ -98,11 +130,18 @@ export const useBasketStore = create<BasketState>((set, get) => ({
     const updated = baskets.map((b) =>
       b.id === activeBasketId && !b.assets.find((a) => a.assetId === asset.id)
         ? { ...b, assets: [...b.assets, ba] }
-        : b
+        : b,
     );
     set({ baskets: updated });
     persist(updated);
-    try { await invoke("add_to_basket", { basketId: activeBasketId, assetId: asset.id }); } catch {}
+    try {
+      await invoke("add_to_basket", {
+        basketId: activeBasketId,
+        assetId: asset.id,
+      });
+    } catch {
+      /* backend sync is best effort */
+    }
   },
 
   addToBasket: (basketId, asset) => {
@@ -117,7 +156,7 @@ export const useBasketStore = create<BasketState>((set, get) => ({
     const updated = baskets.map((b) =>
       b.id === basketId && !b.assets.find((a) => a.assetId === asset.id)
         ? { ...b, assets: [...b.assets, ba] }
-        : b
+        : b,
     );
     set({ baskets: updated });
     persist(updated);
@@ -125,7 +164,9 @@ export const useBasketStore = create<BasketState>((set, get) => ({
 
   removeAsset: (basketId, assetId) => {
     const baskets = get().baskets.map((b) =>
-      b.id === basketId ? { ...b, assets: b.assets.filter((a) => a.assetId !== assetId) } : b
+      b.id === basketId
+        ? { ...b, assets: b.assets.filter((a) => a.assetId !== assetId) }
+        : b,
     );
     set({ baskets });
     persist(baskets);
@@ -139,8 +180,10 @@ export const useBasketStore = create<BasketState>((set, get) => ({
     const asset = fromBasket.assets.find((a) => a.assetId === assetId);
     if (!asset) return;
     const updated = baskets.map((b) => {
-      if (b.id === fromBasketId) return { ...b, assets: b.assets.filter((a) => a.assetId !== assetId) };
-      if (b.id === toBasketId && !b.assets.find((a) => a.assetId === assetId)) return { ...b, assets: [...b.assets, asset] };
+      if (b.id === fromBasketId)
+        return { ...b, assets: b.assets.filter((a) => a.assetId !== assetId) };
+      if (b.id === toBasketId && !b.assets.find((a) => a.assetId === assetId))
+        return { ...b, assets: [...b.assets, asset] };
       return b;
     });
     set({ baskets: updated });
@@ -150,15 +193,22 @@ export const useBasketStore = create<BasketState>((set, get) => ({
   setTempName: (basketId, assetId, tempName) => {
     const baskets = get().baskets.map((b) =>
       b.id === basketId
-        ? { ...b, assets: b.assets.map((a) => a.assetId === assetId ? { ...a, tempName } : a) }
-        : b
+        ? {
+            ...b,
+            assets: b.assets.map((a) =>
+              a.assetId === assetId ? { ...a, tempName } : a,
+            ),
+          }
+        : b,
     );
     set({ baskets });
     persist(baskets);
   },
 
   clearBasket: (basketId) => {
-    const baskets = get().baskets.map((b) => b.id === basketId ? { ...b, assets: [] } : b);
+    const baskets = get().baskets.map((b) =>
+      b.id === basketId ? { ...b, assets: [] } : b,
+    );
     set({ baskets });
     persist(baskets);
     invoke("clear_basket", { basketId }).catch(() => {});
@@ -168,9 +218,12 @@ export const useBasketStore = create<BasketState>((set, get) => ({
     const baskets = get().baskets.filter((b) => b.id !== id);
     set({
       baskets,
-      activeBasketId: get().activeBasketId === id
-        ? (baskets.length > 0 ? baskets[0].id : null)
-        : get().activeBasketId,
+      activeBasketId:
+        get().activeBasketId === id
+          ? baskets.length > 0
+            ? baskets[0].id
+            : null
+          : get().activeBasketId,
     });
     persist(baskets);
     invoke("delete_basket", { basketId: id }).catch(() => {});

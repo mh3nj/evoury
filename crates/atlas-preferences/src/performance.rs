@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(default)]
 pub struct PerformancePreference {
     pub max_preview_memory: u64,
     pub enable_background_indexing: bool,

@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(default)]
 pub struct InteractionPreference {
     pub keyboard_navigation: bool,
     pub double_click_to_open: bool,

@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="เวอร์ชัน">
+  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="เวอร์ชัน">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="ใบอนุญาต">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="แพลตฟอร์ม">
@@ -210,5 +210,5 @@ cargo fmt             # จัดรูปแบบ Rust code
 ---
 
 <p align="center">
-  สร้างด้วย ❤️ โดย <a href="https://github.com/mh3nj">ชื่อของคุณ</a>
+  Built by <a href="https://github.com/mh3nj">Mohsen Jafari</a>
 </p>
