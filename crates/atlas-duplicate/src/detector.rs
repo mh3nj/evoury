@@ -98,6 +98,12 @@ impl DuplicateDetector {
     }
 }
 
+impl Default for DuplicateDetector {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -134,11 +140,5 @@ mod tests {
         let groups = d.detect(&assets, DetectionMode::ExactHash);
         assert_eq!(groups.len(), 1);
         assert_eq!(groups[0].assets.len(), 2);
-    }
-}
-
-impl Default for DuplicateDetector {
-    fn default() -> Self {
-        Self::new()
     }
 }

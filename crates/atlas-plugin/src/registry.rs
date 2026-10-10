@@ -72,6 +72,12 @@ impl PluginRegistry {
     }
 }
 
+impl Default for PluginRegistry {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -141,11 +147,5 @@ mod tests {
 
         let log = reg.event_log();
         assert_eq!(log.len(), 2);
-    }
-}
-
-impl Default for PluginRegistry {
-    fn default() -> Self {
-        Self::new()
     }
 }

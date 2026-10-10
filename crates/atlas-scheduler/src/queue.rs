@@ -124,6 +124,12 @@ impl JobQueue {
     }
 }
 
+impl Default for JobQueue {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -153,11 +159,5 @@ mod tests {
         assert_eq!(dequeued.status, JobStatus::Running);
         q.complete(id);
         assert_eq!(q.history().last().unwrap().status, JobStatus::Completed);
-    }
-}
-
-impl Default for JobQueue {
-    fn default() -> Self {
-        Self::new()
     }
 }

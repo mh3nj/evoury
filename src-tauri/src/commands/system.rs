@@ -153,7 +153,7 @@ pub fn open_file_location(path: String) -> Result<(), String> {
     {
         let parent = p.parent().unwrap_or(p);
         Command::new("xdg-open")
-            .arg(&parent)
+            .arg(parent)
             .spawn()
             .map_err(|e| format!("Failed to open location: {}", e))?;
     }

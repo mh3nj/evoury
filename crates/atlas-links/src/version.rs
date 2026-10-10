@@ -91,6 +91,12 @@ impl VersionDetector {
     }
 }
 
+impl Default for VersionDetector {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -123,11 +129,5 @@ mod tests {
         let assets = vec![(Uuid::new_v4(), "logo.ai".into())];
         let groups = VersionDetector::detect(&assets);
         assert_eq!(groups.len(), 0);
-    }
-}
-
-impl Default for VersionDetector {
-    fn default() -> Self {
-        Self::new()
     }
 }

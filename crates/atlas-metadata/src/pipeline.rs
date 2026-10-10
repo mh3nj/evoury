@@ -89,6 +89,12 @@ impl MetadataPipeline {
     }
 }
 
+impl Default for MetadataPipeline {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -118,11 +124,5 @@ mod tests {
         assert!(issues
             .iter()
             .any(|i| matches!(i, MetadataIssue::InvalidValue(_))));
-    }
-}
-
-impl Default for MetadataPipeline {
-    fn default() -> Self {
-        Self::new()
     }
 }

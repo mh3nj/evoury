@@ -19,7 +19,7 @@ jobs:
         os: [ubuntu-22.04, windows-latest, macos-latest]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Install Linux system dependencies
       if: matrix.os == 'ubuntu-22.04'
@@ -32,11 +32,15 @@ jobs:
           librsvg2-dev \
           patchelf
 
+    # The toolchain is pinned so every platform compiles with the same rustc
+    # and clippy, the same way the release installers are built.
     - name: Install Rust
-      uses: dtolnay/rust-toolchain@stable
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: 1.96.0
 
     - name: Cache Rust dependencies
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: |
           ~/.cargo/registry
@@ -47,12 +51,12 @@ jobs:
           ${{ runner.os }}-cargo-
 
     - name: Install Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
-        node-version: '20'
+        node-version: '22'
 
     - name: Install pnpm
-      uses: pnpm/action-setup@v4
+      uses: pnpm/action-setup@v6
       with:
         version: 10
 
@@ -70,7 +74,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Install Linux system dependencies
       run: |
@@ -83,17 +87,18 @@ jobs:
           patchelf
 
     - name: Install Rust
-      uses: dtolnay/rust-toolchain@stable
+      uses: dtolnay/rust-toolchain@master
       with:
+        toolchain: 1.96.0
         components: clippy, rustfmt
 
     - name: Install Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
-        node-version: '20'
+        node-version: '22'
 
     - name: Install pnpm
-      uses: pnpm/action-setup@v4
+      uses: pnpm/action-setup@v6
       with:
         version: 10
 
@@ -104,7 +109,7 @@ jobs:
       run: cargo fmt --all -- --check
 
     - name: Run Clippy
-      run: cargo clippy --workspace -- -D warnings
+      run: cargo clippy --workspace --all-targets -- -D warnings
 
     - name: Check TypeScript formatting
       run: pnpm format:check
@@ -122,7 +127,7 @@ jobs:
         os: [ubuntu-22.04, windows-latest, macos-latest]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Install Linux system dependencies
       if: matrix.os == 'ubuntu-22.04'
@@ -136,10 +141,12 @@ jobs:
           patchelf
 
     - name: Install Rust
-      uses: dtolnay/rust-toolchain@stable
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: 1.96.0
 
     - name: Cache Rust dependencies
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: |
           ~/.cargo/registry
@@ -151,12 +158,12 @@ jobs:
           ${{ runner.os }}-cargo-
 
     - name: Install Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
-        node-version: '20'
+        node-version: '22'
 
     - name: Install pnpm
-      uses: pnpm/action-setup@v4
+      uses: pnpm/action-setup@v6
       with:
         version: 10
 

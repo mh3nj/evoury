@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Tag to build and publish (defaults to v0.1.1)"
+        description: "Tag to build and publish (defaults to v0.1.2)"
         required: false
-        default: "v0.1.1"
+        default: "v0.1.2"
 
 permissions:
   contents: write
@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Install Linux system dependencies
         if: matrix.os == 'ubuntu-22.04'
@@ -38,11 +38,15 @@ jobs:
             librsvg2-dev \
             patchelf
 
+      # Same pinned toolchain as CI, so the shipped binaries match the
+      # binaries that were checked.
       - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.96.0
 
       - name: Cache Rust build
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/registry
@@ -54,12 +58,12 @@ jobs:
             ${{ runner.os }}-cargo-
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 10
 
