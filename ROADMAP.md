@@ -50,7 +50,7 @@ Evoury aims to be the definitive offline-first creative asset manager, combining
 
 ### Phase 2: Library Engine
 
-**Goal**: Build a robust, scalable library management system.
+**Goal**: Build a library system that stays fast as a collection grows.
 
 #### Milestones
 
@@ -285,4 +285,4 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 This roadmap is a living document and will be updated as development progresses.
 
-*Last updated: September 2026*
+_Last updated: September 2026_
