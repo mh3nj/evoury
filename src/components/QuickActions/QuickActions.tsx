@@ -1,3 +1,4 @@
+import { usePreferencesStore } from "../../stores";
 import { revealLabel } from "../../utils/platform";
 
 interface Props {
@@ -15,6 +16,8 @@ export default function QuickActions({
   onToggleBasket,
   onReveal,
 }: Props) {
+  const showTooltips = usePreferencesStore((s) => s.interaction.show_tooltips);
+
   const btnStyle: React.CSSProperties = {
     width: 28,
     height: 28,
@@ -39,7 +42,7 @@ export default function QuickActions({
           e.stopPropagation();
           onFavorite();
         }}
-        title="Toggle Favorite"
+        title={showTooltips ? "Toggle Favorite" : undefined}
         onMouseEnter={(e) => {
           e.currentTarget.style.background = "rgba(255,255,255,0.15)";
           e.currentTarget.style.color = "#f59e0b";
@@ -59,7 +62,13 @@ export default function QuickActions({
           e.stopPropagation();
           onToggleBasket();
         }}
-        title={isInBasket ? "Remove from Basket" : "Add to Basket"}
+        title={
+          showTooltips
+            ? isInBasket
+              ? "Remove from Basket"
+              : "Add to Basket"
+            : undefined
+        }
         onMouseEnter={(e) => {
           e.currentTarget.style.background = "rgba(255,255,255,0.15)";
         }}
@@ -78,7 +87,7 @@ export default function QuickActions({
           e.stopPropagation();
           onReveal();
         }}
-        title={revealLabel()}
+        title={showTooltips ? revealLabel() : undefined}
         onMouseEnter={(e) => {
           e.currentTarget.style.background = "rgba(255,255,255,0.15)";
         }}

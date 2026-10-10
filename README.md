@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="Version">
+  <img src="https://img.shields.io/badge/version-0.1.2-blue.svg" alt="Version">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust Edition">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="Platform">
@@ -220,16 +220,16 @@ For detailed architecture documentation, see [docs/ARCHITECTURE.md](docs/ARCHITE
 
 ## Supported Formats
 
-| Category | Formats |
-|----------|---------|
-| Images | PNG, JPG, JPEG, GIF, BMP, TIFF, WebP, SVG, PSD, AI, EXR, HDR |
-| Videos | MP4, MOV, AVI, MKV, WebM, FLV, WMV |
-| 3D Models | OBJ, FBX, GLTF, GLB, STL, BLEND, 3DS, MAX |
-| Audio | MP3, WAV, FLAC, AAC, OGG, WMA, M4A |
-| Documents | PDF, DOC, DOCX, TXT, RTF, MD |
-| Design | Sketch, Figma, XD, PSD |
+| Category  | Formats                                                      |
+| --------- | ------------------------------------------------------------ |
+| Images    | PNG, JPG, JPEG, GIF, BMP, TIFF, WebP, SVG, PSD, AI, EXR, HDR |
+| Videos    | MP4, MOV, AVI, MKV, WebM, FLV, WMV                           |
+| 3D Models | OBJ, FBX, GLTF, GLB, STL, BLEND, 3DS, MAX                    |
+| Audio     | MP3, WAV, FLAC, AAC, OGG, WMA, M4A                           |
+| Documents | PDF, DOC, DOCX, TXT, RTF, MD                                 |
+| Design    | Sketch, Figma, XD, PSD                                       |
 
-*Note: Support varies by platform. Some formats may require additional dependencies.*
+_Note: Support varies by platform. Some formats may require additional dependencies._
 
 ---
 

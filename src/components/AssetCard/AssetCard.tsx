@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { convertFileSrc } from "@tauri-apps/api/tauri";
 import type { Asset } from "../../types";
-import { useBasketStore } from "../../stores";
+import { useBasketStore, usePreferencesStore } from "../../stores";
 import { revealLabel } from "../../utils/platform";
 
 interface Props {
@@ -32,6 +32,11 @@ export default function AssetCard({
   const assetFile = asset.archive_path;
   const baskets = useBasketStore((s) => s.baskets);
   const addToBasket = useBasketStore((s) => s.addToBasket);
+  const showDetails = usePreferencesStore((s) => s.default_view.show_details);
+  const showTooltips = usePreferencesStore((s) => s.interaction.show_tooltips);
+  const doubleClickOpens = usePreferencesStore(
+    (s) => s.interaction.double_click_to_open,
+  );
 
   useEffect(() => {
     function handler(e: MouseEvent) {
@@ -46,7 +51,10 @@ export default function AssetCard({
   return (
     <div
       onClick={() => {
-        if (assetFile) onOpenExternal?.(asset);
+        if (!doubleClickOpens && assetFile) onOpenExternal?.(asset);
+      }}
+      onDoubleClick={() => {
+        if (doubleClickOpens && assetFile) onOpenExternal?.(asset);
       }}
       className="group rounded-xl cursor-pointer transition-all duration-200"
       style={{
@@ -108,7 +116,7 @@ export default function AssetCard({
               background: "rgba(255,255,255,0.15)",
               backdropFilter: "blur(4px)",
             }}
-            title="Open with default app"
+            title={showTooltips ? "Open with default app" : undefined}
           >
             <i className="fas fa-external-link-alt" />
           </button>
@@ -122,7 +130,7 @@ export default function AssetCard({
               background: "rgba(255,255,255,0.15)",
               backdropFilter: "blur(4px)",
             }}
-            title={revealLabel()}
+            title={showTooltips ? revealLabel() : undefined}
           >
             <i className="fas fa-folder-open" />
           </button>
@@ -139,7 +147,7 @@ export default function AssetCard({
                   : "rgba(255,255,255,0.15)",
                 backdropFilter: "blur(4px)",
               }}
-              title="Add to basket"
+              title={showTooltips ? "Add to basket" : undefined}
             >
               <i className="fas fa-shopping-basket" />
             </button>
@@ -204,18 +212,20 @@ export default function AssetCard({
         </div>
 
         {/* Archive badge */}
-        <div className="absolute top-2 left-2">
-          <span
-            className="px-1.5 py-0.5 rounded text-[8px] font-medium uppercase tracking-wider"
-            style={{
-              background: "rgba(0,0,0,0.55)",
-              color: "var(--evoury-text-dim)",
-              backdropFilter: "blur(6px)",
-            }}
-          >
-            {asset.archive_type}
-          </span>
-        </div>
+        {showDetails && (
+          <div className="absolute top-2 left-2">
+            <span
+              className="px-1.5 py-0.5 rounded text-[8px] font-medium uppercase tracking-wider"
+              style={{
+                background: "rgba(0,0,0,0.55)",
+                color: "var(--evoury-text-dim)",
+                backdropFilter: "blur(6px)",
+              }}
+            >
+              {asset.archive_type}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Info */}
@@ -228,15 +238,23 @@ export default function AssetCard({
         >
           {asset.name}
         </p>
-        <div className="flex items-center gap-2 mt-0.5">
-          <span
-            className="text-[9px]"
-            style={{ color: "var(--evoury-text-dim)" }}
-          >
-            <i className="fas fa-hard-drive mr-0.5" />
-            {formatSize(asset.file_size)}
-          </span>
-        </div>
+        {showDetails && (
+          <div className="flex items-center gap-2 mt-0.5">
+            <span
+              className="text-[9px]"
+              style={{ color: "var(--evoury-text-dim)" }}
+            >
+              <i className="fas fa-hard-drive mr-0.5" />
+              {formatSize(asset.file_size)}
+            </span>
+            <span
+              className="text-[9px]"
+              style={{ color: "var(--evoury-text-dim)" }}
+            >
+              {asset.archive_type}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

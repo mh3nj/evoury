@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { invoke } from "@tauri-apps/api/tauri";
 import { useScanStore } from "../../stores";
 
 interface Props {
@@ -7,6 +9,13 @@ interface Props {
 
 export default function StatusBar({ assetCount = 0, status = "Ready" }: Props) {
   const { scanning, totalFiles, scannedFiles, currentFile } = useScanStore();
+  const [version, setVersion] = useState("");
+
+  useEffect(() => {
+    invoke<string>("get_version")
+      .then(setVersion)
+      .catch(() => {});
+  }, []);
   const progress =
     totalFiles > 0 ? Math.round((scannedFiles / totalFiles) * 100) : 0;
 
@@ -77,7 +86,11 @@ export default function StatusBar({ assetCount = 0, status = "Ready" }: Props) {
       </div>
       <span className="shrink-0" style={{ color: "var(--evoury-text-dim)" }}>
         Evoury{" "}
-        <span style={{ color: "var(--evoury-border-light)" }}>v0.1.1</span>
+        {version && (
+          <span style={{ color: "var(--evoury-border-light)" }}>
+            v{version}
+          </span>
+        )}
       </span>
     </div>
   );

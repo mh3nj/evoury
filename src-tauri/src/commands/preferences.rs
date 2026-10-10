@@ -3,6 +3,13 @@ use atlas_preferences::Preferences;
 use tauri::State;
 
 #[tauri::command]
+pub fn set_preview_memory_budget(state: State<'_, AppState>, megabytes: u64) -> Result<(), String> {
+    let mut cache = state.cache_manager.lock().map_err(|e| e.to_string())?;
+    cache.set_max_size_mb(megabytes);
+    Ok(())
+}
+
+#[tauri::command]
 pub fn get_preferences(state: State<'_, AppState>) -> Result<Preferences, String> {
     let store = state.preferences.lock().map_err(|e| e.to_string())?;
     Ok(store.get().clone())

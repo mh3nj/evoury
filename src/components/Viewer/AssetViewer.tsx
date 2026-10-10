@@ -3,6 +3,7 @@ import {
   useViewerStore,
   useViewerEngineStore,
   useCompareStore,
+  usePreferencesStore,
 } from "../../stores";
 import type { Asset } from "../../types";
 import { getViewerComponent, detectViewerKind } from "./SpecializedViewers";
@@ -21,6 +22,9 @@ export default function AssetViewer({ assets }: Props) {
   } = useViewerEngineStore();
   const currentIndex = assets.findIndex((a) => a.id === assetId);
   const asset = assets[currentIndex];
+  const keyboardNavigation = usePreferencesStore(
+    (s) => s.interaction.keyboard_navigation,
+  );
 
   useEffect(() => {
     if (asset) {
@@ -45,8 +49,8 @@ export default function AssetViewer({ assets }: Props) {
     if (!open) return;
     function handler(e: KeyboardEvent) {
       if (e.key === "Escape") closeViewer();
-      if (e.key === "ArrowRight") goNext();
-      if (e.key === "ArrowLeft") goPrev();
+      if (keyboardNavigation && e.key === "ArrowRight") goNext();
+      if (keyboardNavigation && e.key === "ArrowLeft") goPrev();
       if (e.key === "+" || e.key === "=") {
         setZoom(zoom + 0.25);
         setEngineZoom(zoom + 0.25);
@@ -59,7 +63,16 @@ export default function AssetViewer({ assets }: Props) {
     }
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [open, zoom, closeViewer, goNext, goPrev, setZoom, setEngineZoom]);
+  }, [
+    open,
+    zoom,
+    closeViewer,
+    goNext,
+    goPrev,
+    setZoom,
+    setEngineZoom,
+    keyboardNavigation,
+  ]);
 
   const handleOpenCompare = useCallback(() => {
     if (!asset) return;

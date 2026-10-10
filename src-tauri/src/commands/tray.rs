@@ -108,7 +108,7 @@ fn set_autostart_impl(enabled: bool) -> Result<(), String> {
             .map_err(|e| format!("Failed to create autostart dir: {}", e))?;
         let exe = std::env::current_exe().map_err(|e| format!("Failed to get exe path: {}", e))?;
         let desktop = format!(
-            "[Desktop Entry]\nType=Application\nName=Evoury\nExec={}\nTerminal=false\n",
+            "[Desktop Entry]\nType=Application\nName=Evoury\nExec=\"{}\"\nTerminal=false\n",
             exe.to_string_lossy()
         );
         std::fs::write(&desktop_path, desktop)

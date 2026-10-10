@@ -72,6 +72,7 @@ pub fn run() {
             commands::metadata::set_notes,
             commands::preferences::get_preferences,
             commands::preferences::set_preferences,
+            commands::preferences::set_preview_memory_budget,
             commands::basket::create_basket,
             commands::basket::get_baskets,
             commands::basket::add_to_basket,

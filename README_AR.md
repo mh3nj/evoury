@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.1-blue.svg" alt="الإصدار">
+  <img src="https://img.shields.io/badge/version-0.1.2-blue.svg" alt="الإصدار">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="الترخيص">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="المنصة">
@@ -53,7 +53,7 @@ Evoury هو مدير أصول إبداعية قوي ودون اتصال، مبن
 - **ماسح متقدم**: أوضاع مسح كامل، تدريجي، محدد للمجلد، وخلفية
 - **مراقب نظام الملفات**: مزامنة في الوقت الفعلي بدون تحديث يدوي
 - **خط أنابيب البيانات الوصفية**: استخراج وتطبيع وتحقق وتخزين مؤقت تلقائي
-- **كشف التكرارات**: SHA256 والتجزئة الإدراكية وال	data-based
+- **كشف التكرارات**: SHA256 والتجزئة الإدراكية وال data-based
 
 ### البحث والتنظيم
 

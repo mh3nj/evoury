@@ -21,6 +21,7 @@ import {
   useSearchStore,
   useGalleryStore,
   useUndoStore,
+  usePreferencesStore,
 } from "../stores";
 import { useAtlasEvents } from "../hooks";
 import { invoke } from "@tauri-apps/api/tauri";
@@ -35,6 +36,9 @@ export default function Home() {
 
   const { openSettings } = useCommandStore();
   const scanState = useScanStore();
+  const backgroundIndexing = usePreferencesStore(
+    (s) => s.performance.enable_background_indexing,
+  );
   useWorkspaceStore();
 
   const onOpenExternal = useCallback(async (asset: Asset) => {
@@ -170,6 +174,7 @@ export default function Home() {
   );
 
   const handleScan = useCallback(async () => {
+    const scan = useScanStore.getState();
     try {
       const selected = await open({
         directory: true,
@@ -179,7 +184,7 @@ export default function Home() {
       if (!selected || typeof selected !== "string") return;
 
       setStatus("Scanning...");
-      scanState.startScan(crypto.randomUUID());
+      scan.startScan(crypto.randomUUID());
 
       await invoke<number>("scan_library", { path: selected, mode: "full" });
       const all = await invoke<Asset[]>("get_assets");
@@ -188,41 +193,44 @@ export default function Home() {
 
       saveLibraryPath(selected);
 
-      await invoke("start_watching", { path: selected });
+      if (
+        usePreferencesStore.getState().performance.enable_background_indexing
+      ) {
+        await invoke("start_watching", { path: selected });
+      }
       setStatus("Ready");
-      scanState.finishScan();
+      scan.finishScan();
     } catch (err) {
       setStatus("Scan failed");
-      scanState.finishScan();
-      scanState.setError(String(err));
+      scan.finishScan();
+      scan.setError(String(err));
       console.error(err);
     }
-  }, [scanState, extractCollections]);
+  }, [extractCollections]);
 
   useAtlasEvents(
-    useCallback(
-      (event: any) => {
-        if (!event) return;
+    useCallback((event: any) => {
+      if (!event) return;
 
-        if (event.ScanProgress) {
-          const p = event.ScanProgress;
-          scanState.updateProgress(
+      if (event.ScanProgress) {
+        const p = event.ScanProgress;
+        useScanStore
+          .getState()
+          .updateProgress(
             p.total_files,
             p.scanned_files,
             p.archives_found,
             p.previews_found,
             p.current_file,
           );
-        }
+      }
 
-        if (event.WatcherEvent) {
-          invoke<Asset[]>("get_assets")
-            .then(setAssets)
-            .catch(() => {});
-        }
-      },
-      [scanState],
-    ),
+      if (event.WatcherEvent) {
+        invoke<Asset[]>("get_assets")
+          .then(setAssets)
+          .catch(() => {});
+      }
+    }, []),
   );
 
   // Apply tray & autostart settings saved in localStorage to Rust backend
@@ -242,7 +250,33 @@ export default function Home() {
     }
   }, []);
 
-  // Initial load: restore from library or auto-scan saved path
+  const autoScan = useCallback(
+    async (path: string) => {
+      const scan = useScanStore.getState();
+      try {
+        setStatus("Scanning...");
+        scan.startScan(crypto.randomUUID());
+        await invoke<number>("scan_library", { path, mode: "full" });
+        const all = await invoke<Asset[]>("get_assets");
+        setAssets(all);
+        extractCollections(all, path);
+        if (
+          usePreferencesStore.getState().performance.enable_background_indexing
+        ) {
+          await invoke("start_watching", { path });
+        }
+        setStatus("Ready");
+        scan.finishScan();
+      } catch {
+        setStatus("Ready");
+        scan.finishScan();
+      }
+    },
+    [extractCollections],
+  );
+
+  // Initial load: restore from library or auto-scan saved path. The auto-scan
+  // is what "Background indexing" turns off for people who want manual control.
   useEffect(() => {
     const savedPath = getSavedLibraryPath();
     if (savedPath) {
@@ -253,34 +287,41 @@ export default function Home() {
             setAssets(all);
             extractCollections(all, all[0].archive_path);
             setStatus("Ready");
-          } else {
-            // Library exists but empty, so auto-rescan
+          } else if (
+            usePreferencesStore.getState().performance
+              .enable_background_indexing
+          ) {
+            // Library exists but is empty, so auto-rescan
             autoScan(savedPath);
+          } else {
+            setStatus("Ready");
           }
         })
-        .catch(() => autoScan(savedPath));
+        .catch(() => {
+          if (
+            usePreferencesStore.getState().performance
+              .enable_background_indexing
+          ) {
+            autoScan(savedPath);
+          } else {
+            setStatus("Ready");
+          }
+        });
     }
-  }, [extractCollections]);
+  }, [extractCollections, autoScan]);
 
-  async function autoScan(path: string) {
-    try {
-      setStatus("Scanning...");
-      scanState.startScan(crypto.randomUUID());
-      await invoke<number>("scan_library", { path, mode: "full" });
-      const all = await invoke<Asset[]>("get_assets");
-      setAssets(all);
-      extractCollections(all, path);
-      await invoke("start_watching", { path });
-      setStatus("Ready");
-      scanState.finishScan();
-    } catch {
-      setStatus("Ready");
-      scanState.finishScan();
+  // The folder watcher follows the background indexing preference as it changes
+  useEffect(() => {
+    const savedPath = getSavedLibraryPath();
+    if (!savedPath) return;
+    if (backgroundIndexing) {
+      invoke("start_watching", { path: savedPath }).catch(() => {});
+    } else {
+      invoke("stop_watching").catch(() => {});
     }
-  }
+  }, [backgroundIndexing]);
 
   const searchQuery = useSearchStore((s) => s.query);
-  const searchFilters = useSearchStore((s) => s.filters);
 
   // Extract CamelCase tags from a filename into individual lowercase tags
   function extractTags(name: string): string[] {
@@ -341,7 +382,7 @@ export default function Home() {
 
       return true;
     });
-  }, [assets, searchQuery, searchFilters]);
+  }, [assets, searchQuery]);
 
   return (
     <div

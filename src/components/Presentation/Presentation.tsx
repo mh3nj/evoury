@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { convertFileSrc } from "@tauri-apps/api/tauri";
 import { invoke } from "@tauri-apps/api/tauri";
 import type { Asset } from "../../types";
+import { usePreferencesStore } from "../../stores";
 
 interface Props {
   assets: Asset[];
@@ -9,6 +10,9 @@ interface Props {
 }
 
 export default function Presentation({ assets, onClose }: Props) {
+  const keyboardNavigation = usePreferencesStore(
+    (s) => s.interaction.keyboard_navigation,
+  );
   // Resume from saved position
   const [position, setPosition] = useState(() => {
     const saved = localStorage.getItem("evoury_presentation_pos");
@@ -37,12 +41,12 @@ export default function Presentation({ assets, onClose }: Props) {
   useEffect(() => {
     function handler(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowRight") next();
-      if (e.key === "ArrowLeft") prev();
+      if (keyboardNavigation && e.key === "ArrowRight") next();
+      if (keyboardNavigation && e.key === "ArrowLeft") prev();
     }
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [onClose, next, prev]);
+  }, [onClose, next, prev, keyboardNavigation]);
 
   function openArchive(archivePath: string) {
     invoke("open_external_file", { path: archivePath }).catch(() => {});

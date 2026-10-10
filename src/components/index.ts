@@ -4,7 +4,6 @@ export { Sidebar } from "./Sidebar";
 export { AssetViewer } from "./Viewer";
 export { CommandPalette } from "./CommandPalette";
 export { StatusBar } from "./StatusBar";
-export { Toolbar } from "./Toolbar";
 export { Presentation } from "./Presentation";
 export { LazyImage } from "./LazyImage";
 export { Settings } from "./Settings";
