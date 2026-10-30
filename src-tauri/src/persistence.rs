@@ -1,12 +1,13 @@
 use atlas_basket::Basket;
 use atlas_metadata::AssetMetadata;
-use atlas_preferences::Preferences;
+use atlas_preferences::{Preferences, StudioTheme};
 use std::{collections::HashMap, fs, path::PathBuf};
 use uuid::Uuid;
 
 const METADATA_FILE: &str = "metadata.json";
 const PREFERENCES_FILE: &str = "preferences.json";
 const BASKETS_FILE: &str = "baskets.json";
+const THEMES_FILE: &str = "themes.json";
 
 pub struct Persistence {
     data_dir: PathBuf,
@@ -62,5 +63,18 @@ impl Persistence {
     pub fn save_baskets(&self, baskets: &[Basket]) -> Result<(), String> {
         let content = serde_json::to_string_pretty(baskets).map_err(|e| e.to_string())?;
         fs::write(self.data_dir.join(BASKETS_FILE), content).map_err(|e| e.to_string())
+    }
+
+    pub fn load_themes(&self) -> Vec<StudioTheme> {
+        let path = self.data_dir.join(THEMES_FILE);
+        match fs::read_to_string(&path) {
+            Ok(content) => serde_json::from_str(&content).unwrap_or_default(),
+            Err(_) => Vec::new(),
+        }
+    }
+
+    pub fn save_themes(&self, themes: &[StudioTheme]) -> Result<(), String> {
+        let content = serde_json::to_string_pretty(themes).map_err(|e| e.to_string())?;
+        fs::write(self.data_dir.join(THEMES_FILE), content).map_err(|e| e.to_string())
     }
 }

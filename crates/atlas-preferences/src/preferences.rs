@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 #[serde(default)]
 pub struct Preferences {
     pub theme: ThemeMode,
+    pub color_theme: Option<String>,
     pub default_workspace: Option<String>,
     pub default_view: ViewPreference,
     pub performance: PerformancePreference,
@@ -18,6 +19,7 @@ impl Default for Preferences {
     fn default() -> Self {
         Self {
             theme: ThemeMode::Dark,
+            color_theme: None,
             default_workspace: None,
             default_view: ViewPreference::default(),
             performance: PerformancePreference::default(),

@@ -4,6 +4,7 @@ export { useViewerStore } from "./viewer-store";
 export { useCommandStore } from "./command-store";
 export { useWorkspaceStore } from "./workspace-store";
 export { useThemeStore } from "./theme-store";
+export { useThemeStudioStore } from "./theme-studio-store";
 export { useScanStore } from "./scan-store";
 export { useSearchStore } from "./search-store";
 export { useBasketStore } from "./basket-store";

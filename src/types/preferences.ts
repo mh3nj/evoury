@@ -23,6 +23,7 @@ export interface InteractionPreference {
 
 export interface Preferences {
   theme: ThemeMode;
+  color_theme: string | null;
   default_workspace: string | null;
   default_view: ViewPreference;
   performance: PerformancePreference;

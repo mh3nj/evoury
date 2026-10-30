@@ -29,6 +29,7 @@ const DEFAULT_INT: InteractionPreference = {
 interface PreferencesState {
   loaded: boolean;
   theme: ThemeMode;
+  color_theme: string | null;
   density: Density;
   default_view: ViewPreference;
   performance: PerformancePreference;
@@ -37,6 +38,7 @@ interface PreferencesState {
   load: () => Promise<void>;
   save: () => Promise<void>;
   setTheme: (theme: ThemeMode) => void;
+  setColorTheme: (id: string | null) => void;
   setDensity: (density: Density) => void;
   setView: (v: Partial<ViewPreference>) => void;
   setPerformance: (p: Partial<PerformancePreference>) => void;
@@ -47,6 +49,7 @@ interface PreferencesState {
 export const usePreferencesStore = create<PreferencesState>((set, get) => ({
   loaded: false,
   theme: "Dark",
+  color_theme: null,
   density: "Normal",
   default_view: DEFAULT_VIEW,
   performance: DEFAULT_PERF,
@@ -59,6 +62,7 @@ export const usePreferencesStore = create<PreferencesState>((set, get) => ({
       set({
         loaded: true,
         theme: p.theme,
+        color_theme: p.color_theme ?? null,
         density: p.density ?? "Normal",
         default_view: { ...DEFAULT_VIEW, ...p.default_view },
         performance: { ...DEFAULT_PERF, ...p.performance },
@@ -74,6 +78,7 @@ export const usePreferencesStore = create<PreferencesState>((set, get) => ({
     const s = get();
     const prefs: Preferences = {
       theme: s.theme,
+      color_theme: s.color_theme,
       density: s.density,
       default_workspace: s.default_workspace,
       default_view: s.default_view,
@@ -89,6 +94,11 @@ export const usePreferencesStore = create<PreferencesState>((set, get) => ({
 
   setTheme: (theme) => {
     set({ theme });
+    get().save();
+  },
+
+  setColorTheme: (color_theme) => {
+    set({ color_theme });
     get().save();
   },
 

@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { invoke } from "@tauri-apps/api/tauri";
 import { usePreferencesStore } from "./preferences-store";
+import { applyColorThemeToDOM, resolveTheme } from "../themes/palette";
+import type { StudioTheme } from "../types/theme";
 import type { Density } from "../types/preferences";
 
 export type ThemeMode = "Dark" | "Light" | "System";
@@ -46,6 +48,7 @@ export interface SpacingTokens {
 
 export interface ThemeConfig {
   mode: ThemeMode;
+  color_theme: string | null;
   accent_color: string;
   border_radius: string;
   animation_speed: string;
@@ -122,10 +125,12 @@ interface ThemeState {
   setAccent: (color: string) => Promise<void>;
   setMode: (mode: ThemeMode) => Promise<void>;
   setDensity: (density: Density) => Promise<void>;
+  setColorTheme: (theme: StudioTheme | null) => Promise<void>;
 }
 
 const defaultTheme: ThemeConfig = {
   mode: "Dark",
+  color_theme: null,
   accent_color: "#6366f1",
   border_radius: "12px",
   animation_speed: "200ms",
@@ -170,6 +175,10 @@ const defaultTheme: ThemeConfig = {
 
 applyThemeToDOM(defaultTheme);
 
+// The palette currently painted by applyColorThemeToDOM. Kept outside the
+// zustand state because it mirrors config.color_theme and is never serialized.
+let activeColorTheme: StudioTheme | null = null;
+
 export const useThemeStore = create<ThemeState>((set, get) => ({
   config: defaultTheme,
   loading: false,
@@ -177,12 +186,19 @@ export const useThemeStore = create<ThemeState>((set, get) => ({
     set({ loading: true });
     try {
       const prefs = await invoke<any>("get_preferences");
+      const userThemes = await invoke<StudioTheme[]>("get_themes").catch(
+        () => [],
+      );
+      const colorTheme = resolveTheme(prefs?.color_theme, userThemes);
       const config: ThemeConfig = {
         ...defaultTheme,
         mode: prefs?.theme ?? defaultTheme.mode,
+        color_theme: colorTheme?.id ?? null,
         density: prefs?.density ?? defaultTheme.density,
       };
+      activeColorTheme = colorTheme ?? null;
       applyThemeToDOM(config);
+      applyColorThemeToDOM(colorTheme ?? null);
       set({ config, loading: false });
     } catch {
       set({ loading: false });
@@ -191,17 +207,42 @@ export const useThemeStore = create<ThemeState>((set, get) => ({
   update: async (partial) => {
     const next = { ...get().config, ...partial };
     applyThemeToDOM(next);
+    if (next.color_theme && activeColorTheme?.id === next.color_theme) {
+      applyColorThemeToDOM(activeColorTheme);
+    }
     set({ config: next });
   },
   setAccent: async (color) => {
     await get().update({ accent_color: color });
   },
   setMode: async (mode) => {
-    await get().update({ mode });
+    const current = get().config;
+    if (mode !== current.mode && current.color_theme) {
+      activeColorTheme = null;
+      applyColorThemeToDOM(null);
+      await get().update({ mode, color_theme: null });
+      usePreferencesStore.getState().setColorTheme(null);
+    } else {
+      await get().update({ mode });
+    }
     usePreferencesStore.getState().setTheme(mode);
   },
   setDensity: async (density) => {
     await get().update({ density });
     usePreferencesStore.getState().setDensity(density);
+  },
+  setColorTheme: async (theme) => {
+    const mode: ThemeMode = theme && theme.mode === "light" ? "Light" : "Dark";
+    const next = {
+      ...get().config,
+      color_theme: theme?.id ?? null,
+      mode,
+    };
+    activeColorTheme = theme;
+    applyThemeToDOM(next);
+    applyColorThemeToDOM(theme);
+    set({ config: next });
+    usePreferencesStore.getState().setColorTheme(theme?.id ?? null);
+    usePreferencesStore.getState().setTheme(mode);
   },
 }));

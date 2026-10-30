@@ -63,6 +63,7 @@ describe("preferences store", () => {
   it("restores saved settings from the backend", async () => {
     const stored: Preferences = {
       theme: "Light",
+      color_theme: null,
       density: "Comfortable",
       default_workspace: null,
       default_view: {

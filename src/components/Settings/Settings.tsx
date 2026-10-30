@@ -4,8 +4,10 @@ import {
   useCommandStore,
   usePreferencesStore,
   useThemeStore,
+  useThemeStudioStore,
   useGalleryStore,
 } from "../../stores";
+import { resolveTheme } from "../../themes/palette";
 import type { ViewMode } from "../../types/preferences";
 
 const VIEW_MODES: { id: ViewMode; label: string; icon: string }[] = [
@@ -15,7 +17,7 @@ const VIEW_MODES: { id: ViewMode; label: string; icon: string }[] = [
 ];
 
 export default function Settings() {
-  const { settingsOpen, closeSettings } = useCommandStore();
+  const { settingsOpen, closeSettings, openThemeStudio } = useCommandStore();
   const {
     loaded,
     load,
@@ -28,6 +30,10 @@ export default function Settings() {
     interaction,
   } = usePreferencesStore();
   const { config, setMode, setDensity } = useThemeStore();
+  const userThemes = useThemeStudioStore((s) => s.userThemes);
+  const themeStudioLoaded = useThemeStudioStore((s) => s.loaded);
+  const loadThemeStudio = useThemeStudioStore((s) => s.load);
+  const activeTheme = resolveTheme(config.color_theme, userThemes);
   const { viewMode, setViewMode, gridSize, setGridSize } = useGalleryStore();
   const [closeToTray, setCloseToTray] = useState(
     () => localStorage.getItem("evoury_close_to_tray") === "true",
@@ -42,6 +48,10 @@ export default function Settings() {
   useEffect(() => {
     if (settingsOpen && !loaded) load();
   }, [settingsOpen, loaded, load]);
+
+  useEffect(() => {
+    if (settingsOpen && !themeStudioLoaded) loadThemeStudio();
+  }, [settingsOpen, themeStudioLoaded, loadThemeStudio]);
 
   useEffect(() => {
     if (!settingsOpen) return;
@@ -179,6 +189,34 @@ export default function Settings() {
                       {t}
                     </button>
                   ))}
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <span
+                  className="text-xs"
+                  style={{ color: "var(--evoury-text-dim)" }}
+                >
+                  Color theme
+                </span>
+                <div className="flex items-center gap-2">
+                  <span
+                    className="text-[10px] truncate max-w-32"
+                    style={{ color: "var(--evoury-text)" }}
+                  >
+                    {activeTheme?.name ?? "Default pair"}
+                  </span>
+                  <button
+                    onClick={openThemeStudio}
+                    className="px-3 py-1 rounded-md text-[10px] transition-all"
+                    style={{
+                      background: "var(--evoury-elevated)",
+                      color: "var(--evoury-text-dim)",
+                      border: "1px solid var(--evoury-border)",
+                    }}
+                  >
+                    <i className="fas fa-palette mr-1.5" />
+                    Theme Studio
+                  </button>
                 </div>
               </div>
               <div className="flex items-center justify-between">

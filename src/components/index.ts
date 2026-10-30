@@ -7,6 +7,7 @@ export { StatusBar } from "./StatusBar";
 export { Presentation } from "./Presentation";
 export { LazyImage } from "./LazyImage";
 export { Settings } from "./Settings";
+export { ThemeStudio } from "./ThemeStudio";
 export { ContextMenu } from "./ContextMenu";
 export { QuickActions } from "./QuickActions";
 export { Breadcrumbs } from "./Breadcrumbs";

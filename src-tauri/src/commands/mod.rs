@@ -14,6 +14,7 @@ pub mod search;
 pub mod system;
 pub mod tags;
 pub mod templates;
+pub mod themes;
 pub mod tray;
 pub mod versions;
 pub mod workflow;

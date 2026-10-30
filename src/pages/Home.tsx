@@ -15,6 +15,7 @@ import {
   StatusBar,
   Presentation,
   Settings,
+  ThemeStudio,
   CompareMode,
   NotificationCenter,
   Logo,
@@ -588,6 +589,7 @@ export default function Home() {
       <CompareMode assets={assets} />
       <CommandPalette />
       <Settings />
+      <ThemeStudio />
 
       {presentationMode && (
         <Presentation

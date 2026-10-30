@@ -10,7 +10,8 @@ interface Command {
 }
 
 export default function CommandPalette() {
-  const { open, closePalette, openSettings } = useCommandStore();
+  const { open, closePalette, openSettings, openThemeStudio } =
+    useCommandStore();
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -24,6 +25,16 @@ export default function CommandPalette() {
       action: () => {
         closePalette();
         openSettings();
+      },
+    },
+    {
+      id: "open_theme_studio",
+      name: "Open Theme Studio",
+      description: "Browse, edit and create color themes",
+      category: "Appearance",
+      action: () => {
+        closePalette();
+        openThemeStudio();
       },
     },
     {
