@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.2-blue.svg" alt="వెర్షన్">
+  <img src="https://img.shields.io/badge/version-0.2.0-blue.svg" alt="వెర్షన్">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="లైసెన్స్">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="ప్లాట్‌ఫారమ్">

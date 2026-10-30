@@ -5,7 +5,7 @@ All notable changes to Evoury will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.2.0] - 2026-10-30
 
 ### Added
 
@@ -65,41 +65,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Gallery density and layout are driven by the saved preferences
 - Screenshot and license text cleaned up in all translated readmes
 
-## [Unreleased]
-
-### Added
-
-- Initial project structure
-- Core domain models
-- Event bus system
-- Service architecture
-- Registry system
-- Command system
-- React frontend with TypeScript
-- Tauri integration
-- Documentation
-
-### Changed
-
-- N/A
-
-### Deprecated
-
-- N/A
-
-### Removed
-
-- N/A
-
-### Fixed
-
-- N/A
-
-### Security
-
-- N/A
-
-## [0.1.0] - 2026-XX-XX
+## [0.1.0] - 2026-09-12
 
 ### Added
 
@@ -120,7 +86,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tauri desktop integration
 - Documentation and guides
 
-[Unreleased]: https://github.com/evoury/evoury/compare/v0.1.2...HEAD
-[0.1.2]: https://github.com/evoury/evoury/releases/tag/v0.1.2
-[0.1.1]: https://github.com/evoury/evoury/releases/tag/v0.1.1
-[0.1.0]: https://github.com/evoury/evoury/releases/tag/v0.1.0
+[Unreleased]: https://github.com/mh3nj/evoury/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/mh3nj/evoury/releases/tag/v0.2.0
+[0.1.2]: https://github.com/mh3nj/evoury/releases/tag/v0.1.2
+[0.1.1]: https://github.com/mh3nj/evoury/releases/tag/v0.1.1
+[0.1.0]: https://github.com/mh3nj/evoury/releases/tag/v0.1.0

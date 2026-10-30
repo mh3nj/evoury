@@ -133,7 +133,7 @@ fn from_sidecar(archive: &Path, max_entries: usize) -> Option<ArchiveContents> {
                 .and_then(|c| u32::from_str_radix(c.trim(), 16).ok()),
         })
         .collect();
-    entries.sort_by(|a, b| a.path.to_lowercase().cmp(&b.path.to_lowercase()));
+    entries.sort_by_key(|a| a.path.to_lowercase());
     Some(finish("sidecar", entries, max_entries, sidecar.name))
 }
 
@@ -257,7 +257,7 @@ pub fn parse_slt(text: &str) -> Vec<ContentEntry> {
         }
     }
     flush(&mut block, &mut entries);
-    entries.sort_by(|a, b| a.path.to_lowercase().cmp(&b.path.to_lowercase()));
+    entries.sort_by_key(|a| a.path.to_lowercase());
     entries
 }
 

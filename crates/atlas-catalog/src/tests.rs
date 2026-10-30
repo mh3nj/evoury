@@ -2,6 +2,7 @@ use super::*;
 use atlas_db::{connection::open_in_memory, MigrationRunner};
 use std::fs;
 use std::path::PathBuf;
+#[cfg(unix)]
 use std::time::{Duration, SystemTime};
 
 struct TempDir(PathBuf);

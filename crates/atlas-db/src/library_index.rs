@@ -655,7 +655,7 @@ mod tests {
             modified_ns: 7,
             subdirs: vec![],
         };
-        save_scan(&conn, root.id, &[], &[f.clone()], true).unwrap();
+        save_scan(&conn, root.id, &[], std::slice::from_ref(&f), true).unwrap();
         save_assets(&conn, root.id, &[asset(root.id, 1, "/lib/a.7z")], false).unwrap();
         assert_eq!(load_folders(&conn, root.id).unwrap(), vec![f]);
         assert_eq!(load_assets(&conn).unwrap().len(), 1);
@@ -695,8 +695,8 @@ mod tests {
         let r2 = add_root(&conn, Path::new("/two"), None).unwrap();
         let a = asset(r1.id, 1, "/one/a.7z");
         let b = asset(r2.id, 2, "/two/b.7z");
-        save_scan(&conn, r1.id, &[a.clone()], &[], true).unwrap();
-        save_scan(&conn, r2.id, &[b.clone()], &[], true).unwrap();
+        save_scan(&conn, r1.id, std::slice::from_ref(&a), &[], true).unwrap();
+        save_scan(&conn, r2.id, std::slice::from_ref(&b), &[], true).unwrap();
         put_package_files(
             &conn,
             a.id,
@@ -733,7 +733,7 @@ mod tests {
         let conn = db();
         let root = add_root(&conn, Path::new("/lib"), None).unwrap();
         let a = asset(root.id, 1, "/lib/a.7z");
-        save_scan(&conn, root.id, &[a.clone()], &[], true).unwrap();
+        save_scan(&conn, root.id, std::slice::from_ref(&a), &[], true).unwrap();
         let files = vec![
             PackageFile {
                 path: "f/a.ttf".into(),

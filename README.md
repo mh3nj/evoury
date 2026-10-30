@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.2-blue.svg" alt="Version">
+  <img src="https://img.shields.io/badge/version-0.2.0-blue.svg" alt="Version">
   <img src="https://img.shields.io/badge/rust-2021-orange.svg" alt="Rust Edition">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="Platform">
@@ -69,10 +69,15 @@ Evoury is a powerful, offline-first creative asset manager built with Tauri, Rea
 - **Workstations**: Pre-configured layouts with tools, shortcuts, and themes
 - **Dockable Panels**: Fully customizable layout engine
 
+### Appearance
+
+- **Theme Studio**: 34 mh3nj color themes built in (17 families, dark and light). Apply, live-preview, edit, create, save, save and apply, import VS Code or Evoury theme JSON, export, or delete themes. A custom copy overrides a built-in with the same id; delete the copy and the original returns.
+- **Dark, light or system mode** with density, accent color, radius and typography tokens. The active color theme is remembered across launches.
+
 ### Health & Maintenance
 
 - **Health Engine**: Check filesystem, database, cache, and metadata integrity
-- **Automatic Repair**: One-click修复 for detected issues
+- **Automatic Repair**: One-click repair for detected issues
 - **Session Recovery**: Restore workspace after unexpected shutdowns
 - **Sleep Mode**: Minimal resource usage when idle
 
@@ -84,6 +89,7 @@ Evoury is a powerful, offline-first creative asset manager built with Tauri, Rea
 - **Instant start-up.** The library is kept in a local SQLite index (`atlas-db`), so Evoury opens already populated. A quick incremental scan then lists only the folders that changed. Use **Rescan** in the Libraries dialog to check every file.
 - **Duplicates.** The **Duplicates** button finds identical archives, packs that mostly contain the same files (the same pack saved twice, in two formats or two folders) and files that sit inside several packages. It shows where the copies are and never deletes anything. Contents come from Kaelovun's manifest instantly, or from 7-Zip once per archive.
 - **Security.** A Content-Security-Policy limits the app to its own bundled code and the preview files in your libraries; there is no network access.
+- **Themes.** Settings > Appearance > Color theme (or the command palette: Open Theme Studio) lists the 34 mh3nj themes. Anything you change there is stored in `themes.json` in the app data folder and the active theme id is kept in preferences, so the look survives restarts.
 
 ---
 
@@ -140,7 +146,7 @@ Evoury pairs them by folder and name, ignores anything still being written (`*.k
 
 ### Download
 
-Download the latest release from the [Releases](https://github.com/mh3nj/evoury/releases) page.
+Download the latest release from the [Releases](https://github.com/mh3nj/evoury/releases) page. Windows ships as both an MSI (`Evoury_<version>_x64_en-US.msi`) and an NSIS setup (`Evoury_<version>_x64-setup.exe`); macOS and Linux bundles are produced by the release workflow.
 
 ### Build from Source
 

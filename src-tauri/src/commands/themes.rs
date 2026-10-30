@@ -40,7 +40,9 @@ pub async fn import_theme() -> Result<Option<String>, String> {
             });
         let path = rx.recv().map_err(|e| e.to_string())?;
         match path {
-            Some(p) => std::fs::read_to_string(&p).map(Some).map_err(|e| e.to_string()),
+            Some(p) => std::fs::read_to_string(&p)
+                .map(Some)
+                .map_err(|e| e.to_string()),
             None => Ok(None),
         }
     })

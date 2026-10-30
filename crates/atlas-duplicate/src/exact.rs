@@ -105,7 +105,7 @@ mod tests {
             &archives,
             &mut |x| {
                 quick_calls.set(quick_calls.get() + 1);
-                Some("same-samples".to_string()).filter(|_| x.size == 100)
+                (x.size == 100).then_some("same-samples".to_string())
             },
             &mut |x| {
                 full_calls.set(full_calls.get() + 1);
