@@ -290,7 +290,10 @@ export default function ThemeStudio() {
               <div className="flex flex-wrap gap-1.5">
                 {!isActive(theme.id) && (
                   <button
-                    onClick={() => void apply(theme)}
+                    onClick={() => {
+                      setPreviewId(null);
+                      void apply(theme);
+                    }}
                     className="text-[9px] px-2 py-1 rounded-md"
                     style={{
                       background: "var(--evoury-accent)",
