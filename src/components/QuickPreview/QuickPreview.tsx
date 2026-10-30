@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { previewSrc } from "../../utils/preview-url";
 import type { Asset } from "../../types";
 
 interface Props {
@@ -116,7 +117,7 @@ export default function QuickPreview({
         {showImage ? (
           <img
             ref={imgRef}
-            src={asset.preview!.path}
+            src={previewSrc(asset.preview) ?? undefined}
             alt={asset.name}
             className="max-w-[90vw] max-h-[80vh] object-contain select-none animate-fade-in"
             style={{ borderRadius: "8px" }}

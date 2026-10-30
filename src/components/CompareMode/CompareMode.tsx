@@ -1,4 +1,5 @@
 import { useEffect, useCallback } from "react";
+import { previewSrc } from "../../utils/preview-url";
 import { useCompareStore } from "../../stores/compare-store";
 import type { CompareMode } from "../../stores/compare-store";
 import type { Asset } from "../../types";
@@ -62,7 +63,7 @@ export default function CompareMode({ assets }: Props) {
   const renderImage = (asset: typeof leftAsset, label: string) =>
     asset?.preview?.path ? (
       <img
-        src={asset.preview.path}
+        src={previewSrc(asset.preview) ?? undefined}
         alt={asset.name}
         style={{
           transform: `scale(${zoom})`,
@@ -238,8 +239,8 @@ export default function CompareMode({ assets }: Props) {
                   return;
                 const ctx = el.getContext("2d");
                 if (!ctx) return;
-                loadImage(leftAsset.preview.path).then((img1) => {
-                  loadImage(rightAsset!.preview!.path).then((img2) => {
+                loadImage(previewSrc(leftAsset.preview)!).then((img1) => {
+                  loadImage(previewSrc(rightAsset!.preview)!).then((img2) => {
                     el.width = Math.max(img1.width, img2.width);
                     el.height = Math.max(img1.height, img2.height);
                     ctx.drawImage(img1, 0, 0);
@@ -361,6 +362,7 @@ export default function CompareMode({ assets }: Props) {
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
+    img.crossOrigin = "anonymous"; // the diff view reads pixels back from a canvas
     img.onload = () => resolve(img);
     img.onerror = reject;
     img.src = src;

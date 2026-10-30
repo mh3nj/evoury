@@ -4,6 +4,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { useBasketStore, useTodoNotesStore } from "../../stores";
 import type { BasketAsset } from "../../stores/basket-store";
 import { revealLabel } from "../../utils/platform";
+import { formatNoteContent } from "../../utils/note-format";
 
 export default function RightSidebar() {
   const {
@@ -118,24 +119,6 @@ export default function RightSidebar() {
           .map((a) => ({ ...a, basketName: b.name, basketId: b.id })),
       )
     : [];
-
-  function formatNoteContent(content: string): string {
-    return content
-      .replace(/^###### (.*$)/gm, "<h6>$1</h6>")
-      .replace(/^##### (.*$)/gm, "<h5>$1</h5>")
-      .replace(/^#### (.*$)/gm, "<h4>$1</h4>")
-      .replace(/^### (.*$)/gm, "<h3>$1</h3>")
-      .replace(/^## (.*$)/gm, "<h2>$1</h2>")
-      .replace(/^# (.*$)/gm, "<h1>$1</h1>")
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\*(.*?)\*/g, "<em>$1</em>")
-      .replace(/~~(.*?)~~/g, "<s>$1</s>")
-      .replace(/```(\w*)\n([\s\S]*?)```/g, "<pre><code>$2</code></pre>")
-      .replace(/`([^`]+)`/g, "<code>$1</code>")
-      .replace(/^- (.*$)/gm, "<li>$1</li>")
-      .replace(/(<li>.*<\/li>\n?)+/g, "<ul>$&</ul>")
-      .replace(/\n/g, "<br/>");
-  }
 
   return (
     <aside

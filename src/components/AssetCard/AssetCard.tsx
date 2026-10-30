@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { convertFileSrc } from "@tauri-apps/api/tauri";
+import { thumbSrc } from "../../utils/preview-url";
 import type { Asset } from "../../types";
 import { useBasketStore, usePreferencesStore } from "../../stores";
 import { revealLabel } from "../../utils/platform";
@@ -26,9 +26,7 @@ export default function AssetCard({
   const [showBasketMenu, setShowBasketMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const isArchive = asset.archive_type !== "Unknown";
-  const previewUrl = asset.preview?.path
-    ? convertFileSrc(asset.preview.path)
-    : null;
+  const previewUrl = thumbSrc(asset.preview);
   const assetFile = asset.archive_path;
   const baskets = useBasketStore((s) => s.baskets);
   const addToBasket = useBasketStore((s) => s.addToBasket);

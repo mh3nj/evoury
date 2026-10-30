@@ -26,6 +26,9 @@ pub struct Asset {
     pub collection_id: Option<Uuid>,
     pub category_id: Option<Uuid>,
     pub state: AssetState,
+    /// The library folder this asset belongs to. `Uuid::nil()` for the first library.
+    #[serde(default)]
+    pub root_id: Uuid,
 }
 
 impl Asset {

@@ -7,6 +7,7 @@ import {
 } from "../../stores";
 import type { Asset } from "../../types";
 import { getViewerComponent, detectViewerKind } from "./SpecializedViewers";
+import { previewSrc } from "../../utils/preview-url";
 import { ColorIndicator } from "../ColorIndicator";
 
 interface Props {
@@ -186,6 +187,31 @@ export default function AssetViewer({ assets }: Props) {
               <i className="fas fa-plus" />
             </button>
           </div>
+          {asset.archive_type !== "Unknown" && (
+            <button
+              onClick={() =>
+                setViewer(
+                  activeViewer === "zip-tree"
+                    ? detectViewerKind(asset.name, asset.mime_type)
+                    : "zip-tree",
+                )
+              }
+              title={
+                activeViewer === "zip-tree"
+                  ? "Show the preview"
+                  : "Show what is inside the archive"
+              }
+              className="w-7 h-7 flex items-center justify-center rounded-md text-xs transition-all"
+              style={{
+                color:
+                  activeViewer === "zip-tree"
+                    ? "var(--evoury-accent)"
+                    : "var(--evoury-text-dim)",
+              }}
+            >
+              <i className="fas fa-folder-tree" />
+            </button>
+          )}
           <button
             onClick={handleOpenCompare}
             className="w-7 h-7 flex items-center justify-center rounded-md text-xs transition-all"
@@ -225,7 +251,11 @@ export default function AssetViewer({ assets }: Props) {
           transform: `scale(${activeViewer === "default-image" ? zoom : 1})`,
         }}
       >
-        <ViewerComponent src={asset.preview?.path} assetName={asset.name} />
+        <ViewerComponent
+          src={previewSrc(asset.preview) ?? undefined}
+          assetName={asset.name}
+          assetId={asset.id}
+        />
       </div>
 
       <div

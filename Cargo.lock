@@ -132,6 +132,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "atlas-catalog"
+version = "0.1.0"
+dependencies = [
+ "atlas-core",
+ "atlas-db",
+ "atlas-duplicate",
+ "atlas-events",
+ "atlas-library",
+ "atlas-scanner",
+ "crossbeam-channel",
+ "rusqlite",
+ "serde",
+ "uuid",
+]
+
+[[package]]
 name = "atlas-collection"
 version = "0.1.0"
 dependencies = [
@@ -300,6 +316,7 @@ version = "0.1.0"
 dependencies = [
  "atlas-core",
  "atlas-events",
+ "chrono",
  "uuid",
 ]
 
@@ -442,6 +459,8 @@ dependencies = [
  "chrono",
  "crossbeam-channel",
  "rayon",
+ "serde",
+ "serde_json",
  "uuid",
  "walkdir",
 ]
@@ -1183,6 +1202,7 @@ dependencies = [
  "atlas-basket",
  "atlas-batch",
  "atlas-cache",
+ "atlas-catalog",
  "atlas-collection",
  "atlas-color",
  "atlas-command",
@@ -3348,6 +3368,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "sha1_smol"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bbfa15b3dddfee50a0fff136974b3e1bde555604ba463834a7eb7deb6417705d"
+
+[[package]]
 name = "sha2"
 version = "0.10.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4160,6 +4186,7 @@ dependencies = [
  "getrandom 0.4.3",
  "js-sys",
  "serde_core",
+ "sha1_smol",
  "wasm-bindgen",
 ]
 

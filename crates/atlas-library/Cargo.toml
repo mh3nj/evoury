@@ -7,3 +7,6 @@ edition = "2021"
 atlas-core = { path = "../atlas-core" }
 atlas-events = { path = "../atlas-events" }
 uuid = { version = "1", features = ["serde"] }
+
+[dev-dependencies]
+chrono = "0.4"

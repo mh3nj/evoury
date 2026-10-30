@@ -94,8 +94,12 @@ mod tests {
         let conn = connection::open_in_memory().unwrap();
         MigrationRunner::run(&conn).unwrap();
         let applied = MigrationRunner::applied_versions(&conn).unwrap();
-        assert_eq!(applied.len(), 1);
+        assert_eq!(applied.len(), ALL_MIGRATIONS.len());
         assert_eq!(applied[0].0, 1);
+        assert!(
+            applied.windows(2).all(|w| w[0].0 < w[1].0),
+            "versions must be ascending"
+        );
     }
 
     #[test]

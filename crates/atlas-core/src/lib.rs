@@ -21,6 +21,7 @@ pub mod workstation;
 
 pub use activity::{ActivityEvent, ActivityEventType};
 pub use archive::ArchiveType;
+pub use archive::PackageFile;
 pub use asset::{Asset, AssetState};
 pub use auto_classify::AutoClassifyRule;
 pub use capability::Capability;
@@ -32,7 +33,7 @@ pub use profile::{PreviewProfile, SearchProfile, ViewProfile};
 pub use project::{Deliverable, DeliverableStatus, Project, ProjectNote};
 pub use relationship::{Relationship, RelationshipKind};
 pub use saved_search::{SavedSearch, SearchFolder};
-pub use scan::{ScanFingerprint, ScanMode, ScanProgress, ScanStats};
+pub use scan::{FolderState, ScanFingerprint, ScanMode, ScanProgress, ScanStats};
 pub use tag::HierarchicalTag;
 pub use template::{MetadataTemplate, TemplateField};
 pub use theme::{Theme, ThemeMode};

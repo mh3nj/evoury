@@ -1,0 +1,16 @@
+[package]
+name = "atlas-catalog"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+atlas-core = { path = "../atlas-core" }
+atlas-db = { path = "../atlas-db" }
+atlas-duplicate = { path = "../atlas-duplicate" }
+atlas-events = { path = "../atlas-events" }
+atlas-library = { path = "../atlas-library" }
+atlas-scanner = { path = "../atlas-scanner" }
+crossbeam-channel = "0.5"
+rusqlite = { version = "0.31", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+uuid = { version = "1", features = ["v4", "serde"] }

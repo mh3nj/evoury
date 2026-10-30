@@ -50,6 +50,10 @@ use tauri::Manager;
 #[allow(dead_code)]
 pub struct AppState {
     pub library: Arc<Library>,
+    /// Library folders, the persistent index, scanning and duplicate analysis.
+    pub catalog: Arc<atlas_catalog::Catalog>,
+    /// Set to stop a long-running catalog task (duplicate search).
+    pub catalog_cancel: Arc<std::sync::atomic::AtomicBool>,
     pub metadata_store: Arc<Mutex<MetadataStore>>,
     pub basket_manager: Arc<Mutex<BasketManager>>,
     pub event_bus: Arc<EventBus>,
@@ -220,8 +224,29 @@ impl AppState {
             LargeLibraryConfig::small()
         };
 
+        let library = Arc::new(Library::new());
+        let db_arc = Arc::new(Mutex::new(db_conn));
+        let catalog = Arc::new(atlas_catalog::Catalog::new(
+            library.clone(),
+            db_arc.clone(),
+            Some(event_bus.sender()),
+        ));
+        // Show the saved library immediately (no scan), and let the webview load previews
+        // from the folders it was using.
+        match catalog.load_from_index() {
+            Ok(count) => println!("Loaded {count} assets from the library index"),
+            Err(e) => eprintln!("Could not load the library index: {e}"),
+        }
+        if let Ok(roots) = catalog.roots() {
+            for root in roots {
+                let _ = app.asset_protocol_scope().allow_directory(&root.path, true);
+            }
+        }
+
         Self {
-            library: Arc::new(Library::new()),
+            library,
+            catalog,
+            catalog_cancel: Arc::new(std::sync::atomic::AtomicBool::new(false)),
             metadata_store: Arc::new(Mutex::new(store)),
             basket_manager: Arc::new(Mutex::new(basket_manager)),
             event_bus: event_bus.clone(),
@@ -277,7 +302,7 @@ impl AppState {
             macro_playback: Arc::new(Mutex::new(MacroPlayback::new())),
             notification_manager: Arc::new(Mutex::new(NotificationManager::new())),
             maintenance_engine: Arc::new(Mutex::new(MaintenanceEngine::new())),
-            db_connection: Arc::new(Mutex::new(db_conn)),
+            db_connection: db_arc,
             migration_runner: migration_runner_ref,
             plugin_registry: Arc::new(Mutex::new(plugin_registry)),
             diagnostic_collector: Arc::new(Mutex::new(diagnostic_collector)),

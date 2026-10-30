@@ -4,7 +4,9 @@ export interface Asset {
   mime_type?: string;
   archive_type: "Zip" | "Rar" | "SevenZip" | "Tar" | "Unknown";
   archive_path: string;
-  preview: { path: string } | null;
+  preview: { path: string; thumb?: string | null } | null;
+  /** Which library folder the asset is in (all zeros for the first one). */
+  root_id?: string;
   file_size: number;
   modified_at: string;
   collection_id: string | null;

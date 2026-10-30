@@ -1,11 +1,14 @@
+import ArchiveContentsViewer from "./ArchiveContentsViewer";
 import {
   useViewerEngineStore,
   type ViewerKind,
 } from "../../stores/viewer-engine-store";
 
-interface ViewerProps {
+export interface ViewerProps {
   src?: string;
   assetName: string;
+  /** Library id of the asset, for viewers that ask the backend about it. */
+  assetId?: string;
 }
 
 function DefaultImageViewer({ src, assetName }: ViewerProps) {
@@ -174,35 +177,8 @@ function FontGlyphViewer({ assetName }: ViewerProps) {
   );
 }
 
-function ZipTreeViewer(_props: ViewerProps) {
-  return (
-    <div className="flex flex-col items-center gap-3 w-full max-w-sm">
-      <Placeholder icon="fa-file-archive" text="Archive Contents" />
-      <div
-        className="w-full rounded-xl p-3 font-mono text-xs"
-        style={{
-          background: "var(--evoury-elevated)",
-          color: "var(--evoury-text-dim)",
-        }}
-      >
-        <div className="flex items-center gap-2">
-          <i className="fas fa-folder" /> root/
-        </div>
-        <div className="ml-4 flex items-center gap-2">
-          <i className="fas fa-folder" /> images/
-        </div>
-        <div className="ml-8 flex items-center gap-2">
-          <i className="fas fa-file-image" /> photo1.jpg
-        </div>
-        <div className="ml-8 flex items-center gap-2">
-          <i className="fas fa-file-image" /> photo2.png
-        </div>
-        <div className="ml-4 flex items-center gap-2">
-          <i className="fas fa-file" /> manifest.json
-        </div>
-      </div>
-    </div>
-  );
+function ZipTreeViewer({ assetId, assetName }: ViewerProps) {
+  return <ArchiveContentsViewer assetId={assetId} assetName={assetName} />;
 }
 
 function CodeSyntaxViewer({ assetName }: ViewerProps) {

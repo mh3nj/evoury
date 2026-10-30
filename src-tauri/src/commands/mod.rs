@@ -1,6 +1,7 @@
 pub mod activity;
 pub mod auto_classify;
 pub mod basket;
+pub mod catalog;
 pub mod collections;
 pub mod library;
 pub mod metadata;

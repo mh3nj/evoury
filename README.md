@@ -78,6 +78,30 @@ Evoury is a powerful, offline-first creative asset manager built with Tauri, Rea
 
 ---
 
+## Libraries, instant start-up and duplicates
+
+- **Libraries.** Add several folders under **Libraries** in the top bar. They are shown together; each can be renamed, rescanned or removed (files on disk are never touched). A library on an unplugged drive keeps its assets until it returns.
+- **Instant start-up.** The library is kept in a local SQLite index (`atlas-db`), so Evoury opens already populated. A quick incremental scan then lists only the folders that changed. Use **Rescan** in the Libraries dialog to check every file.
+- **Duplicates.** The **Duplicates** button finds identical archives, packs that mostly contain the same files (the same pack saved twice, in two formats or two folders) and files that sit inside several packages. It shows where the copies are and never deletes anything. Contents come from Kaelovun's manifest instantly, or from 7-Zip once per archive.
+- **Security.** A Content-Security-Policy limits the app to its own bundled code and the preview files in your libraries; there is no network access.
+
+---
+
+## Works with Kaelovun
+
+Evoury shows and hosts what [Kaelovun](https://github.com/mh3nj/kaelovun) organizes. Kaelovun writes, for every package:
+
+```
+Name.7z | Name.rar | Name.zip    the archive
+Name.avif                        preview
+Name.thumb.avif                  grid thumbnail
+Name.7z.kaelovun.json            optional manifest: every file with its size and category
+```
+
+Evoury pairs them by folder and name, ignores anything still being written (`*.kaelovun-part.*`), and keeps an asset's id (and so its tags, ratings and favourites) when Kaelovun converts `Name.rar` to `Name.7z`. Split archives (`.part1.rar`, `.7z.001`) are one asset. To see inside an archive, open it in the viewer and press the folder button: with Kaelovun's manifest this is instant; without it, install [7-Zip](https://www.7-zip.org).
+
+---
+
 ## Screenshots
 
 <p align="center">
@@ -220,14 +244,15 @@ For detailed architecture documentation, see [docs/ARCHITECTURE.md](docs/ARCHITE
 
 ## Supported Formats
 
-| Category  | Formats                                                      |
-| --------- | ------------------------------------------------------------ |
-| Images    | PNG, JPG, JPEG, GIF, BMP, TIFF, WebP, SVG, PSD, AI, EXR, HDR |
-| Videos    | MP4, MOV, AVI, MKV, WebM, FLV, WMV                           |
-| 3D Models | OBJ, FBX, GLTF, GLB, STL, BLEND, 3DS, MAX                    |
-| Audio     | MP3, WAV, FLAC, AAC, OGG, WMA, M4A                           |
-| Documents | PDF, DOC, DOCX, TXT, RTF, MD                                 |
-| Design    | Sketch, Figma, XD, PSD                                       |
+| Category  | Formats                                                            |
+| --------- | ------------------------------------------------------------------ |
+| Images    | PNG, JPG, JPEG, GIF, BMP, TIFF, WebP, SVG, PSD, AI, EXR, HDR       |
+| Videos    | MP4, MOV, AVI, MKV, WebM, FLV, WMV                                 |
+| 3D Models | OBJ, FBX, GLTF, GLB, STL, BLEND, 3DS, MAX                          |
+| Audio     | MP3, WAV, FLAC, AAC, OGG, WMA, M4A                                 |
+| Documents | PDF, DOC, DOCX, TXT, RTF, MD                                       |
+| Design    | Sketch, Figma, XD, PSD                                             |
+| Archives  | ZIP, RAR, 7z, TAR (.gz, .bz2, .xz) with AVIF/WebP/JPG/PNG previews |
 
 _Note: Support varies by platform. Some formats may require additional dependencies._
 

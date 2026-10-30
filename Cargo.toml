@@ -10,6 +10,7 @@ members = [
     "crates/atlas-preview",
     "crates/atlas-health",
     "crates/atlas-duplicate",
+    "crates/atlas-catalog",
     "crates/atlas-basket",
     "crates/atlas-backup",
     "crates/atlas-links",

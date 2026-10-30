@@ -56,8 +56,18 @@ pub fn run() {
         })
         .invoke_handler(tauri::generate_handler![
             commands::library::scan_library,
+            commands::catalog::list_library_roots,
+            commands::catalog::add_library_root,
+            commands::catalog::remove_library_root,
+            commands::catalog::rename_library_root,
+            commands::catalog::scan_roots,
+            commands::catalog::watch_libraries,
+            commands::catalog::analyze_package_contents,
+            commands::catalog::find_duplicates,
+            commands::catalog::cancel_catalog_task,
             commands::library::asset_count,
             commands::library::get_assets,
+            commands::library::get_archive_contents,
             commands::library::start_watching,
             commands::library::stop_watching,
             commands::library::is_watching,

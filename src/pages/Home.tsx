@@ -1,5 +1,11 @@
-import { useState, useCallback, useEffect, useMemo } from "react";
-import type { Asset, Collection, Category } from "../types";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
+import type {
+  Asset,
+  Collection,
+  Category,
+  LibraryRoot,
+  ScanSummary,
+} from "../types";
 import {
   Sidebar,
   GalleryToolbar,
@@ -24,9 +30,11 @@ import {
   usePreferencesStore,
 } from "../stores";
 import { useAtlasEvents } from "../hooks";
+import { uuidFromString } from "../utils/stable-id";
 import { invoke } from "@tauri-apps/api/tauri";
 import { open } from "@tauri-apps/api/dialog";
-import { getSavedLibraryPath, saveLibraryPath } from "../stores/persistence";
+import { getSavedLibraryPath } from "../stores/persistence";
+import { DuplicatesDialog, LibrariesDialog } from "../components/Libraries";
 
 export default function Home() {
   const [assets, setAssets] = useState<Asset[]>([]);
@@ -40,6 +48,10 @@ export default function Home() {
     (s) => s.performance.enable_background_indexing,
   );
   useWorkspaceStore();
+
+  const [roots, setRoots] = useState<LibraryRoot[]>([]);
+  const [librariesOpen, setLibrariesOpen] = useState(false);
+  const [duplicatesOpen, setDuplicatesOpen] = useState(false);
 
   const onOpenExternal = useCallback(async (asset: Asset) => {
     try {
@@ -133,7 +145,7 @@ export default function Home() {
         const collectionName = parts[parts.length - 1] || rootName;
         const parentKey = parts.slice(0, -1).join("/") || "root";
         const cat: Category = {
-          id: crypto.randomUUID(),
+          id: uuidFromString(`category:${folderKey}`),
           name: collectionName,
           path: folderKey,
         };
@@ -146,7 +158,7 @@ export default function Home() {
       const rootCat = categoriesMap.get("root");
       if (rootCat && rootCat.length > 0) {
         collectionsList.push({
-          id: crypto.randomUUID(),
+          id: uuidFromString(`collection:${path}`),
           name: rootName,
           path: path,
           icon_path: null,
@@ -159,7 +171,7 @@ export default function Home() {
         if (folderKey === "root") continue;
         const name = folderKey.split("/").pop() || rootName;
         collectionsList.push({
-          id: crypto.randomUUID(),
+          id: uuidFromString(`collection:${folderKey}`),
           name,
           path: folderKey,
           icon_path: null,
@@ -173,9 +185,58 @@ export default function Home() {
     [],
   );
 
+  /** Reload libraries, assets and the folder tree from the backend. */
+  const refreshLibrary = useCallback(async () => {
+    const [list, all] = await Promise.all([
+      invoke<LibraryRoot[]>("list_library_roots"),
+      invoke<Asset[]>("get_assets"),
+    ]);
+    setRoots(list);
+    setAssets(all);
+    extractCollections(all, list[0]?.path ?? "");
+    return { list, all };
+  }, [extractCollections]);
+
+  /** Follow every library folder (or stop, when background indexing is off). */
+  const syncWatcher = useCallback(() => {
+    if (usePreferencesStore.getState().performance.enable_background_indexing) {
+      invoke("watch_libraries").catch(() => {});
+    } else {
+      invoke("stop_watching").catch(() => {});
+    }
+  }, []);
+
+  /** Scan every library with progress and tell the user how it went. */
+  const scanLibraries = useCallback(
+    async (mode: "full" | "startup" | "incremental") => {
+      const scan = useScanStore.getState();
+      try {
+        setStatus("Scanning...");
+        scan.startScan(crypto.randomUUID());
+        const summary = await invoke<ScanSummary>("scan_roots", { mode });
+        await refreshLibrary();
+        setStatus(
+          summary.errors.length > 0 ? `Ready · ${summary.errors[0]}` : "Ready",
+        );
+        scan.finishScan();
+      } catch (err) {
+        setStatus("Scan failed");
+        scan.finishScan();
+        scan.setError(String(err));
+        console.error(err);
+      }
+    },
+    [refreshLibrary],
+  );
+
+  /** "Scan Library": add a folder (or rescan everything when libraries exist). */
   const handleScan = useCallback(async () => {
     const scan = useScanStore.getState();
     try {
+      if (roots.length > 0) {
+        await scanLibraries("full");
+        return;
+      }
       const selected = await open({
         directory: true,
         multiple: false,
@@ -185,19 +246,9 @@ export default function Home() {
 
       setStatus("Scanning...");
       scan.startScan(crypto.randomUUID());
-
-      await invoke<number>("scan_library", { path: selected, mode: "full" });
-      const all = await invoke<Asset[]>("get_assets");
-      setAssets(all);
-      extractCollections(all, selected);
-
-      saveLibraryPath(selected);
-
-      if (
-        usePreferencesStore.getState().performance.enable_background_indexing
-      ) {
-        await invoke("start_watching", { path: selected });
-      }
+      await invoke("add_library_root", { path: selected });
+      await refreshLibrary();
+      syncWatcher();
       setStatus("Ready");
       scan.finishScan();
     } catch (err) {
@@ -206,31 +257,73 @@ export default function Home() {
       scan.setError(String(err));
       console.error(err);
     }
-  }, [extractCollections]);
+  }, [roots.length, scanLibraries, refreshLibrary, syncWatcher]);
+
+  const rescanTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const rescanning = useRef(false);
+  const rescanAgain = useRef(false);
+  const rescanRef = useRef<() => void>(() => {});
+
+  const scheduleRescan = useCallback(() => {
+    if (rescanTimer.current) clearTimeout(rescanTimer.current);
+    rescanTimer.current = setTimeout(() => rescanRef.current(), 1500);
+  }, []);
+
+  rescanRef.current = async () => {
+    if (rescanning.current) {
+      rescanAgain.current = true;
+      return;
+    }
+    rescanning.current = true;
+    try {
+      // Incremental: only folders that changed are listed again, so this is cheap
+      await invoke<ScanSummary>("scan_roots", { mode: "incremental" });
+      await refreshLibrary();
+    } catch (err) {
+      console.error("Rescan after a library change failed", err);
+    } finally {
+      rescanning.current = false;
+      if (rescanAgain.current) {
+        rescanAgain.current = false;
+        scheduleRescan();
+      }
+    }
+  };
+
+  useEffect(
+    () => () => {
+      if (rescanTimer.current) clearTimeout(rescanTimer.current);
+    },
+    [],
+  );
 
   useAtlasEvents(
-    useCallback((event: any) => {
-      if (!event) return;
+    useCallback(
+      (event: any) => {
+        if (!event) return;
 
-      if (event.ScanProgress) {
-        const p = event.ScanProgress;
-        useScanStore
-          .getState()
-          .updateProgress(
-            p.total_files,
-            p.scanned_files,
-            p.archives_found,
-            p.previews_found,
-            p.current_file,
-          );
-      }
+        if (event.ScanProgress) {
+          const p = event.ScanProgress;
+          useScanStore
+            .getState()
+            .updateProgress(
+              p.total_files,
+              p.scanned_files,
+              p.archives_found,
+              p.previews_found,
+              p.current_file,
+            );
+        }
 
-      if (event.WatcherEvent) {
-        invoke<Asset[]>("get_assets")
-          .then(setAssets)
-          .catch(() => {});
-      }
-    }, []),
+        if (event.WatcherEvent) {
+          // The watcher only reports that something changed; the library itself is
+          // updated by a scan. Wait for the burst to finish (an archive plus its
+          // preview and thumbnail arrive together), then rescan once.
+          scheduleRescan();
+        }
+      },
+      [scheduleRescan],
+    ),
   );
 
   // Apply tray & autostart settings saved in localStorage to Rust backend
@@ -250,76 +343,55 @@ export default function Home() {
     }
   }, []);
 
-  const autoScan = useCallback(
-    async (path: string) => {
-      const scan = useScanStore.getState();
-      try {
-        setStatus("Scanning...");
-        scan.startScan(crypto.randomUUID());
-        await invoke<number>("scan_library", { path, mode: "full" });
-        const all = await invoke<Asset[]>("get_assets");
-        setAssets(all);
-        extractCollections(all, path);
-        if (
-          usePreferencesStore.getState().performance.enable_background_indexing
-        ) {
-          await invoke("start_watching", { path });
-        }
-        setStatus("Ready");
-        scan.finishScan();
-      } catch {
-        setStatus("Ready");
-        scan.finishScan();
-      }
-    },
-    [extractCollections],
-  );
-
-  // Initial load: restore from library or auto-scan saved path. The auto-scan
-  // is what "Background indexing" turns off for people who want manual control.
+  // Start-up: the library is shown straight from the saved index (no scan), then a quick
+  // incremental scan in the background catches anything that changed while Evoury was closed.
   useEffect(() => {
-    const savedPath = getSavedLibraryPath();
-    if (savedPath) {
-      setStatus("Restoring...");
-      invoke<Asset[]>("get_assets")
-        .then((all) => {
-          if (all.length > 0) {
-            setAssets(all);
-            extractCollections(all, all[0].archive_path);
-            setStatus("Ready");
-          } else if (
-            usePreferencesStore.getState().performance
-              .enable_background_indexing
-          ) {
-            // Library exists but is empty, so auto-rescan
-            autoScan(savedPath);
-          } else {
-            setStatus("Ready");
-          }
-        })
-        .catch(() => {
-          if (
-            usePreferencesStore.getState().performance
-              .enable_background_indexing
-          ) {
-            autoScan(savedPath);
-          } else {
-            setStatus("Ready");
-          }
-        });
-    }
-  }, [extractCollections, autoScan]);
+    let cancelled = false;
+    (async () => {
+      try {
+        setStatus("Restoring...");
+        let list = await invoke<LibraryRoot[]>("list_library_roots");
+        const legacyPath = getSavedLibraryPath();
+        if (list.length === 0 && legacyPath) {
+          // First launch after upgrading: the one saved folder becomes the first library.
+          await invoke("add_library_root", {
+            path: legacyPath,
+            scan: false,
+          }).catch(() => {});
+        }
+        const loaded = await refreshLibrary();
+        list = loaded.list;
+        if (cancelled) return;
+        setStatus("Ready");
+        if (list.length === 0) return;
+
+        const background =
+          usePreferencesStore.getState().performance.enable_background_indexing;
+        if (loaded.all.length === 0) {
+          // Nothing indexed yet (first launch after upgrading): one full scan is needed.
+          await scanLibraries("full");
+        } else if (background) {
+          await scanLibraries("startup");
+        }
+        if (!cancelled) syncWatcher();
+      } catch {
+        if (!cancelled) setStatus("Ready");
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [refreshLibrary, scanLibraries, syncWatcher]);
 
   // The folder watcher follows the background indexing preference as it changes
   useEffect(() => {
-    const savedPath = getSavedLibraryPath();
-    if (!savedPath) return;
+    if (roots.length === 0) return;
     if (backgroundIndexing) {
-      invoke("start_watching", { path: savedPath }).catch(() => {});
+      invoke("watch_libraries").catch(() => {});
     } else {
       invoke("stop_watching").catch(() => {});
     }
-  }, [backgroundIndexing]);
+  }, [backgroundIndexing, roots.length]);
 
   const searchQuery = useSearchStore((s) => s.query);
 
@@ -407,7 +479,38 @@ export default function Home() {
             <i
               className={`fas fa-${scanState.scanning ? "spinner fa-pulse" : "sync-alt"} mr-1.5 text-[10px]`}
             />
-            {scanState.scanning ? "Scanning..." : "Scan Library"}
+            {scanState.scanning
+              ? "Scanning..."
+              : roots.length > 0
+                ? "Rescan"
+                : "Scan Library"}
+          </button>
+          <button
+            onClick={() => setLibrariesOpen(true)}
+            className="px-3 py-1.5 text-xs rounded-lg transition-all duration-200"
+            style={{
+              background: "var(--evoury-elevated)",
+              color: "var(--evoury-text-dim)",
+              border: "1px solid var(--evoury-border-light)",
+            }}
+            title="Manage library folders"
+          >
+            <i className="fas fa-layer-group mr-1.5 text-[10px]" />
+            Libraries{roots.length > 1 ? ` (${roots.length})` : ""}
+          </button>
+          <button
+            onClick={() => setDuplicatesOpen(true)}
+            disabled={assets.length === 0}
+            className="px-3 py-1.5 text-xs rounded-lg transition-all duration-200 disabled:opacity-40"
+            style={{
+              background: "var(--evoury-elevated)",
+              color: "var(--evoury-text-dim)",
+              border: "1px solid var(--evoury-border-light)",
+            }}
+            title="Find identical archives and files repeated across packages"
+          >
+            <i className="fas fa-clone mr-1.5 text-[10px]" />
+            Duplicates
           </button>
           <button
             onClick={() => setPresentationMode(true)}
@@ -490,6 +593,24 @@ export default function Home() {
         <Presentation
           assets={assets}
           onClose={() => setPresentationMode(false)}
+        />
+      )}
+
+      {librariesOpen && (
+        <LibrariesDialog
+          roots={roots}
+          onClose={() => setLibrariesOpen(false)}
+          onChanged={async () => {
+            await refreshLibrary();
+            syncWatcher();
+          }}
+        />
+      )}
+
+      {duplicatesOpen && (
+        <DuplicatesDialog
+          assets={assets}
+          onClose={() => setDuplicatesOpen(false)}
         />
       )}
     </div>

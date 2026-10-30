@@ -30,6 +30,7 @@ atlas-search = { path = "../crates/atlas-search" }
 atlas-preview = { path = "../crates/atlas-preview" }
 atlas-health = { path = "../crates/atlas-health" }
 atlas-duplicate = { path = "../crates/atlas-duplicate" }
+atlas-catalog = { path = "../crates/atlas-catalog" }
 atlas-basket = { path = "../crates/atlas-basket" }
 atlas-links = { path = "../crates/atlas-links" }
 atlas-preferences = { path = "../crates/atlas-preferences" }
