@@ -21,7 +21,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-22.04
+          - os: windows-latest
+          - os: macos-latest
+            # GitHub's arm64 macOS pool intermittently leaves jobs queued and
+            # then cancels them without running a step (runner_id 0). Keep the
+            # Apple Silicon build, but let the Intel one below be the leg that
+            # guarantees macOS artifacts instead of failing the whole release.
+            experimental: true
+          - os: macos-15-intel
+
+    continue-on-error: ${{ matrix.experimental == true }}
 
     steps:
       - name: Checkout
