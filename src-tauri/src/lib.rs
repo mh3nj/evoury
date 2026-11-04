@@ -11,6 +11,25 @@ use tauri::{
     CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem,
 };
 
+fn show_main_window(app: &tauri::AppHandle) {
+    if let Some(window) = app.get_window("main") {
+        let _ = window.unminimize();
+        let _ = window.show();
+        let _ = window.set_focus();
+    }
+}
+
+/// Quitting from the tray has to be final. `exit` asks the event loop to stop,
+/// but a window that was hidden to the tray can keep the process alive on
+/// Windows, so force the process to end if the loop has not torn down yet.
+fn quit_app(app: &tauri::AppHandle) {
+    app.exit(0);
+    std::thread::spawn(|| {
+        std::thread::sleep(std::time::Duration::from_millis(1500));
+        std::process::exit(0);
+    });
+}
+
 pub fn run() {
     let show = CustomMenuItem::new("show".to_string(), "Show Evoury");
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
@@ -38,21 +57,16 @@ pub fn run() {
                 }
             }
         })
-        .on_system_tray_event(|app, event| {
-            if let SystemTrayEvent::MenuItemClick { id, .. } = event {
-                match id.as_str() {
-                    "show" => {
-                        if let Some(window) = app.get_window("main") {
-                            let _ = window.show();
-                            let _ = window.set_focus();
-                        }
-                    }
-                    "quit" => {
-                        app.exit(0);
-                    }
-                    _ => {}
-                }
-            }
+        .on_system_tray_event(|app, event| match event {
+            // Closing to the tray must always be reversible: one left click on
+            // the tray icon brings the window back.
+            SystemTrayEvent::LeftClick { .. } => show_main_window(app),
+            SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
+                "show" => show_main_window(app),
+                "quit" => quit_app(app),
+                _ => {}
+            },
+            _ => {}
         })
         .invoke_handler(tauri::generate_handler![
             commands::library::scan_library,
