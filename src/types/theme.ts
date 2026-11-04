@@ -19,6 +19,7 @@ export interface ThemeColors {
   accent_glow: string;
   accent2: string;
   accent2_glow: string;
+  logo: string;
   success: string;
   warning: string;
   error: string;
@@ -36,6 +37,7 @@ export const COLOR_KEYS: (keyof ThemeColors)[] = [
   "accent_glow",
   "accent2",
   "accent2_glow",
+  "logo",
   "success",
   "warning",
   "error",
@@ -51,6 +53,7 @@ export const COLOR_KEYS_SOLID: (keyof ThemeColors)[] = [
   "text_dim",
   "accent",
   "accent2",
+  "logo",
   "success",
   "warning",
   "error",

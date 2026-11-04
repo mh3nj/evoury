@@ -1,5 +1,9 @@
 use serde::{Deserialize, Serialize};
 
+fn default_logo_color() -> String {
+    "#a94f3d".to_string()
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct StudioTheme {
     pub id: String,
@@ -21,6 +25,9 @@ pub struct ThemeColors {
     pub accent_glow: String,
     pub accent2: String,
     pub accent2_glow: String,
+    /// Themes saved before the new logo existed simply fall back to brand rust.
+    #[serde(default = "default_logo_color")]
+    pub logo: String,
     pub success: String,
     pub warning: String,
     pub error: String,

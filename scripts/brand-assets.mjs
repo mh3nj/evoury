@@ -1,6 +1,7 @@
 /**
  * One-off script: regenerate all web/logo assets from the Tauri-generated
- * src-tauri/icons/icon.png (512x512 master produced from evoury.png).
+ * src-tauri/icons/icon.png (512x512 master produced from assets/logo/app-icon.svg
+ * with `pnpm tauri icon`).
  *
  * Outputs:
  *   public/logo/logo.png                     (512x512)

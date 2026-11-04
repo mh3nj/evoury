@@ -9,6 +9,7 @@ import {
 } from "../../themes/palette";
 import type { StudioTheme, ThemeColors } from "../../types/theme";
 import { COLOR_KEYS_SOLID } from "../../types/theme";
+import { Logo } from "../Logo";
 
 const COLOR_LABELS: Record<keyof ThemeColors, string> = {
   bg: "Background",
@@ -22,6 +23,7 @@ const COLOR_LABELS: Record<keyof ThemeColors, string> = {
   accent_glow: "Accent glow",
   accent2: "Accent 2",
   accent2_glow: "Accent 2 glow",
+  logo: "Logo",
   success: "Success",
   warning: "Warning",
   error: "Error",
@@ -250,6 +252,7 @@ export default function ThemeStudio() {
                   theme.colors.elevated,
                   theme.colors.accent,
                   theme.colors.accent2,
+                  theme.colors.logo,
                   theme.colors.text,
                 ].map((c, i) => (
                   <div key={i} className="flex-1" style={{ background: c }} />
@@ -514,6 +517,7 @@ function PreviewMock({ draft }: { draft: StudioTheme }) {
     "--evoury-accent-glow": draft.colors.accent_glow,
     "--evoury-accent2": draft.colors.accent2,
     "--evoury-accent2-glow": draft.colors.accent2_glow,
+    "--evoury-logo": draft.colors.logo,
     "--evoury-success": draft.colors.success,
     "--evoury-warning": draft.colors.warning,
     "--evoury-error": draft.colors.error,
@@ -562,6 +566,7 @@ function PreviewMock({ draft }: { draft: StudioTheme }) {
           >
             {draft.name}
           </span>
+          <Logo size={14} className="ml-auto" />
         </div>
         <div className="flex">
           <div
@@ -637,6 +642,10 @@ function PreviewMock({ draft }: { draft: StudioTheme }) {
         <span
           className="w-3 h-3 rounded-full"
           style={{ background: "var(--evoury-accent2)" }}
+        />
+        <span
+          className="w-3 h-3 rounded-full"
+          style={{ background: "var(--evoury-logo)" }}
         />
       </div>
     </div>
