@@ -77,6 +77,7 @@ jobs:
         with:
           tagName: ${{ github.event.inputs.tag || github.ref_name }}
           releaseName: "Evoury ${{ github.event.inputs.tag || github.ref_name }}"
-          releaseBody: "Desktop installers for Windows, macOS and Linux. See the assets below to download and install."
+          # No releaseBody: the notes (with the logo) are curated on the
+          # release itself, and re-running this workflow must not replace them.
           releaseDraft: false
           prerelease: false
